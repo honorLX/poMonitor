@@ -5,8 +5,9 @@ import pomonitor.analyse.articletendanalyse.entity.Sentence;
 
 /**
  * 主张类词语加分
+ * 
  * @author Administrator
- *
+ * 
  */
 public class SubScoreAddThink implements ISubScoreAdd {
 

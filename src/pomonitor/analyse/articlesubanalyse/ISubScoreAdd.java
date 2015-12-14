@@ -5,10 +5,11 @@ import pomonitor.analyse.articletendanalyse.entity.Sentence;
 
 /**
  * 对于文章的主题句的分析
+ * 
  * @author Administrator
- *
+ * 
  */
 public interface ISubScoreAdd {
-	public Sentence add(Article article,Sentence sentence);
+	public Sentence add(Article article, Sentence sentence);
 
 }

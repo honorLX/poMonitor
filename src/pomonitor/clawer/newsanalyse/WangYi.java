@@ -28,8 +28,8 @@ import ucar.nc2.util.net.URLencode;
 
 public class WangYi extends BaseAnalyse {
 
-	public WangYi(String webName,boolean isKeep) {
-		super(webName,isKeep);
+	public WangYi(String webName, boolean isKeep) {
+		super(webName, isKeep);
 		// url
 
 		seedUrl = "http://news.sogou.com/news?";
@@ -43,8 +43,8 @@ public class WangYi extends BaseAnalyse {
 		int count = 0;
 		int pageCount = 0;
 		// 设置要搜索的关键字
-		String key1="site%3A163.com+";
-		String searchKeyStr = "&query=" + key1+key;
+		String key1 = "site%3A163.com+";
+		String searchKeyStr = "&query=" + key1 + key;
 
 		// String searchTimeStr = "&startTime=";
 		// String sarchTimeEnd="&endTime=";
@@ -70,11 +70,12 @@ public class WangYi extends BaseAnalyse {
 				url = new URL(seedUrl);
 				Document doc = null;
 				doc = Jsoup.parse(url, 1000);
-	            Elements listEle = doc.getElementsByAttributeValue("class","mun");						
+				Elements listEle = doc.getElementsByAttributeValue("class",
+						"mun");
 				String countStr = listEle.get(0).text().trim();
 				countStr = countStr.substring(3, 8);
-				countStr = countStr.replaceAll(",", "");		
-				System.out .println(countStr);
+				countStr = countStr.replaceAll(",", "");
+				System.out.println(countStr);
 				count = Integer.parseInt(countStr);
 				pageCount = count / 10 + 1;
 			} catch (MalformedURLException e) {
@@ -92,31 +93,31 @@ public class WangYi extends BaseAnalyse {
 		try {
 			URL url = new URL(Strurl);
 			Document doc = Jsoup.parse(url, 3000);
-			Elements listEle= doc.getElementsByAttributeValue("class", "rb");
-			
+			Elements listEle = doc.getElementsByAttributeValue("class", "rb");
+
 			for (Element e : listEle) {
 
 				NewsEntity WangYiEntity = new NewsEntity();
 				// 解析url
-				Elements getUrl1 = e.getElementsByAttributeValueContaining("class", "pp");
-				 
+				Elements getUrl1 = e.getElementsByAttributeValueContaining(
+						"class", "pp");
+
 				String getUrl = getUrl1.attr("href");
 				System.out.println(getUrl);
 				// 解析title
-				String title=getUrl1.text();
+				String title = getUrl1.text();
 				System.out.println(title);
 				// 得到time
-				Elements timE=e.getElementsByTag("h3");
-				String time=timE.text();
-				time=time.substring(time.length()-16,time.length());
+				Elements timE = e.getElementsByTag("h3");
+				String time = timE.text();
+				time = time.substring(time.length() - 16, time.length());
 				System.out.println(time);
-				String web="网易";
-				//取得content
-				Elements contenT=e.getElementsByAttributeValue("class", "ft");
-				String content=contenT.text();
+				String web = "网易";
+				// 取得content
+				Elements contenT = e.getElementsByAttributeValue("class", "ft");
+				String content = contenT.text();
 				System.out.println(content);
-			
-				
+
 				WangYiEntity.setUrl(getUrl);
 				WangYiEntity.setContent(content);
 				WangYiEntity.setTime(time);
