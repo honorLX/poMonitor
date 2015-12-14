@@ -159,7 +159,7 @@ public class RedNetAnalyse extends BaseAnalyse {
 				RedEntity.setUrl(getUrl);
 				RedEntity.setContent(content);
 				RedEntity.setTime(time);
-				RedEntity.setWeb(web);
+				RedEntity.setWeb(webName);
 				RedEntity.setTitle(title);
 				map.put(getUrl, RedEntity);
 			}

@@ -112,7 +112,7 @@ public class TengXunAnalyse extends BaseAnalyse {
 				TengXunEntity.setUrl(getUrl);
 				TengXunEntity.setContent(content);
 				TengXunEntity.setTime(time);
-				TengXunEntity.setWeb(web);
+				TengXunEntity.setWeb(webName);
 				TengXunEntity.setTitle(title);
 				map.put(getUrl, TengXunEntity);
 			}

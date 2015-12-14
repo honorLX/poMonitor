@@ -127,7 +127,7 @@ public class WeiXinAnalyse extends BaseAnalyse {
 				WeixinEntity.setUrl(getUrl);
 				WeixinEntity.setContent(content);
 				WeixinEntity.setTime(time);
-				WeixinEntity.setWeb(web);
+				WeixinEntity.setWeb(webName);
 				WeixinEntity.setTitle(title);
 				map.put(getUrl, WeixinEntity);
 			}

@@ -129,7 +129,7 @@ public class SinaAnalyse extends BaseAnalyse {
 					sinaEntity.setUrl(getUrl);
 					sinaEntity.setContent(content);
 					sinaEntity.setTime(time);
-					sinaEntity.setWeb(web);
+					sinaEntity.setWeb(webName);
 					sinaEntity.setTitle(title);
 					map.put(getUrl, sinaEntity);
 				} catch (Exception ee) {

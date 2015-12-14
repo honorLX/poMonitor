@@ -22,21 +22,20 @@ public class TestNewsCrawler {
 		TengXunAnalyse tengXun = new TengXunAnalyse("腾讯新闻", true);
 		FenghuangAnalyse fenghuang = new FenghuangAnalyse("凤凰", true);
 		SouHuAnalyse souhu = new SouHuAnalyse("搜狐", true);
-		// 成功 clawer.addAnalyse(analyse);
+		clawer.addAnalyse(analyse);
 		clawer.addAnalyse(redAnalysef);
-		// clawer.addAnalyse(redAnalyse);
-		// clawer.addAnalyse(zxAnalyse);
-		// clawer.addAnalyse(gmAnalyse);
-		// clawer.addAnalyse(hsAnalyse);
-		// clawer.addAnalyse(weixinAnalyse);
-		// clawer.addAnalyse(xhAnalyse);
-		// clawer.addAnalyse(wangyi);
-		// clawer.addAnalyse(fenghuang);
-		// clawer.addAnalyse(souhu);
-		// clawer.addAnalyse(tengXun);
+		clawer.addAnalyse(redAnalyse);
+		// 失败 clawer.addAnalyse(zxAnalyse);
+		clawer.addAnalyse(gmAnalyse);
+		clawer.addAnalyse(hsAnalyse);
+		clawer.addAnalyse(weixinAnalyse);
+		clawer.addAnalyse(xhAnalyse);
+		clawer.addAnalyse(wangyi);
+		clawer.addAnalyse(fenghuang);
+		clawer.addAnalyse(souhu);
+		clawer.addAnalyse(tengXun);
 
-
-		clawer.clawerAll("南华大学", false);
+		clawer.clawerAll("南华大学", true);
 		clawer.start(10);
 
 	}

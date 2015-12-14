@@ -113,10 +113,13 @@ public class Crawl implements Runnable {
 							e.printStackTrace();
 							content = "解释失败";
 						}
-						String allContent = entity.getUrl() + "###"
-								+ entity.getTitle() + "###" + content;
-						textFile.write(allPath, false, allContent);
-						entity.setContentPath(allPath);
+						// 如果获取到的文本不足20个字符则，不做存储
+						if (content.length() > 20) {
+							String allContent = entity.getUrl() + "###"
+									+ entity.getTitle() + "###" + content;
+							textFile.write(allPath, false, allContent);
+							entity.setContentPath(allPath);
+						}
 						System.out.println(this.hashCode());
 						System.out.println("爬虫id  " + id);
 						System.out.println(entity.getUrl() + "  成功爬取文件"

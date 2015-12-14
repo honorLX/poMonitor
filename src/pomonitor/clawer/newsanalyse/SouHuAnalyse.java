@@ -113,7 +113,7 @@ public class SouHuAnalyse extends BaseAnalyse {
 				SouHuEntity.setUrl(getUrl);
 				SouHuEntity.setContent(content);
 				SouHuEntity.setTime(time);
-				SouHuEntity.setWeb(web);
+				SouHuEntity.setWeb(webName);
 				SouHuEntity.setTitle(title);
 				map.put(getUrl, SouHuEntity);
 			}

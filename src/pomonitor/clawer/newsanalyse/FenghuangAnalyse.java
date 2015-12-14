@@ -51,7 +51,7 @@ public class FenghuangAnalyse extends BaseAnalyse {
 		System.out.println(seedUrl);
 		if (isLatest) {
 			// 搜索最近新闻
-			pageCount = 10;
+			pageCount = 2;
 			return pageCount;
 
 		} else {
@@ -112,7 +112,7 @@ public class FenghuangAnalyse extends BaseAnalyse {
 				TengXunEntity.setUrl(getUrl);
 				TengXunEntity.setContent(content);
 				TengXunEntity.setTime(time);
-				TengXunEntity.setWeb(web);
+				TengXunEntity.setWeb(webName);
 				TengXunEntity.setTitle(title);
 				map.put(getUrl, TengXunEntity);
 			}
