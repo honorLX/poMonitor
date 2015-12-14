@@ -15,6 +15,10 @@ import pomonitor.entity.NewsEntity;
 import de.l3s.boilerpipe.BoilerpipeProcessingException;
 import de.l3s.boilerpipe.extractors.ArticleExtractor;
 
+/**
+ * 
+ * @author xiaoyulun 2015年12月14日 下午12:04:55
+ */
 public class Crawl implements Runnable {
 
 	private List<NewsEntity> worksList;

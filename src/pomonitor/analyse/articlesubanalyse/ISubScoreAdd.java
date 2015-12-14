@@ -6,7 +6,7 @@ import pomonitor.analyse.articletendanalyse.entity.Sentence;
 /**
  * 对于文章的主题句的分析
  * 
- * @author Administrator
+ * @author zhaolong
  * 
  */
 public interface ISubScoreAdd {

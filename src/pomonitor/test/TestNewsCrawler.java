@@ -35,6 +35,7 @@ public class TestNewsCrawler {
 		// clawer.addAnalyse(souhu);
 		// clawer.addAnalyse(tengXun);
 
+
 		clawer.clawerAll("南华大学", false);
 		clawer.start(10);
 
