@@ -5,8 +5,9 @@ import pomonitor.analyse.articletendanalyse.entity.Sentence;
 
 /**
  * 关健值加分
+ * 
  * @author Administrator
- *
+ * 
  */
 public class SubScoreAddWord implements ISubScoreAdd {
 
@@ -15,6 +16,5 @@ public class SubScoreAddWord implements ISubScoreAdd {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 
 }

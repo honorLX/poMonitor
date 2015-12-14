@@ -20,15 +20,15 @@ import pomonitor.entity.NewsEntity;
 import ucar.nc2.util.net.URLencode;
 
 /**
- *凤凰新闻解析
+ * 凤凰新闻解析
  * 
  * @author 闻市委
  * 
  */
 
 public class FenghuangAnalyse extends BaseAnalyse {
-	public FenghuangAnalyse(String webName,boolean isKeep) {
-		super(webName,isKeep);
+	public FenghuangAnalyse(String webName, boolean isKeep) {
+		super(webName, isKeep);
 		// url
 
 		seedUrl = "http://news.sogou.com/news?";
@@ -42,8 +42,8 @@ public class FenghuangAnalyse extends BaseAnalyse {
 		int count = 0;
 		int pageCount = 0;
 		// 设置要搜索的关键字
-		String key1="site%3Aifeng.com+";
-		String searchKeyStr = "&query=" + key1+key;
+		String key1 = "site%3Aifeng.com+";
+		String searchKeyStr = "&query=" + key1 + key;
 		// 连接要搜索的参数
 		params = params + searchKeyStr;
 		// 整合搜索的url
@@ -64,10 +64,11 @@ public class FenghuangAnalyse extends BaseAnalyse {
 				url = new URL(seedUrl);
 				Document doc = null;
 				doc = Jsoup.parse(url, 1000);
-				Elements listEle = doc.getElementsByAttributeValue("class","mun");
+				Elements listEle = doc.getElementsByAttributeValue("class",
+						"mun");
 				String countStr = listEle.get(0).text().trim();
 				countStr = countStr.substring(3, 6);
-              System.out.println(countStr);
+				System.out.println(countStr);
 				count = Integer.parseInt(countStr);
 				pageCount = count / 10 + 1;
 			} catch (MalformedURLException e) {
@@ -85,34 +86,35 @@ public class FenghuangAnalyse extends BaseAnalyse {
 		try {
 			URL url = new URL(Strurl);
 			Document doc = Jsoup.parse(url, 3000);
-			Elements listEle= doc.getElementsByAttributeValue("class", "rb");
-			
+			Elements listEle = doc.getElementsByAttributeValue("class", "rb");
+
 			for (Element e : listEle) {
 
 				NewsEntity TengXunEntity = new NewsEntity();
 				// 解析url
-				Elements getUrl1 = e.getElementsByAttributeValueContaining("class", "pp");
-				 
+				Elements getUrl1 = e.getElementsByAttributeValueContaining(
+						"class", "pp");
+
 				String getUrl = getUrl1.attr("href");
 				System.out.println(getUrl);
 				// 解析title
-				String title=getUrl1.text();
+				String title = getUrl1.text();
 				System.out.println(title);
 				// 得到time
-				Elements timE=e.getElementsByTag("h3");
-				String time=timE.text();
-				time=time.substring(time.length()-16,time.length());
-			          System.out.println(time);
-				String web="腾讯";
-				//取得content
-				Elements contenT=e.getElementsByAttributeValue("class", "ft");
-				String content=contenT.text();
+				Elements timE = e.getElementsByTag("h3");
+				String time = timE.text();
+				time = time.substring(time.length() - 16, time.length());
+				System.out.println(time);
+				String web = "腾讯";
+				// 取得content
+				Elements contenT = e.getElementsByAttributeValue("class", "ft");
+				String content = contenT.text();
 				TengXunEntity.setUrl(getUrl);
-				TengXunEntity .setContent(content);
-				TengXunEntity .setTime(time);
-				TengXunEntity .setWeb(web);
+				TengXunEntity.setContent(content);
+				TengXunEntity.setTime(time);
+				TengXunEntity.setWeb(web);
 				TengXunEntity.setTitle(title);
-				map.put(getUrl,TengXunEntity);
+				map.put(getUrl, TengXunEntity);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -129,4 +131,3 @@ public class FenghuangAnalyse extends BaseAnalyse {
 	}
 
 }
-

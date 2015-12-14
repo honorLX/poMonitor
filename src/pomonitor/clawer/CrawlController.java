@@ -41,29 +41,28 @@ public class CrawlController {
 
 	// 用于存放url的对列
 	protected Frontier frontier;
-	
+
 	private String filePath;
 
 	// 用于控制异步的对象
 	protected final Object waitingLock = new Object();
 
-	public CrawlController(String filePath ,Frontier frontier){
+	public CrawlController(String filePath, Frontier frontier) {
 		this.frontier = frontier;
 		finished = false;
 		shuttingDown = false;
-		this.filePath=filePath;
+		this.filePath = filePath;
 	}
 
-	private  void stop(){
+	private void stop() {
 		finished = false;
 		shuttingDown = false;
 	}
-	
+
 	public void addUrl(ArrayList<NewsEntity> list) {
 		frontier.addAll(list);
 	}
-	
-	
+
 	public void addUrl(NewsEntity entity) {
 		frontier.add(entity);
 	}
@@ -129,12 +128,12 @@ public class CrawlController {
 			// 清除需要保存的数据
 			final List<Thread> threads = new ArrayList<>();
 			final List<Crawl> crawlers = new ArrayList<>();
-			int count = (int) frontier.getQueueLength() / numberOfCrawlers+1;
+			int count = (int) frontier.getQueueLength() / numberOfCrawlers + 1;
 			for (int i = 1; i <= numberOfCrawlers; i++) {
 				Crawl crawler = _c.newInstance();
 				Thread thread = new Thread(crawler, "Crawler " + i);
-				crawler.init(i,filePath);
-				
+				crawler.init(i, filePath);
+
 				ArrayList<NewsEntity> list = frontier.distribute(count);
 				crawler.setWorksList(list);
 				thread.start();
@@ -167,7 +166,7 @@ public class CrawlController {
 
 											ArrayList<NewsEntity> list = frontier
 													.distribute(20);
-											crawler.init(i + 1,filePath);
+											crawler.init(i + 1, filePath);
 											crawler.setWorksList(list);
 
 											thread = new Thread(crawler,
@@ -177,16 +176,15 @@ public class CrawlController {
 											thread.start();
 											crawlers.remove(i);
 											crawlers.add(i, crawler);
-											
-											
-											//以下代码表明不重新启线程不可行
-//											Crawler crawler=crawlers.get(i);
-//											ArrayList<NewsEntity> list = frontier
-//													.distribute(20);
-//											crawler.setWorksList(list);
-//											thread.start();
-											
-											
+
+											// 以下代码表明不重新启线程不可行
+											// Crawler crawler=crawlers.get(i);
+											// ArrayList<NewsEntity> list =
+											// frontier
+											// .distribute(20);
+											// crawler.setWorksList(list);
+											// thread.start();
+
 										}
 										// 如果不是在等待新线程，则证明其正在工作
 									} else {

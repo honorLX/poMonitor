@@ -1,4 +1,5 @@
 package pomonitor.entity;
+
 // default package
 
 import javax.persistence.Column;
@@ -6,79 +7,59 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 /**
  * LeverWord entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name="levelword"
-    ,catalog="pomonitor"
-)
+@Table(name = "levelword", catalog = "pomonitor")
+public class LeverWord implements java.io.Serializable {
 
-public class LeverWord  implements java.io.Serializable {
+	// Fields
 
+	private Integer id;
+	private String word;
+	private Float score;
 
-    // Fields    
+	// Constructors
 
-     private Integer id;
-     private String word;
-     private Float score;
+	/** default constructor */
+	public LeverWord() {
+	}
 
+	/** full constructor */
+	public LeverWord(Integer id, String word, Float score) {
+		this.id = id;
+		this.word = word;
+		this.score = score;
+	}
 
-    // Constructors
+	// Property accessors
+	@Id
+	@Column(name = "id", unique = true, nullable = false)
+	public Integer getId() {
+		return this.id;
+	}
 
-    /** default constructor */
-    public LeverWord() {
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    
-    /** full constructor */
-    public LeverWord(Integer id, String word, Float score) {
-        this.id = id;
-        this.word = word;
-        this.score = score;
-    }
+	@Column(name = "word", nullable = false)
+	public String getWord() {
+		return this.word;
+	}
 
-   
-    // Property accessors
-    @Id 
-    
-    @Column(name="id", unique=true, nullable=false)
+	public void setWord(String word) {
+		this.word = word;
+	}
 
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    
-    @Column(name="word", nullable=false)
+	@Column(name = "score", nullable = false, precision = 12, scale = 0)
+	public Float getScore() {
+		return this.score;
+	}
 
-    public String getWord() {
-        return this.word;
-    }
-    
-    public void setWord(String word) {
-        this.word = word;
-    }
-    
-    @Column(name="score", nullable=false, precision=12, scale=0)
-
-    public Float getScore() {
-        return this.score;
-    }
-    
-    public void setScore(Float score) {
-        this.score = score;
-    }
-   
-
-
-
-
-
-
-
+	public void setScore(Float score) {
+		this.score = score;
+	}
 
 }

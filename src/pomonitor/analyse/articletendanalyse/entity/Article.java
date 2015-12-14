@@ -4,26 +4,27 @@ import java.util.List;
 
 /**
  * 每篇新闻对应的文章对象
+ * 
  * @author Administrator
- *
+ * 
  */
 public class Article {
-	//文章标题
+	// 文章标题
 	private String title;
-	
-	//文章的keyWord
+
+	// 文章的keyWord
 	private List<String> keyWords;
-	
-	//文章来源
+
+	// 文章来源
 	private String Web;
-	
-	//文章倾向性分数
+
+	// 文章倾向性分数
 	private float tendScore;
-	
-	//文章包含的句子
+
+	// 文章包含的句子
 	private List<Sentence> sentences;
-	
-	//文章分析完后的主题句
+
+	// 文章分析完后的主题句
 	private List<Sentence> subSentences;
 
 	public String getTitle() {
@@ -73,8 +74,5 @@ public class Article {
 	public void setKeyWords(List<String> keyWords) {
 		this.keyWords = keyWords;
 	}
-	
-	
-	
 
 }
