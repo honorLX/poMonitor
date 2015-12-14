@@ -19,7 +19,7 @@ public class Frontier {
 	private ArrayList<NewsEntity> workingList=new ArrayList<>();
 	//用于判断其所有的url是否已经加入
 	private HashMap<String,String>  containUrlIds;
-	
+	//用于存储url保存的文件地址
 	private String filePath;
 	
 	

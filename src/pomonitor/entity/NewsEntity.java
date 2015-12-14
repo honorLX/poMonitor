@@ -1,5 +1,7 @@
 package pomonitor.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 
 
@@ -16,6 +18,8 @@ public class NewsEntity {
 	private String contentPath;
 	
 	private int failedCount;
+	
+	private List<String> keywords; 
 	
 	private final int maxFailedCount=4;
 	
@@ -109,6 +113,14 @@ public class NewsEntity {
 	public void setAllContent(String allContent) {
 		this.allContent = allContent;
 	}
+	public List<String> getKeywords() {
+		return keywords;
+	}
+	public void setKeywords(List<String> keywords) {
+		this.keywords = keywords;
+	}
+	
+	
 	
 
 }

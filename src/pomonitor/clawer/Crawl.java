@@ -94,6 +94,13 @@ public class Crawl implements Runnable{
 						}
 
 					}else{
+						//做获取kewwords的处理
+						List<String> keyWords=KeyWords.KdWords(htmlStr);
+						entity.setKeywords(keyWords);
+						
+						System.out.println("获取到的keywords:"+keyWords);
+						
+						
 						//此处将文本打印并输出,并做相应处理
 						//System.out.println(htmlStr);
 						String fileDir=filePath+entity.getWeb()+"/";

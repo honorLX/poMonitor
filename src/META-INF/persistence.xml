@@ -6,6 +6,8 @@
 			org.eclipse.persistence.jpa.PersistenceProvider
 		</provider>
 		<class>pomonitor.entity.LeverWord</class>
+		<class>pomonitor.entity.News</class>
+		
 		<properties>
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.jdbc.Driver" />
