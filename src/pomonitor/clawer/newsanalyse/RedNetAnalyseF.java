@@ -131,6 +131,8 @@ public class RedNetAnalyseF extends BaseAnalyse {
 					time = date.getYear() + 1900 + "-" + date.getMonth() + "-"
 							+ date.getDate();
 				}
+				time = time.substring(0, 10);
+
 				String web = "ºìÍø_ÂÛÌ³";
 
 				// »ñÈ¡url

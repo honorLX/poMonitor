@@ -51,7 +51,7 @@ public class TengXunAnalyse extends BaseAnalyse {
 		System.out.println(seedUrl);
 		if (isLatest) {
 			// 搜索最近新闻
-			pageCount = 10;
+			pageCount = 2;
 			return pageCount;
 
 		} else {
@@ -104,6 +104,7 @@ public class TengXunAnalyse extends BaseAnalyse {
 				Elements timE = e.getElementsByTag("h3");
 				String time = timE.text();
 				time = time.substring(time.length() - 16, time.length());
+				time = time.substring(0, 10);
 				System.out.println(time);
 				String web = "腾讯";
 				// 取得content

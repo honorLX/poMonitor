@@ -57,7 +57,7 @@ public class WangYi extends BaseAnalyse {
 		System.out.println(seedUrl);
 		if (isLatest) {
 			// 搜索最近新闻
-			pageCount = 4;
+			pageCount = 2;
 			return pageCount;
 
 		} else {
@@ -111,6 +111,8 @@ public class WangYi extends BaseAnalyse {
 				Elements timE = e.getElementsByTag("h3");
 				String time = timE.text();
 				time = time.substring(time.length() - 16, time.length());
+				time = time.substring(0, 11);
+
 				System.out.println(time);
 				String web = "网易";
 				// 取得content
