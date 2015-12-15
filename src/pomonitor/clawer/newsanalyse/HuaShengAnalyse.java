@@ -129,7 +129,7 @@ public class HuaShengAnalyse extends BaseAnalyse {
 				HuashengEntity.setUrl(getUrl);
 				HuashengEntity.setContent(content);
 				HuashengEntity.setTime(time);
-				HuashengEntity.setWeb(web);
+				HuashengEntity.setWeb(webName);
 				HuashengEntity.setTitle(title);
 				map.put(getUrl, HuashengEntity);
 			}

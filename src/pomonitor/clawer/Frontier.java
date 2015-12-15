@@ -93,6 +93,7 @@ public class Frontier {
 					entity.setTime(fieldStrList[1]);
 					entity.setId(fieldStrList[2]);
 					entity.setTitle(fieldStrList[3]);
+					entity.setWeb(fieldStrList[4]);
 					// 这里以后可能还会取更多内容，需要重构
 					workingList.add(entity);
 				}
@@ -120,7 +121,8 @@ public class Frontier {
 			if (entity.isFailed()) {
 				storeStr += entity.getUrl() + " GGGGG " + entity.getTime()
 						+ " GGGGG " + entity.getId() + " GGGGG "
-						+ entity.getTitle() + " KKKKKK ";
+						+ entity.getTitle() + " GGGGG " + entity.getWeb()
+						+ " KKKKKK ";
 				failedCount++;
 			}
 		}
@@ -134,6 +136,11 @@ public class Frontier {
 		}
 	}
 
+	/**
+	 * 将当前爬取的url实体放入对列抓取对列
+	 * 
+	 * @param news
+	 */
 	public void add(NewsEntity news) {
 		String idStr = news.getId();
 		if (!containUrlIds.containsKey(idStr)) {

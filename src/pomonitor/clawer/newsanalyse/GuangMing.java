@@ -146,7 +146,7 @@ public class GuangMing extends BaseAnalyse {
 				GuangMingEntity.setUrl(getUrl);
 				GuangMingEntity.setContent(content);
 				GuangMingEntity.setTime(time);
-				GuangMingEntity.setWeb(web);
+				GuangMingEntity.setWeb(webName);
 				GuangMingEntity.setTitle(title);
 				map.put(getUrl, GuangMingEntity);
 			}

@@ -18,7 +18,6 @@ public class NewsEntity {
 
 	private int failedCount;
 
-
 	private List<String> keywords;
 
 	private final int maxFailedCount = 4;
@@ -137,7 +136,6 @@ public class NewsEntity {
 		this.allContent = allContent;
 	}
 
-
 	public List<String> getKeywords() {
 		return keywords;
 	}
@@ -145,6 +143,5 @@ public class NewsEntity {
 	public void setKeywords(List<String> keywords) {
 		this.keywords = keywords;
 	}
-
 
 }

@@ -121,7 +121,7 @@ public class WangYi extends BaseAnalyse {
 				WangYiEntity.setUrl(getUrl);
 				WangYiEntity.setContent(content);
 				WangYiEntity.setTime(time);
-				WangYiEntity.setWeb(web);
+				WangYiEntity.setWeb(webName);
 				WangYiEntity.setTitle(title);
 				map.put(getUrl, WangYiEntity);
 			}

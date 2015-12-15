@@ -96,7 +96,7 @@ public class ZhongXinAnalyse extends BaseAnalyse {
 					redEntity.setUrl(url);
 					redEntity.setContent(content);
 					redEntity.setTime(time);
-					redEntity.setWeb("中新网");
+					redEntity.setWeb(webName);
 					redEntity.setTitle(title);
 					// 将获取到的对象放入map
 					map.put(url, redEntity);

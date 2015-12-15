@@ -128,7 +128,7 @@ public class XinHuaAnalyse extends BaseAnalyse {
 				XinHuaEntity.setUrl(getUrl);
 				XinHuaEntity.setContent(content);
 				XinHuaEntity.setTime(time);
-				XinHuaEntity.setWeb(web);
+				XinHuaEntity.setWeb(webName);
 				XinHuaEntity.setTitle(title);
 				map.put(getUrl, XinHuaEntity);
 			}
