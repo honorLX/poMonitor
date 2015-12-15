@@ -1,7 +1,7 @@
 package pomonitor.analyse.articlesubanalyse;
 
-import pomonitor.analyse.articletendanalyse.entity.Article;
-import pomonitor.analyse.articletendanalyse.entity.Sentence;
+import pomonitor.analyse.entity.Article;
+import pomonitor.analyse.entity.Sentence;
 
 /**
  * 对于文章的主题句的分析

@@ -3,8 +3,8 @@ package pomonitor.analyse.articlesubanalyse;
 import java.util.ArrayList;
 import java.util.List;
 
-import pomonitor.analyse.articletendanalyse.entity.Article;
-import pomonitor.analyse.articletendanalyse.entity.Sentence;
+import pomonitor.analyse.entity.Article;
+import pomonitor.analyse.entity.Sentence;
 
 /**
  * 获取主题句的类

@@ -1,4 +1,4 @@
-package pomonitor.analyse.articletendanalyse.entity;
+package pomonitor.analyse.entity;
 
 import java.util.List;
 

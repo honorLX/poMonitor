@@ -1,4 +1,4 @@
-package pomonitor.show;
+package pomonitor.view;
 
 public class Test {
 
