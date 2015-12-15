@@ -1,13 +1,15 @@
 package pomonitor.clawer.newsanalyse;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,8 +17,10 @@ import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 
 import ucar.nc2.util.net.URLencode;
-import pomonitor.clawer.newsanalyse.BaseAnalyse;
+import pomonitor.util.UrlSender;
 import pomonitor.entity.NewsEntity;
+
+;
 
 /**
  * 搜狐新闻解析
@@ -102,7 +106,9 @@ public class SouHuAnalyse extends BaseAnalyse {
 				Elements timE = e.getElementsByTag("h3");
 				String time = timE.text();
 				time = time.substring(time.length() - 16, time.length());
+				time = time.substring(0, 11);
 
+				System.out.println("时间:" + time);
 				String web = "搜狐";
 				// 取得content
 				Elements contenT = e.getElementsByAttributeValue("class", "ft");

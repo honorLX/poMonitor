@@ -104,8 +104,10 @@ public class FenghuangAnalyse extends BaseAnalyse {
 				Elements timE = e.getElementsByTag("h3");
 				String time = timE.text();
 				time = time.substring(time.length() - 16, time.length());
+				time = time.substring(0, 10);
+
 				System.out.println(time);
-				String web = "ÌÚÑ¶";
+				String web = "·ï»Ë";
 				// È¡µÃcontent
 				Elements contenT = e.getElementsByAttributeValue("class", "ft");
 				String content = contenT.text();

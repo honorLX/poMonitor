@@ -7,13 +7,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
-
 import ucar.nc2.util.net.URLencode;
 import pomonitor.clawer.newsanalyse.BaseAnalyse;
 import pomonitor.entity.NewsEntity;

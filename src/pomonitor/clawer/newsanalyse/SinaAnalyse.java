@@ -111,6 +111,8 @@ public class SinaAnalyse extends BaseAnalyse {
 							.outerHtml();
 					String[] strs = timeAndWeb.split(" ");
 					String time = strs[1] + " " + strs[2];
+					time = time.substring(0, 10);
+					System.out.println("time" + time);
 					String web = "ĞÂÀË";
 					// È¡contentÄÚÈİ
 					Node pNode = e.childNode(3);

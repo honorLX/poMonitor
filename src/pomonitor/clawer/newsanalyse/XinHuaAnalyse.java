@@ -119,6 +119,7 @@ public class XinHuaAnalyse extends BaseAnalyse {
 				Elements timeAndweb = timeE.tagName("span");
 				String timee = timeAndweb.text();
 				String time = timee.substring(0, 10);
+				System.out.println("time " + time);
 				String web = "新华网";
 				// 拿到p标签里的内容
 				Elements content1 = e.getElementsByTag("p");
