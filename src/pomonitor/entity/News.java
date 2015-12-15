@@ -4,7 +4,10 @@ package pomonitor.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 /**
@@ -16,7 +19,11 @@ public class News implements java.io.Serializable {
 
 	// Fields
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "relId", unique = true, nullable = false)
 	private Integer relId;
+
 	private String id;
 	private String title;
 	private String url;
@@ -78,8 +85,7 @@ public class News implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@Id
-	@Column(name = "relId", unique = true, nullable = false)
+
 	public Integer getRelId() {
 		return this.relId;
 	}
@@ -169,7 +175,7 @@ public class News implements java.io.Serializable {
 		this.contentPath = contentPath;
 	}
 
-	@Column(name = "failedCount", nullable = false)
+	@Column(name = "failedCount")
 	public Integer getFailedCount() {
 		return this.failedCount;
 	}
@@ -178,7 +184,7 @@ public class News implements java.io.Serializable {
 		this.failedCount = failedCount;
 	}
 
-	@Column(name = "isFinsh", nullable = false)
+	@Column(name = "isFinsh")
 	public Integer getIsFinsh() {
 		return this.isFinsh;
 	}
@@ -187,7 +193,7 @@ public class News implements java.io.Serializable {
 		this.isFinsh = isFinsh;
 	}
 
-	@Column(name = "isFailed", nullable = false)
+	@Column(name = "isFailed")
 	public Integer getIsFailed() {
 		return this.isFailed;
 	}
@@ -196,7 +202,7 @@ public class News implements java.io.Serializable {
 		this.isFailed = isFailed;
 	}
 
-	@Column(name = "isWorking", nullable = false)
+	@Column(name = "isWorking")
 	public Integer getIsWorking() {
 		return this.isWorking;
 	}

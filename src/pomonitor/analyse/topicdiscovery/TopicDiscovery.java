@@ -7,18 +7,17 @@ import pomonitor.analyse.entity.Topic;
 
 /**
  * 话题发现
- * @author caihengyi
- * 2015年12月14日 下午9:33:43
+ * 
+ * @author caihengyi 2015年12月14日 下午9:33:43
  */
 public class TopicDiscovery {
-	//各个新闻文本向量
-	private List<Map<String,Double>> newsVectors;
-	
-	//聚类之后的结果集合
-	private List<List<Map<String,Double>>> newsClusterResults;
-	
-	//对结果集合处理之后的话题集合
+	// 各个新闻文本向量
+	private List<Map<String, Double>> newsVectors;
+
+	// 聚类之后的结果集合
+	private List<List<Map<String, Double>>> newsClusterResults;
+
+	// 对结果集合处理之后的话题集合
 	private List<Topic> topics;
-	
-	
+
 }

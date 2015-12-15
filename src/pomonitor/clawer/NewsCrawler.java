@@ -67,7 +67,7 @@ public class NewsCrawler implements ICrawler {
 
 	public void start(int crawlCount) {
 		System.out.println("正式开始爬取");
-		controller.start(Crawl.class, crawlCount, true);
+		controller.start(DbSaveCrawl.class, crawlCount, true);
 	}
 
 	private ArrayList change(HashMap<String, Object> map) {
@@ -82,6 +82,7 @@ public class NewsCrawler implements ICrawler {
 			String id = MD5Util.MD5(url);
 			NewsEntity news = (NewsEntity) map.get(url);
 			news.setId(id);
+			System.out.println(news.getContent() + "~~~~~~~~~~~~~");
 			list.add(news);
 
 		}

@@ -9,11 +9,11 @@ import pomonitor.entity.NewsEntity;
 /**
  * 
  * @author 市委
- *
+ * 
  */
 public class NewsAndNewsEnriryTran {
-	public static NewsEntity newsToNewsEntity(News news){
-		NewsEntity newsEntity=new NewsEntity();
+	public static NewsEntity newsToNewsEntity(News news) {
+		NewsEntity newsEntity = new NewsEntity();
 		newsEntity.setId(news.getId());
 		newsEntity.setTitle(news.getTitle());
 		newsEntity.setUrl(news.getUrl());
@@ -23,47 +23,42 @@ public class NewsAndNewsEnriryTran {
 		newsEntity.setAllContent(news.getAllContent());
 		newsEntity.setContentPath(news.getContentPath());
 		newsEntity.setFailedCount(news.getFailedCount());
-		String key=news.getKeyWords();
-		java.util.List<String> keyw = new  ArrayList<String>();	
-         String[] key2=key.split(",");
-		for(int j=0;j<key2.length;j++){
-			keyw.add(j,key2[j]);
+		String key = news.getKeyWords();
+		java.util.List<String> keyw = new ArrayList<String>();
+		String[] key2 = key.split(",");
+		for (int j = 0; j < key2.length; j++) {
+			keyw.add(j, key2[j]);
 		}
-	    //List<String> list = java.util.Arrays.asList(key);
-	    //for(int i=0;i<list.size();i++){
-	    System.out.println(keyw+"!!!!!");
+		// List<String> list = java.util.Arrays.asList(key);
+		// for(int i=0;i<list.size();i++){
+		System.out.println(keyw + "!!!!!");
 
-	    System.out.println(keyw.get(0)+"!!!!!");
-	 //   }
-	   newsEntity.setKeywords(keyw); 
-		//newsEntity.setFinish(Interage.parse((news.getIsFinsh()));
-		if(news.getIsFinsh()==1){
-			
+		System.out.println(keyw.get(0) + "!!!!!");
+		// }
+		newsEntity.setKeywords(keyw);
+		// newsEntity.setFinish(Interage.parse((news.getIsFinsh()));
+		if (news.getIsFinsh() == 1) {
+
 			newsEntity.setFinish(true);
-			
-		}
-		else{
+
+		} else {
 			newsEntity.setFinish(false);
 		}
-		if(news.getIsFailed()==1){
+		if (news.getIsFailed() == 1) {
 			newsEntity.setFailed(true);
-		}
-		else{
+		} else {
 			newsEntity.setFailed(false);
 		}
-		if(news.getIsWorking()==1){
+		if (news.getIsWorking() == 1) {
 			newsEntity.setWorking(true);
-		}
-		else{
+		} else {
 			newsEntity.setWorking(false);
 		}
-		return  newsEntity;
+		return newsEntity;
 	}
-		
 
-	public static News newsEntityToNews(NewsEntity newsentity){
-		News news= new News();
-		news.setId(newsentity.getId());
+	public static News newsEntityToNews(NewsEntity newsentity) {
+		News news = new News();
 		news.setId(newsentity.getId());
 		news.setTitle(newsentity.getTitle());
 		news.setUrl(newsentity.getUrl());
@@ -73,27 +68,28 @@ public class NewsAndNewsEnriryTran {
 		news.setAllContent(newsentity.getAllContent());
 		news.setContentPath(newsentity.getContentPath());
 		news.setFailedCount(newsentity.getFailedCount());
-		//将newsentity中的list类型的 keywords转化为String类型
-		news.setKeyWords(newsentity.getKeywords().toString()); 
-		if(newsentity.isFinish()==true){
-			news.setIsFinsh(1);
+		// 将newsentity中的list类型的 keywords转化为String类型
+		String keyWords = "";
+		for (String s : newsentity.getKeywords()) {
+			keyWords += s + "#";
 		}
-		else{
+		news.setKeyWords(keyWords);
+		if (newsentity.isFinish() == true) {
+			news.setIsFinsh(1);
+		} else {
 			news.setIsFinsh(0);
 		}
-		if(newsentity.isFailed()==true){
+		if (newsentity.isFailed() == true) {
 			news.setIsFailed(1);
-		}
-		else{
+		} else {
 			news.setIsFailed(0);
 		}
-		if(newsentity.isWorking()==true){
+		if (newsentity.isWorking() == true) {
 			news.setIsWorking(1);
-		}
-		else{
+		} else {
 			news.setIsWorking(0);
 		}
 		return news;
-		
+
 	}
 }

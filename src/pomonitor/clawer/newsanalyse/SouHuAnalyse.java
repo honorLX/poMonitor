@@ -1,6 +1,5 @@
 package pomonitor.clawer.newsanalyse;
 
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,7 +17,6 @@ import org.jsoup.select.Elements;
 import ucar.nc2.util.net.URLencode;
 import pomonitor.clawer.newsanalyse.BaseAnalyse;
 import pomonitor.entity.NewsEntity;
-
 
 /**
  * 搜狐新闻解析
@@ -43,8 +41,8 @@ public class SouHuAnalyse extends BaseAnalyse {
 		int count = 0;
 		int pageCount = 0;
 		// 设置要搜索的关键字
-		String key1="site%3Asohu.com+";
-		String searchKeyStr = "&query=" + key1+key;
+		String key1 = "site%3Asohu.com+";
+		String searchKeyStr = "&query=" + key1 + key;
 		// 连接要搜索的参数
 		params = params + searchKeyStr;
 		// 整合搜索的url
@@ -57,29 +55,27 @@ public class SouHuAnalyse extends BaseAnalyse {
 
 		} else {
 			// 搜索所有 新闻
-			//URL url;
+			// URL url;
 
-			//try {
+			// try {
 
-				// 从URL直接加载HTML 文档
-			/* = new URL(seedUrl);
-				Document doc = null;
-				doc = Jsoup.parse(url, 1000);
-				Elements listEle = doc.getElementsByAttributeValue("class","mun");
-				String countStr = listEle.get(0).text().trim();
-				countStr = countStr.substring(3, 8);
-				countStr = countStr.replaceAll(",", "");
-
-				count = Integer.parseInt(countStr);*/
-				pageCount = 100;
-			/*} catch (MalformedURLException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}*/
-		return pageCount;
-	}
+			// 从URL直接加载HTML 文档
+			/*
+			 * = new URL(seedUrl); Document doc = null; doc = Jsoup.parse(url,
+			 * 1000); Elements listEle =
+			 * doc.getElementsByAttributeValue("class","mun"); String countStr =
+			 * listEle.get(0).text().trim(); countStr = countStr.substring(3,
+			 * 8); countStr = countStr.replaceAll(",", "");
+			 * 
+			 * count = Integer.parseInt(countStr);
+			 */
+			pageCount = 100;
+			/*
+			 * } catch (MalformedURLException e) { e.printStackTrace(); } catch
+			 * (IOException e) { e.printStackTrace(); } }
+			 */
+			return pageCount;
+		}
 	}
 
 	@Override
@@ -88,34 +84,35 @@ public class SouHuAnalyse extends BaseAnalyse {
 		try {
 			URL url = new URL(Strurl);
 			Document doc = Jsoup.parse(url, 3000);
-			Elements listEle= doc.getElementsByAttributeValue("class", "rb");
-			
+			Elements listEle = doc.getElementsByAttributeValue("class", "rb");
+
 			for (Element e : listEle) {
 
 				NewsEntity SouHuEntity = new NewsEntity();
 				// 解析url
-				Elements getUrl1 = e.getElementsByAttributeValueContaining("class", "pp");
-				 
+				Elements getUrl1 = e.getElementsByAttributeValueContaining(
+						"class", "pp");
+
 				String getUrl = getUrl1.attr("href");
 				System.out.println(getUrl);
 				// 解析title
-				String title=getUrl1.text();
+				String title = getUrl1.text();
 				System.out.println(title);
 				// 得到time
-				Elements timE=e.getElementsByTag("h3");
-				String time=timE.text();
-				time=time.substring(time.length()-16,time.length());
-			 
-				String web="搜狐";
-				//取得content
-				Elements contenT=e.getElementsByAttributeValue("class", "ft");
-				String content=contenT.text();
+				Elements timE = e.getElementsByTag("h3");
+				String time = timE.text();
+				time = time.substring(time.length() - 16, time.length());
+
+				String web = "搜狐";
+				// 取得content
+				Elements contenT = e.getElementsByAttributeValue("class", "ft");
+				String content = contenT.text();
 				SouHuEntity.setUrl(getUrl);
 				SouHuEntity.setContent(content);
 				SouHuEntity.setTime(time);
 				SouHuEntity.setWeb(web);
 				SouHuEntity.setTitle(title);
-				map.put(getUrl,SouHuEntity);
+				map.put(getUrl, SouHuEntity);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

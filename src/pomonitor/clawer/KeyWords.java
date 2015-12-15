@@ -20,11 +20,10 @@ public class KeyWords {
 		for (Element k : kd) {
 			if (k.attr("name").toLowerCase().equals("keywords")) {
 				keys = k.attr("content");
-				String[] keyword = keys.split(",");
+				String[] keyword = keys.split("[\\pP]");
 				int i = keyword.length;
 				for (int j = 0; j < i; j++) {
 					keyAnddesc.add(j, keyword[j]);
-					// System.out.println(keyAnddesc.get(j));
 				}
 			} else if (k.attr("name").equals("description")) {
 				desc = k.attr("content");

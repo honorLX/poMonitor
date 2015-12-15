@@ -121,16 +121,17 @@ public class CrawlController {
 	 * @param numberOfCrawlers
 	 * @param isBlocking
 	 */
-	public void start(final Class<Crawl> _c, int numberOfCrawlers,
+	public void start(final Class<DbSaveCrawl> _c, int numberOfCrawlers,
 			boolean isBlocking) {
 		try {
 			finished = false;
 			// 清除需要保存的数据
 			final List<Thread> threads = new ArrayList<>();
-			final List<Crawl> crawlers = new ArrayList<>();
+			final List<DbSaveCrawl> crawlers = new ArrayList<>();
 			int count = (int) frontier.getQueueLength() / numberOfCrawlers + 1;
 			for (int i = 1; i <= numberOfCrawlers; i++) {
-				Crawl crawler = _c.newInstance();
+				// Crawl crawler = _c.newInstance();
+				DbSaveCrawl crawler = _c.newInstance();
 				Thread thread = new Thread(crawler, "Crawler " + i);
 				crawler.init(i, filePath);
 
@@ -162,7 +163,8 @@ public class CrawlController {
 													"Thread {} was dead, I'll recreate it",
 													i + 1);
 											// 重新启动一个新线程
-											Crawl crawler = _c.newInstance();
+											DbSaveCrawl crawler = _c
+													.newInstance();
 
 											ArrayList<NewsEntity> list = frontier
 													.distribute(20);
