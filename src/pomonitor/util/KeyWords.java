@@ -23,10 +23,13 @@ public class KeyWords {
 		for (Element k : kd) {
 			if (k.attr("name").toLowerCase().equals("keywords")) {
 				keys = k.attr("content");
-				String[] keyword = keys.split(",");
+				//匹配字符串和空格，并且通过它分隔
+				String[] keyword = keys.split("[\\s]*[\\pP]*[\\s]*");
 				int i = keyword.length;
+				
 				for (int j = 0; j < i; j++) {
-					keyAnddesc.add(j, keyword[j]);
+					if(!keyword[j].trim().equals(""))
+						keyAnddesc.add(j, keyword[j].trim());
 					// System.out.println(keyAnddesc.get(j));
 				}
 			} else if (k.attr("name").equals("description")) {
