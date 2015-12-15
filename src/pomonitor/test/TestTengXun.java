@@ -1,4 +1,4 @@
-package pomonitor.clawer.newsanalyse;
+package pomonitor.test;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,17 +6,19 @@ import java.util.Set;
 
 import org.junit.Test;
 
-public class TestXinHua {
+import pomonitor.clawer.newsanalyse.SouHuAnalyse;
+
+public class TestTengXun {
 	@Test
 	public void testGetPageCount() {
-		XinHuaAnalyse analyse = new XinHuaAnalyse("腾讯", true);
+		SouHuAnalyse analyse = new SouHuAnalyse("腾讯", true);
 		int count = analyse.getPageCount("南华大学", false);
 		System.out.println(count);
 	}
 
 	@Test
 	public void testUrlAnalyse() {
-		XinHuaAnalyse analyse = new XinHuaAnalyse("搜狐", true);
+		SouHuAnalyse analyse = new SouHuAnalyse("搜狐", true);
 		analyse.getPageCount("南华大学", false);
 		String newUrl = analyse.urlAnalyse(1);
 		System.out.println(newUrl);
@@ -24,7 +26,7 @@ public class TestXinHua {
 
 	@Test
 	public void tesAnalyseAnyPage() {
-		XinHuaAnalyse analyse = new XinHuaAnalyse("搜狐", true);
+		SouHuAnalyse analyse = new SouHuAnalyse("搜狐", true);
 		analyse.getPageCount("南华大学", false);
 		String newUrl = analyse.urlAnalyse(1);
 		analyse.analyseAnyPage(newUrl);
