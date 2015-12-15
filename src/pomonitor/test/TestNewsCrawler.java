@@ -26,13 +26,13 @@ public class TestNewsCrawler {
 		// clawer.addAnalyse(redAnalysef);
 		// clawer.addAnalyse(redAnalyse);
 		// 失败 clawer.addAnalyse(zxAnalyse);
-		// clawer.addAnalyse(gmAnalyse);
+		clawer.addAnalyse(gmAnalyse);
 		// clawer.addAnalyse(hsAnalyse);
 		// 有错误 clawer.addAnalyse(weixinAnalyse);
-		clawer.addAnalyse(xhAnalyse);
-		clawer.addAnalyse(wangyi);
-		clawer.addAnalyse(fenghuang);
-		clawer.addAnalyse(souhu);
+		// clawer.addAnalyse(xhAnalyse);
+		// clawer.addAnalyse(wangyi);
+		// clawer.addAnalyse(fenghuang);
+		// clawer.addAnalyse(souhu);
 		// clawer.addAnalyse(tengXun);
 
 		clawer.clawerAll("南华大学", false);

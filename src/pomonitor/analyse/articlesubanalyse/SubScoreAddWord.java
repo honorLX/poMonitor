@@ -13,7 +13,6 @@ public class SubScoreAddWord implements ISubScoreAdd {
 
 	@Override
 	public Sentence add(TendAnalyseArticle article, Sentence sentence) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
