@@ -8,7 +8,7 @@ import java.util.List;
  * @author Administrator
  * 
  */
-public class Article {
+public class TendAnalyseArticle {
 	// ÎÄÕÂ±êÌâ
 	private String title;
 

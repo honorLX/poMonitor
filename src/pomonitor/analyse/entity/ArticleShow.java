@@ -1,4 +1,4 @@
-package pomonitor.view.entity;
+package pomonitor.analyse.entity;
 
 import java.util.Date;
 
@@ -9,7 +9,7 @@ import pomonitor.analyse.entity.Attitude;
  * 
  * @author caihengyi 2015年12月15日 上午10:29:25
  */
-public class ArticleView implements Comparable<ArticleView> {
+public class ArticleShow implements Comparable<ArticleShow> {
 
 	private String title;
 	private String url;
@@ -102,7 +102,7 @@ public class ArticleView implements Comparable<ArticleView> {
 	}
 
 	@Override
-	public int compareTo(ArticleView o) {
+	public int compareTo(ArticleShow o) {
 		if (this.heat < o.heat)
 			return -1;
 		if (this.heat > o.heat)

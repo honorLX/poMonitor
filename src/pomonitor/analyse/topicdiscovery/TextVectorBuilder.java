@@ -3,6 +3,8 @@ package pomonitor.analyse.topicdiscovery;
 import java.util.List;
 import java.util.Map;
 
+import pomonitor.analyse.entity.TDArticle;
+
 /**
  * 以向量空间模型表示新闻文本
  * 
@@ -10,8 +12,8 @@ import java.util.Map;
  */
 public class TextVectorBuilder {
 
-	// 新闻集合
-	private List<Object> newsList = null;
+	// 新闻文本集合
+	private List<TDArticle> topicDisArticleList = null;
 	// 提取百分比
 	private final double EXTRACT_PERCENT = 0.15;
 	// 总的特征集合
@@ -24,8 +26,8 @@ public class TextVectorBuilder {
 	 * @param percentage
 	 * @return 总特征集合，其长度即为向量长度
 	 */
-	private Map<String, Double> getFeatureSet(List<Object> newsList,
-			double percentage) {
+	private Map<String, Double> getFeatureSet(
+			List<TDArticle> topicDisArticleList, double percentage) {
 
 		// 计算完每篇新闻中词项的综合权值之后，赋值给this.newsList;
 
@@ -33,14 +35,16 @@ public class TextVectorBuilder {
 	}
 
 	/**
-	 * 根据总的特征集合和新闻对象集合，生成向量集合
+	 * 根据总的特征集合和新闻文本对象集合，生成向量集合
 	 * 
 	 * @param newsLists
 	 * @param globalFeatureCollections
 	 * @return
 	 */
-	public List<Map<String, Double>> buildVectors(List<Object> newsLists) {
-		globalFeatureCollections = getFeatureSet(newsLists, EXTRACT_PERCENT);
+	public List<Map<String, Double>> buildVectors(
+			List<TDArticle> topicDisArticleList) {
+		globalFeatureCollections = getFeatureSet(topicDisArticleList,
+				EXTRACT_PERCENT);
 
 		// 利用this.newsList去生成向量
 

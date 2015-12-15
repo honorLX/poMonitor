@@ -3,7 +3,7 @@ package pomonitor.analyse.articlesubanalyse;
 import java.util.ArrayList;
 import java.util.List;
 
-import pomonitor.analyse.entity.Article;
+import pomonitor.analyse.entity.TendAnalyseArticle;
 import pomonitor.analyse.entity.Sentence;
 
 /**
@@ -26,7 +26,7 @@ public class SubSentenceGet {
 	public List<ISubScoreAdd> adderList;
 
 	// 计算文章每一个句子的主题分数
-	public void countSubScore(Article article) {
+	public void countSubScore(TendAnalyseArticle article) {
 		for (Sentence sentence : article.getSentences()) {
 			for (ISubScoreAdd add : adderList) {
 				add.add(article, sentence);
@@ -35,7 +35,7 @@ public class SubSentenceGet {
 	}
 
 	// 获得每一篇文章中能代表主题的前几个句子
-	public void getSubSentence(Article article, int outCount) {
+	public void getSubSentence(TendAnalyseArticle article, int outCount) {
 		List<Sentence> sentences = article.getSentences();
 		List<Sentence> subSentences = new ArrayList<Sentence>();
 		int count = 0;

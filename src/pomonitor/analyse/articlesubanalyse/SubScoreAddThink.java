@@ -1,6 +1,6 @@
 package pomonitor.analyse.articlesubanalyse;
 
-import pomonitor.analyse.entity.Article;
+import pomonitor.analyse.entity.TendAnalyseArticle;
 import pomonitor.analyse.entity.Sentence;
 
 /**
@@ -12,7 +12,7 @@ import pomonitor.analyse.entity.Sentence;
 public class SubScoreAddThink implements ISubScoreAdd {
 
 	@Override
-	public Sentence add(Article article, Sentence sentence) {
+	public Sentence add(TendAnalyseArticle article, Sentence sentence) {
 		return null;
 	}
 

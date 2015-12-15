@@ -1,7 +1,6 @@
 package pomonitor.analyse.entity;
 
 import java.util.List;
-import pomonitor.view.entity.ArticleView;
 
 /**
  * 话题
@@ -13,7 +12,7 @@ public class Topic {
 	private String content;// 话题内容
 	private Double weight;// 话题权重
 	private boolean isSensitiveWords;// 该话题是否是敏感词（或其近义词）
-	private List<ArticleView> articleViews;// 包含该话题的文章集合
+	private List<ArticleShow> articleViews;// 包含该话题的文章集合
 	private Attitude attitude;// 该话题的褒贬态度信息
 
 	public String getContent() {
@@ -40,11 +39,11 @@ public class Topic {
 		this.isSensitiveWords = isSensitiveWords;
 	}
 
-	public List<ArticleView> getArticleViews() {
+	public List<ArticleShow> getArticleViews() {
 		return articleViews;
 	}
 
-	public void setArticleViews(List<ArticleView> articleViews) {
+	public void setArticleViews(List<ArticleShow> articleViews) {
 		this.articleViews = articleViews;
 	}
 
