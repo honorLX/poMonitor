@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import pomonitor.analyse.entity.TendAnalyseArticle;
 
-import pomonitor.analyse.entity.Sentence;
+import pomonitor.analyse.entity.TendSentence;
 
 /**
  * 分析文章主题句的处理类
@@ -39,10 +39,11 @@ public class SubSentenceGet {
 	}
 
 	/**
-	 * 对文章每一个句子做主题分析，并将其存储到相应句子的相应分数， 并计算出每个句子的主题总分,并保存到主题总分字段
+	 * 对文章每一个句子做主题分析，并将其存储到相应句子的相应分数，
+	 *  并计算出每个句子的主题总分,并保存到主题总分字段
 	 */
 	public void countSubScore() {
-		for (Sentence sentence : article.getSentences()) {
+		for (TendSentence sentence : article.getSentences()) {
 			for (ISubScoreAdd add : adderList) {
 				add.add(article, sentence);
 			}
@@ -58,8 +59,8 @@ public class SubSentenceGet {
 	 *            需要提取的主题句多少
 	 */
 	public void getSubSentence(int outCount) {
-		List<Sentence> sentences = article.getSentences();
-		List<Sentence> subSentences = new ArrayList<Sentence>();
+		List<TendSentence> sentences = article.getSentences();
+		List<TendSentence> subSentences = new ArrayList<TendSentence>();
 		int count = 0;
 		int index;
 		for (int i = 0; i < sentences.size(); i++) {
@@ -78,5 +79,4 @@ public class SubSentenceGet {
 		}
 		article.setSubSentences(subSentences);
 	}
-
 }

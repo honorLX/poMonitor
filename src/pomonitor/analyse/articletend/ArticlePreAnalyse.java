@@ -3,15 +3,15 @@ package pomonitor.analyse.articletend;
 import java.util.ArrayList;
 import java.util.List;
 
-import pomonitor.analyse.entity.Sentence;
+import pomonitor.analyse.entity.TendSentence;
 import pomonitor.analyse.entity.TendAnalyseArticle;
 import pomonitor.analyse.entity.TendWord;
 import pomonitor.entity.NewsEntity;
 
 /**
- * ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½Ô¤ï¿½ï¿½ï¿½?ï¿½ï¿½ï¿½ë£¬ï¿½Ö´Ê£ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½articleï¿½ï¿½ï¿½ï¿½
+ * ÎÄÕÂÔ¤´¦ÀíÆ÷£¬½«ĞÂÎÅ×Ö·û´®¶ÔÏóÔ¤´¦ÀíÎªĞèÒª·ÖÎöµÄArticle¶ÔÏó
  * @author zhaolong
- * 2015ï¿½ï¿½12ï¿½ï¿½16ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½5:15:09
+ * 2015Äê12ÔÂ16ÈÕ ÏÂÎç9:31:20
  */
 public class ArticlePreAnalyse {
 	
@@ -19,14 +19,17 @@ public class ArticlePreAnalyse {
 	
 	private TendAnalyseArticle article;
 	
+	//¾ä×Ó·ÖÎöÆ÷
 	private SentenceSplier sentenceSplier;
 	
-	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ·ï¿½ï¿½ï¿½
 	public ArticlePreAnalyse(SentenceSplier sentenceSplier) {
 		this.sentenceSplier=new SentenceSplier();
 	}
 	
-	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	/**
+	 * ³õÊ¼»¯Ò»ÆªÎÄÕÂ£¬¼ÓÔØ»ù±¾²ÎÊı
+	 * @param news
+	 */
 	private void init(NewsEntity news){
 		this.news=news;
 		article=new TendAnalyseArticle();
@@ -34,18 +37,18 @@ public class ArticlePreAnalyse {
 		article.setTitle(news.getTitle());
 	}
 	
-	//Æªï¿½Â·Ö¾ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½articleï¿½Ä¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	/**
+	 * ¶Ï¾ä²¢ÇÒ·ÖÒÀÃ¿Ò»¾ä£¬Ö÷Òª´¦ÀíÎÄÕÂÕıÎÄ
+	 */
 	private void splitArticle(){
 		String content=news.getAllContent();
-		String[] sentenceStrs=content.split("ã€‚");
-		List<Sentence> relSentences=new ArrayList<Sentence>();
+		String[] sentenceStrs=content.split("¡£");
+		List<TendSentence> relSentences=new ArrayList<TendSentence>();
 		for(int i=0;i<sentenceStrs.length;i++){
-			//ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½5ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½
 			String sentenceStr=sentenceStrs[i].trim();
 			if(sentenceStr.length()>5){
-				Sentence sentence=new Sentence();
+				TendSentence sentence=new TendSentence();
 				sentence.setId(i);
-				//ï¿½Ô¾ï¿½ï¿½Ó½ï¿½ï¿½Ğ·Ö´ï¿½
 				List<TendWord> list=sentenceSplier.spil(sentenceStr);
 				sentence.setWords(list);
 				relSentences.add(sentence);
@@ -54,10 +57,11 @@ public class ArticlePreAnalyse {
 		article.setSentences(relSentences);
 	}
 	
+
 	/**
-	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å£ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½Ä½á¹¹ï¿½ï¿½ï¿½ï¿½TendAnalyseArticleï¿½ï¿½ï¿½ï¿½
+	 * ÏòÍâÌá¹©µÄÎÄÕÂÔ¤´¦Àí·½·¨£¬¸ñÊ½»¯´¦ÀíºÃµÄÎÄÕÂÒÔ´ı·ÖÎö
 	 * @param news
-	 * @return
+	 * @return TendAnalyseArticle
 	 */
 	public TendAnalyseArticle getPreArticle(NewsEntity news){
 		init(news);

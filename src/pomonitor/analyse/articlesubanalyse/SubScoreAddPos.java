@@ -1,7 +1,7 @@
 package pomonitor.analyse.articlesubanalyse;
 
 import pomonitor.analyse.entity.TendAnalyseArticle;
-import pomonitor.analyse.entity.Sentence;
+import pomonitor.analyse.entity.TendSentence;
 
 /**
  * 句子位置加分
@@ -12,7 +12,7 @@ import pomonitor.analyse.entity.Sentence;
 public class SubScoreAddPos implements ISubScoreAdd {
 
 	@Override
-	public Sentence add(TendAnalyseArticle article, Sentence sentence) {
+	public TendSentence add(TendAnalyseArticle article, TendSentence sentence) {
 
 		return null;
 	}

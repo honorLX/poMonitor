@@ -8,7 +8,7 @@ import java.util.List;
  * @author Administrator
  * 
  */
-public class Sentence {
+public class TendSentence {
 	// 句子在文章中的序号
 	private int id;
 	// 句子包含的词集合

@@ -2,7 +2,6 @@ package pomonitor.entity;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -90,5 +89,6 @@ public class User implements java.io.Serializable {
 	public void setSenswords(Set<Sensword> senswords) {
 		this.senswords = senswords;
 	}
+
 
 }

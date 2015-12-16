@@ -1,5 +1,7 @@
 package pomonitor.analyse.articletend;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
@@ -9,22 +11,32 @@ import pomonitor.util.JsonContentGetter;
 import pomonitor.util.SomeStaticValues;
 
 /**
- * ï¿½ï¿½ï¿½ï¿½ï¿½Ð·ï¿½ï¿½ï¿½
+ * ¾ä×Ó·ÖÎöÆ÷£¬½«StringÐÎÌ¬µÄ¾ä×Ó×ª±äÎª×Ô¶¨ÒåµÄTendSentence¶ÔÏó
  * @author zhaolong
- * 2015ï¿½ï¿½12ï¿½ï¿½16ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½5:01:51
+ * 2015Äê12ÔÂ16ÈÕ ÏÂÎç9:27:44
  */
 public class SentenceSplier {
+	
 	/**
-	 * 
-	 * @param sentenc ï¿½Ö·ï¿½ï¿½ï¿½Ê½ï¿½ï¿½Ò»ï¿½ä»°
-	 * @return List ï¿½ÖºÃ´Êµï¿½Ò»ï¿½ä»°
+	 * ½«StringÐÎÌ¬µÄ¾ä×ÓÔ¤´¦ÀíÎª×Ô¶¨ÒåµÄTendSentence¶ÔÏó
+	 * @param sentence
+	 * @return
 	 */
-	public List<TendWord> spil(String sentenc){
-		String urlStr=""+SomeStaticValues.url+sentenc+"ã€‚";
+	public List<TendWord> spil(String sentence){
+			String utfUrlStr="";
+		try {
+			utfUrlStr=SomeStaticValues.url;
+			System.out.println(sentence);
+			//¶Ôºº×Ö×ö×ªÂë´¦Àí
+			sentence=URLEncoder.encode(sentence, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			System.out.println("¾ä×Ó×ª»»±àÂë¼¯´íÎó×ª»»Ê§°Ü");
+			e.printStackTrace();
+		}
+		//Æ´´ÕurlÇëÇóµÄ²ÎÊý
+		String urlStr=utfUrlStr+sentence;
 		String jsonStr=JsonContentGetter.getJsonContent(urlStr);
-		//ï¿½ï¿½È¡ï¿½É¿ï¿½ï¿½Ô½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½Ö·ï¿½
 		jsonStr =jsonStr.substring(4, jsonStr.length()-3);
-		//ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½
 		List<TendWord> list=JSON.parseArray(jsonStr, TendWord.class);
 		for(TendWord tw:list){
 			System.out.println("id:"+tw.getId());
@@ -32,6 +44,7 @@ public class SentenceSplier {
 			System.out.println("ne:"+tw.getNe());
 			System.out.println("parent:"+tw.getParent());
 			System.out.println("pos:"+tw.getPos());
+			System.out.println("args"+tw.getArg());
 		}
 		return list;
 	}

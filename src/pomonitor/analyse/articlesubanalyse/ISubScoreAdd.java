@@ -1,7 +1,7 @@
 package pomonitor.analyse.articlesubanalyse;
 
 import pomonitor.analyse.entity.TendAnalyseArticle;
-import pomonitor.analyse.entity.Sentence;
+import pomonitor.analyse.entity.TendSentence;
 
 /**
  * 对于文章的每一句分析其倾向性的接口
@@ -17,6 +17,6 @@ public interface ISubScoreAdd {
 	 * @param sentence
 	 * @return sentence
 	 */
-	public Sentence add(TendAnalyseArticle article, Sentence sentence);
+	public TendSentence add(TendAnalyseArticle article, TendSentence sentence);
 
 }

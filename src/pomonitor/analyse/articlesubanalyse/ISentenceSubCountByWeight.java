@@ -1,6 +1,6 @@
 package pomonitor.analyse.articlesubanalyse;
 
-import pomonitor.analyse.entity.Sentence;
+import pomonitor.analyse.entity.TendSentence;
 
 /**
  * 对于Sentence四种分数累加的方法接口
@@ -13,5 +13,5 @@ public interface ISentenceSubCountByWeight {
 	 * @param sentence
 	 * @return sentence
 	 */
-	public Sentence sentenceSubCount(Sentence sentence);
+	public TendSentence sentenceSubCount(TendSentence sentence);
 }
