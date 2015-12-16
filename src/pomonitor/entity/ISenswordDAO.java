@@ -94,6 +94,8 @@ public interface ISenswordDAO {
 
 	public List<Sensword> findBySensvalue(Object sensvalue);
 
+	public List<Sensword> findByUserid(Object userid);
+
 	/**
 	 * Find all Sensword entities.
 	 * 

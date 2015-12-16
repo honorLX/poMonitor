@@ -19,6 +19,7 @@ public class SenswordDAO implements ISenswordDAO {
 	// property constants
 	public static final String SENSLEVEL = "senslevel";
 	public static final String SENSVALUE = "sensvalue";
+	public static final String USERID = "userid";
 
 	private EntityManager getEntityManager() {
 		return EntityManagerHelper.getEntityManager();
@@ -166,6 +167,10 @@ public class SenswordDAO implements ISenswordDAO {
 
 	public List<Sensword> findBySensvalue(Object sensvalue) {
 		return findByProperty(SENSVALUE, sensvalue);
+	}
+
+	public List<Sensword> findByUserid(Object userid) {
+		return findByProperty(USERID, userid);
 	}
 
 	/**
