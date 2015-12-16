@@ -43,11 +43,12 @@ public class Test {
 		System.out.println("~~~~~"+jsonStr+"~~~");
 		
 		List<TendWord> list=JSON.parseArray(jsonStr, TendWord.class);
-		
+	
 		//List list2=JSON.parseArray(jsonStr);
 		
 		
-		System.out.println(list.get(1).getParent());
+		System.out.println(list.get(1).getArg().get(1).getBeg());
+		System.out.println(list.get(1).getArg().get(1).getEnd());
 	}
 	
 	

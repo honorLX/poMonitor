@@ -26,7 +26,8 @@ public class TendWord {
 	
 	//如果用户做了srl级别的分析，json结果中还会有键值名arg所标识的数组。
 	//数组中的每个对象是一项语义角色，任何一个谓词都会带有若干个该对象；
-	private List<TendArg> args;
+	//private List<TendArg> args;
+	private List<TendArg> arg;
 
 	public int getId() {
 		return id;
@@ -92,18 +93,30 @@ public class TendWord {
 		this.relate = relate;
 	}
 
-	public List<TendArg> getArgs() {
-		return args;
+	
+
+	public List<TendArg> getArg() {
+		return arg;
 	}
 
-	public void setArgs(List<TendArg> args) {
-		this.args = args;
+	public void setArg(List<TendArg> arg) {
+		this.arg = arg;
 	}
 
 	public TendWord() {
 		super();
-	} 
-	
+	}
+
+//	public String getArg() {
+//		return arg;
+//	}
+//
+//	public void setArg(String arg) {
+//		this.arg = arg;
+//	}
+//
+//
+//	
 	
 	
 	

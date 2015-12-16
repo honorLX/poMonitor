@@ -11,8 +11,8 @@ import java.util.List;
 public class Sentence {
 	// 句子在文章中的序号
 	private int id;
-	// 句子包含的实词集合
-	private List<String> words;
+	// 句子包含的词集合
+	private List<TendWord> words;
 
 	// 倾向性分数
 	private float tendScore;
@@ -48,12 +48,53 @@ public class Sentence {
 		this.id = id;
 	}
 
-	public List<String> getWords() {
+	public List<TendWord> getWords() {
 		return words;
 	}
 
-	public void setWords(List<String> words) {
+	public void setWords(List<TendWord> words) {
 		this.words = words;
 	}
 
+	public float getSubjectScore() {
+		return subjectScore;
+	}
+
+	public void setSubjectScore(float subjectScore) {
+		this.subjectScore = subjectScore;
+	}
+
+	public float getWordSubScore() {
+		return wordSubScore;
+	}
+
+	public void setWordSubScore(float wordSubScore) {
+		this.wordSubScore = wordSubScore;
+	}
+
+	public float getTitleScore() {
+		return titleScore;
+	}
+
+	public void setTitleScore(float titleScore) {
+		this.titleScore = titleScore;
+	}
+
+	public float getPosScore() {
+		return posScore;
+	}
+
+	public void setPosScore(float posScore) {
+		this.posScore = posScore;
+	}
+
+	public float getThinkScore() {
+		return thinkScore;
+	}
+
+	public void setThinkScore(float thinkScore) {
+		this.thinkScore = thinkScore;
+	}
+
+	
 }
