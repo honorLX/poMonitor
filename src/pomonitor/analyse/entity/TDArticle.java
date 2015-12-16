@@ -18,8 +18,8 @@ public class TDArticle {
 	private Date timestamp;
 	private String comeFrom;// 来源网站的名字
 	private List<TDArticleTerm> articleAllTerms;// 该文章包括的所有的词项集合
-	private Map<String, Double> articleVector;// 该文章的提取后的特征词权值
-	private List<String> keyWords;// 特征词
+
+	private Map<String, Double> articleVector;//代表该篇文章的向量
 
 	public String getTitle() {
 		return title;
@@ -43,15 +43,7 @@ public class TDArticle {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public List<String> getKeyWords() {
-		return keyWords;
-	}
-
-	public void setKeyWords(List<String> keyWords) {
-		this.keyWords = keyWords;
-	}
+	} 
 
 	public Date getTimestamp() {
 		return timestamp;

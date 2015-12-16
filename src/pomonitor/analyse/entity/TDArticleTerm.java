@@ -1,5 +1,7 @@
 package pomonitor.analyse.entity;
 
+import java.util.Map;
+
 /**
  * 话题发现模块中，词项实体
  * 
@@ -8,8 +10,7 @@ package pomonitor.analyse.entity;
 public class TDArticleTerm {
 	private String value;// 词项内容
 	private TDPosition position;// 该词项在该文本的位置
-	private int documentFrequency;// 该词项在所有文档中出现的频数
-	private int termfrequency; // 该词项在该文本里出现的频数
+	private double weight; // 该词项在该文本里的权重
 
 	public String getvalue() {
 		return value;
@@ -27,19 +28,11 @@ public class TDArticleTerm {
 		this.position = position;
 	}
 
-	public int getdocumentFrequency() {
-		return documentFrequency;
+	public double getweight() {
+		return this.weight;
 	}
 
-	public void termfrequency(int documentFrequency) {
-		this.documentFrequency = documentFrequency;
-	}
-
-	public int gettermfrequency() {
-		return termfrequency;
-	}
-
-	public void settermfrequency(int termfrequency) {
-		this.termfrequency = termfrequency;
+	public void setweight(double weight) {
+		this.weight = weight;
 	}
 }

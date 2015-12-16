@@ -22,10 +22,10 @@ public class TendAnalyseArticle {
 	private float tendScore;
 
 	// 文章包含的句子
-	private List<Sentence> sentences;
+	private List<TendSentence> sentences;
 
 	// 文章分析完后的主题句
-	private List<Sentence> subSentences;
+	private List<TendSentence> subSentences;
 
 	public String getTitle() {
 		return title;
@@ -51,19 +51,19 @@ public class TendAnalyseArticle {
 		this.tendScore = tendScore;
 	}
 
-	public List<Sentence> getSentences() {
+	public List<TendSentence> getSentences() {
 		return sentences;
 	}
 
-	public void setSentences(List<Sentence> sentences) {
+	public void setSentences(List<TendSentence> sentences) {
 		this.sentences = sentences;
 	}
 
-	public List<Sentence> getSubSentences() {
+	public List<TendSentence> getSubSentences() {
 		return subSentences;
 	}
 
-	public void setSubSentences(List<Sentence> subSentences) {
+	public void setSubSentences(List<TendSentence> subSentences) {
 		this.subSentences = subSentences;
 	}
 

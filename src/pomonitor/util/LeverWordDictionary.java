@@ -31,4 +31,11 @@ public class LeverWordDictionary {
 	public LeverWord getWord(String string) {
 		return hashMap.get(string);
 	}
+
+	public static void main(String[] args) {
+		LeverWordDictionary lwd = new LeverWordDictionary();
+		lwd.initDictionary();
+		System.out.println(lwd.getWord("ºÜ").getScore());
+
+	}
 }

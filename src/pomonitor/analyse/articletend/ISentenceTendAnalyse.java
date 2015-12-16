@@ -1,6 +1,6 @@
 package pomonitor.analyse.articletend;
 
-import pomonitor.analyse.entity.Sentence;
+import pomonitor.analyse.entity.TendSentence;
 
 /**
  * 句子倾向性分析
@@ -14,5 +14,5 @@ public interface ISentenceTendAnalyse {
 	 * @param sentence
 	 * @return sentenceTendScore
 	 */
-	public float analyseSentenceTend(Sentence sentence);
+	public float analyseSentenceTend(TendSentence sentence);
 }
