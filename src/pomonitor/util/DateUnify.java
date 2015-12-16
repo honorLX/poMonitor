@@ -1,9 +1,9 @@
-package pomonitor.clawer.newsanalyse;
+package pomonitor.util;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-public class DataUnify {
+public class DateUnify {
 	public static String DataUn(String dates) {
 		String datatime = null;
 		String datatimes = null;

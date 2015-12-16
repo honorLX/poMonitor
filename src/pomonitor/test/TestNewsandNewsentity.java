@@ -1,10 +1,11 @@
-package pomonitor.util;
+package pomonitor.test;
 
 import java.util.List;
 import java.util.ArrayList;
 
 import pomonitor.entity.News;
 import pomonitor.entity.NewsEntity;
+import pomonitor.util.NewsAndNewsEnriryTran;
 
 public class TestNewsandNewsentity {
 

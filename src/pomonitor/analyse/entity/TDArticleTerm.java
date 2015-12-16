@@ -10,8 +10,8 @@ import java.util.Map;
 public class TDArticleTerm {
 	private String value;// 词项内容
 	private TDPosition position;// 该词项在该文本的位置
-	private double weight;   //该词项在该文本里的权重
-	
+	private double weight; // 该词项在该文本里的权重
+
 	public String getvalue() {
 		return value;
 	}
@@ -19,6 +19,7 @@ public class TDArticleTerm {
 	public void setvalue(String value) {
 		this.value = value;
 	}
+
 	public TDPosition getposition() {
 		return position;
 	}
@@ -26,6 +27,7 @@ public class TDArticleTerm {
 	public void setposition(TDPosition position) {
 		this.position = position;
 	}
+
 	public double getweight() {
 		return this.weight;
 	}

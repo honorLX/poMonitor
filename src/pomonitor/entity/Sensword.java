@@ -1,12 +1,8 @@
 package pomonitor.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.SecondaryTable;
-import javax.persistence.SecondaryTables;
-
 import static javax.persistence.GenerationType.IDENTITY;
 
 import javax.persistence.Id;

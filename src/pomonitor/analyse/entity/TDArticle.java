@@ -14,10 +14,11 @@ public class TDArticle {
 	private String title;
 	private String url;
 	private String description;
-	
+
 	private Date timestamp;
 	private String comeFrom;// 来源网站的名字
 	private List<TDArticleTerm> articleAllTerms;// 该文章包括的所有的词项集合
+
 	private Map<String, Double> articleVector;//代表该篇文章的向量
 
 	public String getTitle() {
@@ -67,12 +68,13 @@ public class TDArticle {
 	public void setArticleTerms(List<TDArticleTerm> articleAllTerms) {
 		this.articleAllTerms = articleAllTerms;
 	}
-	
-	public Map<String, Double> getarticleVector(){
+
+	public Map<String, Double> getarticleVector() {
 		return articleVector;
 	}
-	public void setarticleVector(Map<String, Double> articleVector){
-		this.articleVector=articleVector;
+
+	public void setarticleVector(Map<String, Double> articleVector) {
+		this.articleVector = articleVector;
 	}
 
 }

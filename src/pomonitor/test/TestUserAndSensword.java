@@ -29,8 +29,9 @@ public class TestUserAndSensword {
 
 		for (int i = 0; i < 3; i++) {
 			for (String string : lists.get(i)) {
-//				Sensword sens = new Sensword(root, (3-i)+"", string);
-//				sd.save(sens);
+				Sensword sens = new Sensword((3 - i) + "", string,
+						root.getUserid());
+				sd.save(sens);
 			}
 		}
 		EntityManagerHelper.commit();
