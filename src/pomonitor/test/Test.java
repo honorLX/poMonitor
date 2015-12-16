@@ -21,9 +21,10 @@ public class Test {
 		nd.save(news);
 		EntityManagerHelper.commit();
 	}
+
 	@org.junit.Test
-	public void testJsion(){
-		
+	public void testJsion() {
+
 	}
 
 }

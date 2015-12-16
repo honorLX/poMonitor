@@ -1,10 +1,15 @@
 package pomonitor.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.SecondaryTable;
+import javax.persistence.SecondaryTables;
+
 import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,11 +20,18 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "sensword", catalog = "pomonitor")
+/*
+ * @SecondaryTables(
+ * 
+ * @SecondaryTable(name = "user") )
+ */
 public class Sensword implements java.io.Serializable {
 
 	// Fields
 
 	private Integer sensid;
+	@ManyToOne(cascade = (CascadeType.ALL))
+	@JoinColumn(name = "userid")
 	private User user;
 	private String senslevel;
 	private String sensvalue;
@@ -49,8 +61,8 @@ public class Sensword implements java.io.Serializable {
 		this.sensid = sensid;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userid")
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "userid")
 	public User getUser() {
 		return this.user;
 	}

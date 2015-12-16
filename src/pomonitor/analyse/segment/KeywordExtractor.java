@@ -5,11 +5,10 @@ import java.util.List;
 
 import com.hankcs.hanlp.dictionary.stopword.CoreStopWordDictionary;
 import com.hankcs.hanlp.seg.common.Term;
+
 /**
  * 
- * @author luoxu
- * 2015年12月15日 下午1:44:49
- * 去杂
+ * @author luoxu 2015年12月15日 下午1:44:49 去杂
  */
 public class KeywordExtractor {
 	/**
@@ -50,14 +49,14 @@ public class KeywordExtractor {
 		return false;
 	}
 
-	public List<Term> wipeoffWords(List<Term> termList){
+	public List<Term> wipeoffWords(List<Term> termList) {
 		Iterator<Term> iter = termList.iterator();
-	        while(iter.hasNext()){
-	        	Term term = iter.next();
-	            if(!shouldInclude(term)){
-	            	iter.remove();
-	            }
-	        }
+		while (iter.hasNext()) {
+			Term term = iter.next();
+			if (!shouldInclude(term)) {
+				iter.remove();
+			}
+		}
 		return termList;
-    }
+	}
 }
