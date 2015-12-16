@@ -92,13 +92,13 @@ public class FenghuangAnalyse extends BaseAnalyse {
 
 				NewsEntity TengXunEntity = new NewsEntity();
 				// 解析url
-				Elements getUrl1 = e.getElementsByAttributeValueContaining(
+				Elements tmp_url = e.getElementsByAttributeValueContaining(
 						"class", "pp");
 
-				String getUrl = getUrl1.attr("href");
+				String getUrl = tmp_url.attr("href");
 				System.out.println(getUrl);
 				// 解析title
-				String title = getUrl1.text();
+				String title = tmp_url.text();
 				System.out.println(title);
 				// 得到time
 				Elements timE = e.getElementsByTag("h3");

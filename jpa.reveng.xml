@@ -3,4 +3,5 @@
 
 <hibernate-reverse-engineering>
 	<table name="levelword" catalog="pomonitor" class="LeverWord"></table>
+	<table name="user" catalog="pomonitor"></table>
 </hibernate-reverse-engineering>
