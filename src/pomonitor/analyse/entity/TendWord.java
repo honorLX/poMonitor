@@ -3,29 +3,29 @@ package pomonitor.analyse.entity;
 import java.util.List;
 
 public class TendWord {
-	//分词的序号
+	// 分词的序号
 	private int id;
-	//分词的内容
+	// 分词的内容
 	private String cont;
-	//为词性标注内容
+	// 为词性标注内容
 	private String pos;
-	//命名实体内容
+	// 命名实体内容
 	private String ne;
-	
-	//semparent 与 semrelate 成对出现
-	//语义依存分析的父亲结点id 号
+
+	// semparent 与 semrelate 成对出现
+	// 语义依存分析的父亲结点id 号
 	private int semparent;
-	//相对应的关系
+	// 相对应的关系
 	private String semrelate;
-	
-	//parent 与 relate 成对出现
-	//parent 为依存句法分析的父亲结点id 号
+
+	// parent 与 relate 成对出现
+	// parent 为依存句法分析的父亲结点id 号
 	private int parent;
-	//relate 为相对应的关系
+	// relate 为相对应的关系
 	private String relate;
-	
-	//如果用户做了srl级别的分析，json结果中还会有键值名arg所标识的数组。
-	//数组中的每个对象是一项语义角色，任何一个谓词都会带有若干个该对象；
+
+	// 如果用户做了srl级别的分析，json结果中还会有键值名arg所标识的数组。
+	// 数组中的每个对象是一项语义角色，任何一个谓词都会带有若干个该对象；
 	private List<TendArg> args;
 
 	public int getId() {
@@ -102,10 +102,6 @@ public class TendWord {
 
 	public TendWord() {
 		super();
-	} 
-	
-	
-	
-	
+	}
 
 }

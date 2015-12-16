@@ -1,17 +1,16 @@
 package pomonitor.analyse.entity;
 
 public class TendArg {
-	//序号
+	// 序号
 	private String id;
-	//角色名称
+	// 角色名称
 	private String type;
-	//结束序号
+	// 结束序号
 	private int end;
-	
-	//开始序号
+
+	// 开始序号
 	private int beg;
 
-	
 	public TendArg() {
 		super();
 	}
@@ -47,7 +46,5 @@ public class TendArg {
 	public void setBeg(int beg) {
 		this.beg = beg;
 	}
-	
-	
 
 }

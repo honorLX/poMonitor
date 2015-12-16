@@ -78,5 +78,4 @@ public class SubSentenceGet {
 		}
 		article.setSubSentences(subSentences);
 	}
-
 }

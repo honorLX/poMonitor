@@ -21,7 +21,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "user", catalog = "pomonitor")
-
 public class User implements java.io.Serializable {
 
 	// Fields
@@ -85,9 +84,11 @@ public class User implements java.io.Serializable {
 	public void setUserlevel(String userlevel) {
 		this.userlevel = userlevel;
 	}
-//	@JoinColumn(name="sensword")
-//	@OneToMany(targetEntity=Sensword.class,cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name="userid")
+
+	// @JoinColumn(name="sensword")
+	// @OneToMany(targetEntity=Sensword.class,cascade = CascadeType.ALL, fetch =
+	// FetchType.LAZY)
+	@JoinColumn(name = "userid")
 	public Set<Sensword> getSenswords() {
 		return this.senswords;
 	}
