@@ -5,12 +5,10 @@
 		<provider>
 			org.eclipse.persistence.jpa.PersistenceProvider
 		</provider>
-		<mapping-file>META-INF/eclipselink-orm.xml</mapping-file>
 		<class>pomonitor.entity.LeverWord</class>
 		<class>pomonitor.entity.News</class>
-
-		<class>pomonitor.entity.User</class>
 		<class>pomonitor.entity.Sensword</class>
+		<class>pomonitor.entity.User</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.jdbc.Driver" />

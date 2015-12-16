@@ -2,12 +2,9 @@ package pomonitor.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,9 +17,9 @@ public class Sensword implements java.io.Serializable {
 	// Fields
 
 	private Integer sensid;
-	private User user;
 	private String senslevel;
 	private String sensvalue;
+	private Integer userid;
 
 	// Constructors
 
@@ -30,11 +27,16 @@ public class Sensword implements java.io.Serializable {
 	public Sensword() {
 	}
 
+	/** minimal constructor */
+	public Sensword(Integer userid) {
+		this.userid = userid;
+	}
+
 	/** full constructor */
-	public Sensword(User user, String senslevel, String sensvalue) {
-		this.user = user;
+	public Sensword(String senslevel, String sensvalue, Integer userid) {
 		this.senslevel = senslevel;
 		this.sensvalue = sensvalue;
+		this.userid = userid;
 	}
 
 	// Property accessors
@@ -47,16 +49,6 @@ public class Sensword implements java.io.Serializable {
 
 	public void setSensid(Integer sensid) {
 		this.sensid = sensid;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userid")
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	@Column(name = "senslevel")
@@ -75,6 +67,15 @@ public class Sensword implements java.io.Serializable {
 
 	public void setSensvalue(String sensvalue) {
 		this.sensvalue = sensvalue;
+	}
+
+	@Column(name = "userid", nullable = false)
+	public Integer getUserid() {
+		return this.userid;
+	}
+
+	public void setUserid(Integer userid) {
+		this.userid = userid;
 	}
 
 }
