@@ -7,4 +7,8 @@
       <attribute name="version-id" value="2.5"/>
     </node>
   </facet>
+  <facet id="wst.jsdt.web"/>
+  <facet id="jst.web"/>
+  <facet id="java"/>
+  <facet id="jst.web.jstl"/>
 </root>

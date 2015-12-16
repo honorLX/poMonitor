@@ -94,7 +94,6 @@ public class TextVectorBuilder {
 		//计算globalFeatureCollections 全局特征向量
 		globalFeatureCollections = getFeatureSet(topicDisArticleList,
 				EXTRACT_PERCENT);
-	
 		return topicDisArticleList;
 	}
 	
