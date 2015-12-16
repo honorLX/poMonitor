@@ -1,5 +1,6 @@
 package pomonitor.util;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class NewsAndNewsEnriryTran {
 		newsEntity.setUrl(news.getUrl());
 		newsEntity.setContent(news.getContent());
 		newsEntity.setWeb(news.getWeb());
-		newsEntity.setTime(news.getTime());
+		newsEntity.setTime(news.getTime().toString());
 		newsEntity.setAllContent(news.getAllContent());
 		newsEntity.setContentPath(news.getContentPath());
 		newsEntity.setFailedCount(news.getFailedCount());
@@ -67,6 +68,10 @@ public class NewsAndNewsEnriryTran {
 		news.setUrl(newsentity.getUrl());
 		news.setContent(newsentity.getContent());
 		news.setWeb(newsentity.getWeb());
+		//对日期的过滤处理
+		String dateStr=newsentity.getTime();
+		dateStr=
+		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
 		news.setTime(newsentity.getTime());
 		news.setAllContent(newsentity.getAllContent());
 		news.setContentPath(newsentity.getContentPath());

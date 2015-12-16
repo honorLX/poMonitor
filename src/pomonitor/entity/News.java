@@ -1,35 +1,34 @@
 package pomonitor.entity;
 
-// default package
-
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 /**
  * News entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "news", catalog = "pomonitor")
+@Table(name = "news", catalog = "pomonitor", uniqueConstraints = {
+		@UniqueConstraint(columnNames = "id"),
+		@UniqueConstraint(columnNames = "url") })
 public class News implements java.io.Serializable {
 
 	// Fields
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name = "relId", unique = true, nullable = false)
 	private Integer relId;
-
 	private String id;
 	private String title;
 	private String url;
 	private String content;
 	private String web;
-	private String time;
+	private Date time;
 	private String allContent;
 	private String keyWords;
 	private String contentPath;
@@ -45,30 +44,21 @@ public class News implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public News(Integer relId, String id, String title, String url,
-			String content, String web, String time, String allContent,
-			Integer failedCount, Integer isFinsh, Integer isFailed,
-			Integer isWorking) {
-		this.relId = relId;
+	public News(String id, String title, String url, String content,
+			String web, Date time) {
 		this.id = id;
 		this.title = title;
 		this.url = url;
 		this.content = content;
 		this.web = web;
 		this.time = time;
-		this.allContent = allContent;
-		this.failedCount = failedCount;
-		this.isFinsh = isFinsh;
-		this.isFailed = isFailed;
-		this.isWorking = isWorking;
 	}
 
 	/** full constructor */
-	public News(Integer relId, String id, String title, String url,
-			String content, String web, String time, String allContent,
-			String keyWords, String contentPath, Integer failedCount,
-			Integer isFinsh, Integer isFailed, Integer isWorking) {
-		this.relId = relId;
+	public News(String id, String title, String url, String content,
+			String web, Date time, String allContent, String keyWords,
+			String contentPath, Integer failedCount, Integer isFinsh,
+			Integer isFailed, Integer isWorking) {
 		this.id = id;
 		this.title = title;
 		this.url = url;
@@ -85,7 +75,9 @@ public class News implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "relId", unique = true, nullable = false)
 	public Integer getRelId() {
 		return this.relId;
 	}
@@ -94,7 +86,7 @@ public class News implements java.io.Serializable {
 		this.relId = relId;
 	}
 
-	@Column(name = "id", nullable = false, length = 50)
+	@Column(name = "id", unique = true, nullable = false, length = 50)
 	public String getId() {
 		return this.id;
 	}
@@ -112,7 +104,7 @@ public class News implements java.io.Serializable {
 		this.title = title;
 	}
 
-	@Column(name = "url", nullable = false)
+	@Column(name = "url", unique = true, nullable = false)
 	public String getUrl() {
 		return this.url;
 	}
@@ -139,16 +131,17 @@ public class News implements java.io.Serializable {
 		this.web = web;
 	}
 
-	@Column(name = "time", nullable = false, length = 30)
-	public String getTime() {
+	@Temporal(TemporalType.DATE)
+	@Column(name = "time", nullable = false, length = 10)
+	public Date getTime() {
 		return this.time;
 	}
 
-	public void setTime(String time) {
+	public void setTime(Date time) {
 		this.time = time;
 	}
 
-	@Column(name = "allContent", nullable = false, length = 65535)
+	@Column(name = "allContent", length = 65535)
 	public String getAllContent() {
 		return this.allContent;
 	}

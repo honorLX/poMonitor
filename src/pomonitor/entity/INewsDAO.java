@@ -1,7 +1,6 @@
 package pomonitor.entity;
 
-// default package
-
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -100,8 +99,6 @@ public interface INewsDAO {
 	public List<News> findByContent(Object content);
 
 	public List<News> findByWeb(Object web);
-
-	public List<News> findByTime(Object time);
 
 	public List<News> findByAllContent(Object allContent);
 

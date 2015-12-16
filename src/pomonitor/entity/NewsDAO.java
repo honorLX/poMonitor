@@ -1,10 +1,8 @@
 package pomonitor.entity;
 
-// default package
-
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
-
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -14,7 +12,7 @@ import javax.persistence.Query;
  * must be handled externally by senders of these methods or must be manually
  * added to each of these methods for data to be persisted to the JPA datastore.
  * 
- * @see .News
+ * @see pomonitor.entity.News
  * @author MyEclipse Persistence Tools
  */
 public class NewsDAO implements INewsDAO {
@@ -24,7 +22,6 @@ public class NewsDAO implements INewsDAO {
 	public static final String URL = "url";
 	public static final String CONTENT = "content";
 	public static final String WEB = "web";
-	public static final String TIME = "time";
 	public static final String ALL_CONTENT = "allContent";
 	public static final String KEY_WORDS = "keyWords";
 	public static final String CONTENT_PATH = "contentPath";
@@ -190,10 +187,6 @@ public class NewsDAO implements INewsDAO {
 
 	public List<News> findByWeb(Object web) {
 		return findByProperty(WEB, web);
-	}
-
-	public List<News> findByTime(Object time) {
-		return findByProperty(TIME, time);
 	}
 
 	public List<News> findByAllContent(Object allContent) {
