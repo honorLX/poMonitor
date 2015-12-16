@@ -48,6 +48,7 @@ public class TextVectorBuilder {
 
 		// 利用this.newsList去生成向量
 
+		
 		return null;
 	}
 }
