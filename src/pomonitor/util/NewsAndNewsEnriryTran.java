@@ -25,9 +25,12 @@ public class NewsAndNewsEnriryTran {
 		newsEntity.setFailedCount(news.getFailedCount());
 		String key = news.getKeyWords();
 		java.util.List<String> keyw = new ArrayList<String>();
-		String[] key2 = key.split(",");
-		for (int j = 0; j < key2.length; j++) {
-			keyw.add(j, key2[j]);
+		String[] keys = key.split("#");
+		for (int j = 0; j < keys.length; j++) {
+			if (keys[j].equals("#") || keys[j].equals(""))
+				;
+			else
+				keyw.add(j, keys[j]);
 		}
 		// List<String> list = java.util.Arrays.asList(key);
 		// for(int i=0;i<list.size();i++){
