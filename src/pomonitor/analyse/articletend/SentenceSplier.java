@@ -5,20 +5,21 @@ import java.net.URLEncoder;
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 
 import pomonitor.analyse.entity.TendWord;
 import pomonitor.util.JsonContentGetter;
 import pomonitor.util.SomeStaticValues;
 
 /**
- * 句子分析器，将String形态的句子转变为自定义的TendSentence对象
+ * 句子分析器，将String形态的句子转变为自定义的TendWord列表
  * @author zhaolong
  * 2015年12月16日 下午9:27:44
  */
 public class SentenceSplier {
 	
 	/**
-	 * 将String形态的句子预处理为自定义的TendSentence对象
+	 * 将String形态的句子预处理为自定义的TendSentence对象(只能是一句话)
 	 * @param sentence
 	 * @return
 	 */
@@ -28,7 +29,7 @@ public class SentenceSplier {
 			utfUrlStr=SomeStaticValues.url;
 			System.out.println(sentence);
 			//对汉字做转码处理
-			sentence=URLEncoder.encode(sentence, "utf-8");
+			sentence=URLEncoder.encode(sentence+"。", "utf-8");
 		} catch (UnsupportedEncodingException e) {
 			System.out.println("句子转换编码集错误转换失败");
 			e.printStackTrace();
@@ -36,7 +37,7 @@ public class SentenceSplier {
 		//拼凑url请求的参数
 		String urlStr=utfUrlStr+sentence;
 		String jsonStr=JsonContentGetter.getJsonContent(urlStr);
-		jsonStr =jsonStr.substring(4, jsonStr.length()-3);
+		jsonStr =jsonStr.substring(4, jsonStr.length()-3);		
 		List<TendWord> list=JSON.parseArray(jsonStr, TendWord.class);
 		for(TendWord tw:list){
 			System.out.println("id:"+tw.getId());

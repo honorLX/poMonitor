@@ -3,18 +3,24 @@ package pomonitor.test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 
+import pomonitor.analyse.articletend.ArticleSplier;
 import pomonitor.analyse.entity.TendWord;
 import pomonitor.entity.EntityManagerHelper;
 import pomonitor.entity.News;
 import pomonitor.entity.NewsDAO;
+import pomonitor.util.JsonContentGetter;
+import pomonitor.util.SomeStaticValues;
 import pomonitor.util.UrlSender;
 
 public class Test {
@@ -105,6 +111,37 @@ public class Test {
 		System.out.println(date.toGMTString());
 		System.out.println(date.toLocaleString());
 		System.out.println(date.toString());
+	}
+	
+	@org.junit.Test
+	public void testJson(){
+		NewsDAO nd=new NewsDAO();
+		News news=nd.findById(1);
+		String url=SomeStaticValues.url;
+		String content=news.getAllContent();
+		try {
+			content=URLEncoder.encode(content, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		String jsonStrResult=JsonContentGetter.getJsonContent(url+content);
+		System.out.println(jsonStrResult);
+		JSONArray rootList=JSON.parseArray(jsonStrResult);
+		
+		
+		JSONArray fatherList=rootList.getJSONArray(0);
+		
+		JSONArray thisList=fatherList.getJSONArray(0);
+		System.out.println("µ±Ç°jsonStr:"+thisList.toJSONString());
+	}
+	
+	@org.junit.Test
+	public void testArticleSple(){
+		NewsDAO nd=new NewsDAO();
+		News news=nd.findById(1);
+		String content=news.getAllContent();
+		ArticleSplier splier=new ArticleSplier();
+		splier.spil(content);
 	}
 
 }

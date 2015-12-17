@@ -1,11 +1,9 @@
 package pomonitor.analyse.articletend;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import pomonitor.analyse.entity.TendSentence;
 import pomonitor.analyse.entity.TendAnalyseArticle;
-import pomonitor.analyse.entity.TendWord;
 import pomonitor.entity.NewsEntity;
 
 /**
@@ -22,8 +20,12 @@ public class ArticlePreAnalyse {
 	//句子分析器
 	private SentenceSplier sentenceSplier;
 	
-	public ArticlePreAnalyse(SentenceSplier sentenceSplier) {
-		this.sentenceSplier=new SentenceSplier();
+	//文章分析器
+	private ArticleSplier articleSplier;
+	
+	public ArticlePreAnalyse(ArticleSplier articleSplier) {
+		this.articleSplier=new ArticleSplier();
+		sentenceSplier=new SentenceSplier();
 	}
 	
 	/**
@@ -42,20 +44,11 @@ public class ArticlePreAnalyse {
 	 */
 	private void splitArticle(){
 		String content=news.getAllContent();
-		String[] sentenceStrs=content.split("。");
-		List<TendSentence> relSentences=new ArrayList<TendSentence>();
-		for(int i=0;i<sentenceStrs.length;i++){
-			String sentenceStr=sentenceStrs[i].trim();
-			if(sentenceStr.length()>5){
-				TendSentence sentence=new TendSentence();
-				sentence.setId(i);
-				List<TendWord> list=sentenceSplier.spil(sentenceStr);
-				sentence.setWords(list);
-				relSentences.add(sentence);
-			}
-		}
+		List<TendSentence> relSentences=articleSplier.spil(content);
 		article.setSentences(relSentences);
 	}
+	
+	
 	
 
 	/**
