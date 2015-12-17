@@ -19,7 +19,7 @@ public class TDArticle {
 	private String comeFrom;// 来源网站的名字
 	private List<TDArticleTerm> articleAllTerms;// 该文章包括的所有的词项集合
 
-	private Map<String, Double> articleVector;//代表该篇文章的向量
+	private Map<String, Double> articleVector;// 代表该篇文章的向量
 
 	public String getTitle() {
 		return title;
@@ -43,7 +43,7 @@ public class TDArticle {
 
 	public void setDescription(String description) {
 		this.description = description;
-	} 
+	}
 
 	public Date getTimestamp() {
 		return timestamp;

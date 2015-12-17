@@ -91,5 +91,4 @@ public class User implements java.io.Serializable {
 		this.senswords = senswords;
 	}
 
-
 }

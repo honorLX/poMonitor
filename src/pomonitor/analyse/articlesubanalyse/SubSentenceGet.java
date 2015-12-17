@@ -39,8 +39,7 @@ public class SubSentenceGet {
 	}
 
 	/**
-	 * 对文章每一个句子做主题分析，并将其存储到相应句子的相应分数，
-	 *  并计算出每个句子的主题总分,并保存到主题总分字段
+	 * 对文章每一个句子做主题分析，并将其存储到相应句子的相应分数， 并计算出每个句子的主题总分,并保存到主题总分字段
 	 */
 	public void countSubScore() {
 		for (TendSentence sentence : article.getSentences()) {
