@@ -1,6 +1,9 @@
 package pomonitor.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import pomonitor.entity.News;
@@ -19,7 +22,7 @@ public class NewsAndNewsEnriryTran {
 		newsEntity.setUrl(news.getUrl());
 		newsEntity.setContent(news.getContent());
 		newsEntity.setWeb(news.getWeb());
-		newsEntity.setTime(news.getTime());
+		newsEntity.setTime(news.getTime().toLocaleString().substring(0, 9));
 		newsEntity.setAllContent(news.getAllContent());
 		newsEntity.setContentPath(news.getContentPath());
 		newsEntity.setFailedCount(news.getFailedCount());
@@ -67,7 +70,17 @@ public class NewsAndNewsEnriryTran {
 		news.setUrl(newsentity.getUrl());
 		news.setContent(newsentity.getContent());
 		news.setWeb(newsentity.getWeb());
-		news.setTime(newsentity.getTime());
+		//对日期的过滤处理
+		String dateStr=newsentity.getTime();
+		dateStr=DateUnify.DataUn(dateStr);
+		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+		Date date=null;
+		try {
+			date = simpleDateFormat.parse(dateStr);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		news.setTime(date);
 		news.setAllContent(newsentity.getAllContent());
 		news.setContentPath(newsentity.getContentPath());
 		news.setFailedCount(newsentity.getFailedCount());

@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
@@ -23,7 +24,7 @@ public class Test {
 		News news = new News();
 		// news.setAllContent("jJJJJJJ");
 		news.setId("!!!!!!!!!!");
-		news.setTime("1111");
+		news.setTime(new Date());
 		news.setKeyWords("DDDDDDDD");
 		news.setWeb("web");
 		news.setUrl("!!!!!!!");
@@ -94,6 +95,14 @@ public class Test {
 			e.printStackTrace();
 		}
 		return jsonStr;
+	}
+	
+	@org.junit.Test
+	public  void testDate(){
+		Date date=new Date();
+		System.out.println(date.toGMTString());
+		System.out.println(date.toLocaleString());
+		System.out.println(date.toString());
 	}
 
 }
