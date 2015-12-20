@@ -14,6 +14,7 @@
 		<class>pomonitor.entity.News</class>
 		<class>pomonitor.entity.IdeaWord</class>
 		<class>pomonitor.entity.NegWord</class>
+		<class>pomonitor.entity.WordProperty</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.jdbc.Driver" />
