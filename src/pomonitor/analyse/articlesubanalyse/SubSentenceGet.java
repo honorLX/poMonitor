@@ -2,8 +2,8 @@ package pomonitor.analyse.articlesubanalyse;
 
 import java.util.ArrayList;
 import java.util.List;
-import pomonitor.analyse.entity.TendAnalyseArticle;
 
+import pomonitor.analyse.entity.TendAnalyseArticle;
 import pomonitor.analyse.entity.TendSentence;
 
 /**
@@ -68,13 +68,16 @@ public class SubSentenceGet {
 			}
 			count++;
 			index = i;
-			for (int j = i; j < sentences.size() - 1; j++) {
-				if (sentences.get(j).getTendScore() > sentences.get(i)
-						.getTendScore()) {
+			for (int j = i; j < sentences.size(); j++) {
+				if (sentences.get(j).getSubjectScore() > sentences.get(index)
+						.getSubjectScore()) {
+					// 记录当前最大
 					index = j;
 				}
 			}
 			subSentences.add(sentences.get(index));
+			sentences.remove(index);
+
 		}
 		article.setSubSentences(subSentences);
 	}

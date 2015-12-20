@@ -19,10 +19,10 @@ public class SubScoreAddPos implements ISubScoreAdd {
 		if (sentence.getId() == 0) {
 			subScore = heighScore;
 		} else {
-			int sentenceNum = article.getSentences().size();
-			int sentenceTh = sentence.getId();
-			subScore = (float) (heighScore - Math.log10(sentenceNum)
-					/ Math.log10(sentenceNum));
+			float sentenceNum = article.getSentences().size();
+			float sentenceTh = sentence.getId();
+			subScore = (float) (heighScore - Math.log10(sentenceNum
+					/ sentenceTh));
 		}
 		sentence.setPosScore(subScore);
 		return sentence;

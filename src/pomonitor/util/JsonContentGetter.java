@@ -14,10 +14,11 @@ public class JsonContentGetter {
 			URL url = new URL(urlStr);
 			HttpURLConnection httpConn = (HttpURLConnection) url
 					.openConnection();
-			httpConn.setConnectTimeout(3000);
+			httpConn.setConnectTimeout(5000);
 			httpConn.setDoInput(true);
 			httpConn.setRequestMethod("GET");
 			int respCode = httpConn.getResponseCode();
+			System.out.println("respCode" + respCode);
 			if (respCode == 200) {
 				return ConvertStream2Json(httpConn.getInputStream());
 			}

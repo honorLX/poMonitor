@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import pomonitor.entity.News;
 import pomonitor.entity.NewsEntity;
@@ -33,7 +32,7 @@ public class NewsAndNewsEnriryTran {
 			if (keys[j].equals("#") || keys[j].equals(""))
 				;
 			else
-				keyw.add(j, keys[j]);
+				keyw.add(keys[j]);
 		}
 		// List<String> list = java.util.Arrays.asList(key);
 		// for(int i=0;i<list.size();i++){
@@ -70,11 +69,11 @@ public class NewsAndNewsEnriryTran {
 		news.setUrl(newsentity.getUrl());
 		news.setContent(newsentity.getContent());
 		news.setWeb(newsentity.getWeb());
-		//对日期的过滤处理
-		String dateStr=newsentity.getTime();
-		dateStr=DateUnify.DataUn(dateStr);
-		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
-		Date date=null;
+		// 对日期的过滤处理
+		String dateStr = newsentity.getTime();
+		dateStr = DateUnify.DataUn(dateStr);
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = null;
 		try {
 			date = simpleDateFormat.parse(dateStr);
 		} catch (ParseException e) {
