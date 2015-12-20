@@ -4,4 +4,7 @@
 <hibernate-reverse-engineering>
 	<table name="levelword" catalog="pomonitor" class="LeverWord"></table>
 	<table name="user" catalog="pomonitor"></table>
+	<table name="ideaword" catalog="pomonitor" class="IdeaWord"></table>
+	<table name="negword" catalog="pomonitor" class="NegWord"></table>
+	<table name="wordproperty" catalog="pomonitor" class="WordProperty"></table>
 </hibernate-reverse-engineering>

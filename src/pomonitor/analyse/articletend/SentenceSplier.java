@@ -11,20 +11,12 @@ import pomonitor.util.SomeStaticValues;
 import com.alibaba.fastjson.JSON;
 
 /**
- * <<<<<<< HEAD 句子分析器，将String形态的句子转变为自定义的TendSentence对象
- * 
- * @author zhaolong 2015年12月16日 下午9:27:44 =======
- *         句子分析器，将String形态的句子转变为自定义的TendWord列表
- * @author zhaolong 2015年12月16日 下午9:27:44 >>>>>>> branch 'develop' of
- *         https://github.com/herozhao/poMonitor.git
+ * @author zhaolong 2015年12月16日 下午9:27:44
  */
 public class SentenceSplier {
 
 	/**
-	 * <<<<<<< HEAD 将String形态的句子预处理为自定义的TendSentence对象
-	 * 
-	 * ======= 将String形态的句子预处理为自定义的TendSentence对象(只能是一句话) >>>>>>> branch
-	 * 'develop' of https://github.com/herozhao/poMonitor.git
+	 * 将String形态的句子预处理为自定义的TendSentence对象(只能是一句话)
 	 * 
 	 * @param sentence
 	 * @return

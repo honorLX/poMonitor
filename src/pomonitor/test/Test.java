@@ -11,17 +11,17 @@ import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-
 import pomonitor.analyse.articletend.ArticleSplier;
+import pomonitor.analyse.articletend.SentenceSplier;
 import pomonitor.analyse.entity.TendWord;
 import pomonitor.entity.EntityManagerHelper;
 import pomonitor.entity.News;
 import pomonitor.entity.NewsDAO;
 import pomonitor.util.JsonContentGetter;
 import pomonitor.util.SomeStaticValues;
-import pomonitor.util.UrlSender;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 
 public class Test {
 	@org.junit.Test
@@ -133,12 +133,17 @@ public class Test {
 	}
 
 	@org.junit.Test
-	public void testArticleSple() {
+	public void testArticleSplier() {
 		NewsDAO nd = new NewsDAO();
 		News news = nd.findById(1);
 		String content = news.getAllContent();
 		ArticleSplier splier = new ArticleSplier();
 		splier.spil(content);
+	}
+
+	@org.junit.Test
+	public void testSentenceSplier() {
+		new SentenceSplier().spil("你长得人高马大，貌美如花##郴州第一人民医院中心医院妇科##健康守护神#");
 	}
 
 }
