@@ -2,7 +2,6 @@ package pomonitor.analyse.segment;
 
 import java.util.Iterator;
 import java.util.List;
-
 import com.hankcs.hanlp.dictionary.stopword.CoreStopWordDictionary;
 import com.hankcs.hanlp.seg.common.Term;
 

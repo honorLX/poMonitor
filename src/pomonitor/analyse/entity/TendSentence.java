@@ -96,5 +96,4 @@ public class TendSentence {
 		this.thinkScore = thinkScore;
 	}
 
-	
 }

@@ -15,9 +15,9 @@ public class ReadData {
 	/*
 	 * 从本地文本读取新闻内容
 	 */
-	public static String getContentFromText() {
+	public static String getContentFromText(String filePath) {
 		String Content = "";
-		String fileName = "C:/Users/luoxu/Desktop/舆情/文本/2.in";
+		String fileName = filePath;
 		File file = new File(fileName);
 		Reader reader = null;
 		try {
