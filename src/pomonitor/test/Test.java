@@ -11,17 +11,17 @@ import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-
 import pomonitor.analyse.articletend.ArticleSplier;
+import pomonitor.analyse.articletend.SentenceSplier;
 import pomonitor.analyse.entity.TendWord;
 import pomonitor.entity.EntityManagerHelper;
 import pomonitor.entity.News;
 import pomonitor.entity.NewsDAO;
 import pomonitor.util.JsonContentGetter;
 import pomonitor.util.SomeStaticValues;
-import pomonitor.util.UrlSender;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 
 public class Test {
 	@org.junit.Test
@@ -42,20 +42,18 @@ public class Test {
 	}
 
 	@org.junit.Test
-
-
-	public void testJsion(){
-		//String jsonStr=UrlSender.sendGet("http://api.ltp-cloud.com/analysis/?api_key=15k332P7iaVazlMV1ZFXUyqyoMmP7PVcgQICeDTc&text=%E6%88%91%E6%98%AF%E4%B8%AD%E5%9B%BD%E4%BA%BA%E3%80%82&pattern=all&format=json");
-		String jsonStr=getJsonContent("http://api.ltp-cloud.com/analysis/?api_key=15k332P7iaVazlMV1ZFXUyqyoMmP7PVcgQICeDTc&text=%E6%88%91%E6%98%AF%E4%B8%AD%E5%9B%BD%E4%BA%BA%E3%80%82&pattern=all&format=json");
+	public void testJsion() {
+		// String
+		// jsonStr=UrlSender.sendGet("http://api.ltp-cloud.com/analysis/?api_key=15k332P7iaVazlMV1ZFXUyqyoMmP7PVcgQICeDTc&text=%E6%88%91%E6%98%AF%E4%B8%AD%E5%9B%BD%E4%BA%BA%E3%80%82&pattern=all&format=json");
+		String jsonStr = getJsonContent("http://api.ltp-cloud.com/analysis/?api_key=15k332P7iaVazlMV1ZFXUyqyoMmP7PVcgQICeDTc&text=%E6%88%91%E6%98%AF%E4%B8%AD%E5%9B%BD%E4%BA%BA%E3%80%82&pattern=all&format=json");
 		System.out.println(jsonStr);
-		jsonStr =jsonStr.substring(4, jsonStr.length()-3);
-		System.out.println("~~~~~"+jsonStr+"~~~");
-		
-		List<TendWord> list=JSON.parseArray(jsonStr, TendWord.class);
-	
-		//List list2=JSON.parseArray(jsonStr);
-		
-		
+		jsonStr = jsonStr.substring(4, jsonStr.length() - 3);
+		System.out.println("~~~~~" + jsonStr + "~~~");
+
+		List<TendWord> list = JSON.parseArray(jsonStr, TendWord.class);
+
+		// List list2=JSON.parseArray(jsonStr);
+
 		System.out.println(list.get(1).getArg().get(1).getBeg());
 		System.out.println(list.get(1).getArg().get(1).getEnd());
 
@@ -104,44 +102,48 @@ public class Test {
 		}
 		return jsonStr;
 	}
-	
+
 	@org.junit.Test
-	public  void testDate(){
-		Date date=new Date();
+	public void testDate() {
+		Date date = new Date();
 		System.out.println(date.toGMTString());
 		System.out.println(date.toLocaleString());
 		System.out.println(date.toString());
 	}
-	
+
 	@org.junit.Test
-	public void testJson(){
-		NewsDAO nd=new NewsDAO();
-		News news=nd.findById(1);
-		String url=SomeStaticValues.url;
-		String content=news.getAllContent();
+	public void testJson() {
+		NewsDAO nd = new NewsDAO();
+		News news = nd.findById(1);
+		String url = SomeStaticValues.url;
+		String content = news.getAllContent();
 		try {
-			content=URLEncoder.encode(content, "utf-8");
+			content = URLEncoder.encode(content, "utf-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		String jsonStrResult=JsonContentGetter.getJsonContent(url+content);
+		String jsonStrResult = JsonContentGetter.getJsonContent(url + content);
 		System.out.println(jsonStrResult);
-		JSONArray rootList=JSON.parseArray(jsonStrResult);
-		
-		
-		JSONArray fatherList=rootList.getJSONArray(0);
-		
-		JSONArray thisList=fatherList.getJSONArray(0);
-		System.out.println("当前jsonStr:"+thisList.toJSONString());
+		JSONArray rootList = JSON.parseArray(jsonStrResult);
+
+		JSONArray fatherList = rootList.getJSONArray(0);
+
+		JSONArray thisList = fatherList.getJSONArray(0);
+		System.out.println("当前jsonStr:" + thisList.toJSONString());
 	}
-	
+
 	@org.junit.Test
-	public void testArticleSple(){
-		NewsDAO nd=new NewsDAO();
-		News news=nd.findById(1);
-		String content=news.getAllContent();
-		ArticleSplier splier=new ArticleSplier();
+	public void testArticleSplier() {
+		NewsDAO nd = new NewsDAO();
+		News news = nd.findById(1);
+		String content = news.getAllContent();
+		ArticleSplier splier = new ArticleSplier();
 		splier.spil(content);
+	}
+
+	@org.junit.Test
+	public void testSentenceSplier() {
+		new SentenceSplier().spil("你长得人高马大，貌美如花##郴州第一人民医院中心医院妇科##健康守护神#");
 	}
 
 }
