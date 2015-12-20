@@ -22,11 +22,11 @@ public class TestNewsCrawler {
 		TengXunAnalyse tengXun = new TengXunAnalyse("ÌÚÑ¶", true);
 		FenghuangAnalyse fenghuang = new FenghuangAnalyse("·ï»Ë", true);
 		SouHuAnalyse souhu = new SouHuAnalyse("ËÑºü", true);
-		 clawer.addAnalyse(analyse);
+		clawer.addAnalyse(analyse);
 		// clawer.addAnalyse(redAnalysef);
 		// clawer.addAnalyse(redAnalyse);
 		// Ê§°Ü clawer.addAnalyse(zxAnalyse);
-		//clawer.addAnalyse(gmAnalyse);
+		// clawer.addAnalyse(gmAnalyse);
 		// clawer.addAnalyse(hsAnalyse);
 		// ÓÐ´íÎó clawer.addAnalyse(weixinAnalyse);
 		// clawer.addAnalyse(xhAnalyse);

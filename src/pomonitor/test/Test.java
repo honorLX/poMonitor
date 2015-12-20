@@ -102,43 +102,42 @@ public class Test {
 		}
 		return jsonStr;
 	}
-	
+
 	@org.junit.Test
-	public  void testDate(){
-		Date date=new Date();
+	public void testDate() {
+		Date date = new Date();
 		System.out.println(date.toGMTString());
 		System.out.println(date.toLocaleString());
 		System.out.println(date.toString());
 	}
-	
+
 	@org.junit.Test
-	public void testJson(){
-		NewsDAO nd=new NewsDAO();
-		News news=nd.findById(1);
-		String url=SomeStaticValues.url;
-		String content=news.getAllContent();
+	public void testJson() {
+		NewsDAO nd = new NewsDAO();
+		News news = nd.findById(1);
+		String url = SomeStaticValues.url;
+		String content = news.getAllContent();
 		try {
-			content=URLEncoder.encode(content, "utf-8");
+			content = URLEncoder.encode(content, "utf-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		String jsonStrResult=JsonContentGetter.getJsonContent(url+content);
+		String jsonStrResult = JsonContentGetter.getJsonContent(url + content);
 		System.out.println(jsonStrResult);
-		JSONArray rootList=JSON.parseArray(jsonStrResult);
-		
-		
-		JSONArray fatherList=rootList.getJSONArray(0);
-		
-		JSONArray thisList=fatherList.getJSONArray(0);
-		System.out.println("当前jsonStr:"+thisList.toJSONString());
+		JSONArray rootList = JSON.parseArray(jsonStrResult);
+
+		JSONArray fatherList = rootList.getJSONArray(0);
+
+		JSONArray thisList = fatherList.getJSONArray(0);
+		System.out.println("当前jsonStr:" + thisList.toJSONString());
 	}
-	
+
 	@org.junit.Test
-	public void testArticleSple(){
-		NewsDAO nd=new NewsDAO();
-		News news=nd.findById(1);
-		String content=news.getAllContent();
-		ArticleSplier splier=new ArticleSplier();
+	public void testArticleSple() {
+		NewsDAO nd = new NewsDAO();
+		News news = nd.findById(1);
+		String content = news.getAllContent();
+		ArticleSplier splier = new ArticleSplier();
 		splier.spil(content);
 	}
 

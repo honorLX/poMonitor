@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import pomonitor.analyse.entity.TDArticle;
 import pomonitor.analyse.entity.TDArticleTerm;
@@ -31,7 +30,7 @@ public class TextVectorBuilder {
 	// meta词的权重系数
 	private final double META_WEIGHT = 3;
 	// 总的特征集合
-	List<String> globalFeatureCollections = null;
+	List<String> globalFeatureCollections = new ArrayList<String>();
 	// 含有此词汇文档的频数
 	Map<String, Double> globalDocumentFrequency = null;
 
@@ -44,6 +43,7 @@ public class TextVectorBuilder {
 	 */
 	private List<String> getFeatureSet(List<TDArticle> topicDisArticleList,
 			double percentage) {
+		List<String> tmpGlobalFeatureCollections = new ArrayList<String>();
 		// 降序排序每篇文章的权值
 		for (TDArticle article : topicDisArticleList) {
 			List<TDArticleTerm> allTerms = article.getArticleAllTerms();
@@ -59,14 +59,13 @@ public class TextVectorBuilder {
 			});
 			// 提取指定比例到全局特征向量中
 			int extractsize = (int) (allTerms.size() * EXTRACT_PERCENT);
-			globalFeatureCollections = new ArrayList<String>();
 			for (int i = 0; i < extractsize; i++) {
-				globalFeatureCollections.add(allTerms.get(i).getvalue());
+				tmpGlobalFeatureCollections.add(allTerms.get(i).getvalue());
 			}
 		}
 		// 去重
 		globalFeatureCollections = new ArrayList<String>(new HashSet<String>(
-				globalFeatureCollections));
+				tmpGlobalFeatureCollections));
 
 		return globalFeatureCollections;
 	}
@@ -102,8 +101,7 @@ public class TextVectorBuilder {
 	}
 
 	/**
-	 * 计算一篇文章中所有词项的tf-idf(局部) >>>>>>> branch 'develop' of
-	 * https://github.com/herozhao/poMonitor.git
+	 * 计算一篇文章中所有词项的tf-idf(局部)
 	 * 
 	 * @param TDArticle
 	 * @return TDArticle
@@ -121,11 +119,13 @@ public class TextVectorBuilder {
 			if (!tf.containsKey(termValue)) {
 				tf.put(termValue, (double) 0);
 			}
+			/************ 权值的计算方法 ***************/
 			if (term.getposition() == TDPosition.META) {
 				tf.put(termValue, tf.get(termValue) + META_WEIGHT);
 			} else if (term.getposition() == TDPosition.BODY) {
 				tf.put(termValue, tf.get(termValue) + BODY_WEIGHT);
 			}
+			/****************************************/
 		}
 		// 得到tf值
 		for (Map.Entry<String, Double> tfentry : tf.entrySet()) {
