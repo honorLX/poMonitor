@@ -1,6 +1,7 @@
 package pomonitor.analyse.entity;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 每篇新闻对应的文章对象
@@ -26,6 +27,9 @@ public class TendAnalyseArticle {
 
 	// 文章分析完后的主题句
 	private List<TendSentence> subSentences;
+
+	// 对于文章标题和关键词所做的分词处理后的结果
+	private Set<String> set;
 
 	public String getTitle() {
 		return title;
@@ -73,6 +77,14 @@ public class TendAnalyseArticle {
 
 	public void setKeyWords(List<String> keyWords) {
 		this.keyWords = keyWords;
+	}
+
+	public Set<String> getSet() {
+		return set;
+	}
+
+	public void setSet(Set<String> set) {
+		this.set = set;
 	}
 
 }
