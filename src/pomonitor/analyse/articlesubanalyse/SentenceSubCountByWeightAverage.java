@@ -13,8 +13,13 @@ public class SentenceSubCountByWeightAverage implements
 
 	@Override
 	public TendSentence sentenceSubCount(TendSentence sentence) {
+		System.out.println("句子Id" + sentence.getId());
+		System.out.println("位置：" + sentence.getPosScore());
+		System.out.println("title:" + sentence.getTitleScore());
+		System.out.println("主张词：" + sentence.getThinkScore());
 		float allSubScore = sentence.getPosScore() + sentence.getThinkScore()
 				+ sentence.getTitleScore();
+		System.out.println("总主题分：" + allSubScore);
 		sentence.setSubjectScore(allSubScore);
 		return sentence;
 	}

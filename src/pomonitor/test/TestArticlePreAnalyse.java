@@ -5,11 +5,13 @@ import org.junit.Test;
 import pomonitor.analyse.articlesubanalyse.SentenceSubCountByWeightAverage;
 import pomonitor.analyse.articlesubanalyse.SubScoreAddPos;
 import pomonitor.analyse.articlesubanalyse.SubScoreAddThink;
-import pomonitor.analyse.articlesubanalyse.SubScoreAddWord;
+import pomonitor.analyse.articlesubanalyse.SubScoreAddTitle;
 import pomonitor.analyse.articlesubanalyse.SubSentenceGet;
 import pomonitor.analyse.articletend.ArticlePreAnalyse;
 import pomonitor.analyse.articletend.ArticleSplier;
 import pomonitor.analyse.entity.TendAnalyseArticle;
+import pomonitor.analyse.entity.TendSentence;
+import pomonitor.analyse.entity.TendWord;
 import pomonitor.entity.News;
 import pomonitor.entity.NewsDAO;
 import pomonitor.entity.NewsEntity;
@@ -31,7 +33,7 @@ public class TestArticlePreAnalyse {
 	public void testSubSetenceGet() {
 		ArticlePreAnalyse apa = new ArticlePreAnalyse(new ArticleSplier());
 		NewsDAO newsDao = new NewsDAO();
-		News news = newsDao.findById(9);
+		News news = newsDao.findById(567);
 		NewsEntity newsEntity = NewsAndNewsEnriryTran.newsToNewsEntity(news);
 		TendAnalyseArticle article = apa.getPreArticle(newsEntity);
 		System.out.println(article.getSentences());
@@ -40,18 +42,20 @@ public class TestArticlePreAnalyse {
 				new SentenceSubCountByWeightAverage(), article);
 		ssg.addScoreAdder(new SubScoreAddPos());
 		ssg.addScoreAdder(new SubScoreAddThink());
-		ssg.addScoreAdder(new SubScoreAddWord());
+		ssg.addScoreAdder(new SubScoreAddTitle());
 		ssg.countSubScore();
 		ssg.getSubSentence(4);
-		for (int i = 0; i < 4; i++) {
-			System.out.println("~~~~~~~~~~");
-			System.out.println(article.getSubSentences().get(i).getPosScore());
-			System.out
-					.println(article.getSubSentences().get(i).getThinkScore());
-			System.out
-					.println(article.getSubSentences().get(i).getTitleScore());
-			System.out.println(article.getSubSentences().get(i)
-					.getSubjectScore());
+		for (TendSentence sentence : article.getSubSentences()) {
+			String allSentence = "";
+			for (TendWord td : sentence.getWords()) {
+				allSentence += td.getCont();
+			}
+			System.out.println("句子序号：" + sentence.getId());
+			System.out.println("当前句子：" + allSentence);
+			System.out.println("位置加分：" + sentence.getPosScore());
+			System.out.println("主张词加分：" + sentence.getThinkScore());
+			System.out.println("title加分" + sentence.getTitleScore());
+			System.out.println("总分" + sentence.getSubjectScore());
 		}
 	}
 }

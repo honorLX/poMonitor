@@ -4,12 +4,14 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
+
 import pomonitor.analyse.entity.TendSentence;
 import pomonitor.analyse.entity.TendWord;
-import pomonitor.util.JsonContentGetter;
 import pomonitor.util.SomeStaticValues;
+import pomonitor.util.UrlSender;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 
 /**
  * 句子分析器，将String形态的文章转变为自定义的TendSentence列表
@@ -37,8 +39,15 @@ public class ArticleSplier {
 			e.printStackTrace();
 		}
 		// 拼凑url请求的参数
-		String urlStr = utfUrlStr + aricleStr;
-		String jsonStr = JsonContentGetter.getJsonContent(urlStr);
+
+		// String urlStr = utfUrlStr + aricleStr;
+		// String jsonStr = JsonContentGetter.getJsonContent(urlStr);
+		// System.out.println(urlStr);
+		// String jsonStr = UrlSender.sendGetForJson(urlStr);
+
+		String jsonStr = UrlSender.sendPostForJson(SomeStaticValues.seedUrl,
+				SomeStaticValues.params + aricleStr);
+
 		System.out.println("jsonStr:" + jsonStr);
 		// 句子的序号
 		int count = 0;
