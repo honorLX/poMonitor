@@ -24,7 +24,7 @@ public class SimilarityMatrics {
 		return result;
 	}
 
-	public boolean isZero(double value, double threshold) {
+	private static boolean isZero(double value, double threshold) {
 		return value >= -threshold && value <= threshold;
 	}
 

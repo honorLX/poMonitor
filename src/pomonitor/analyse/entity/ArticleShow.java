@@ -2,8 +2,6 @@ package pomonitor.analyse.entity;
 
 import java.util.Date;
 
-import pomonitor.analyse.entity.Attitude;
-
 /**
  * 展示列表用的文本对象，在视图上表现为一条信息（包含后面的tag）
  * 
@@ -15,10 +13,10 @@ public class ArticleShow implements Comparable<ArticleShow> {
 	private String url;
 	private String description;
 	private Date timestamp;
-	private Attitude attitude;// 新闻褒贬态度
-	private ArticleDegree degree;// 新闻分级
+	private Attitude attitude;// 新闻倾向性
+	private ArticleDegree degree;// 倾向性分级
 	private String comeFrom;// 来源网站的名字
-	private Double heat;// 该条新闻的热度
+	public Double heat = 0.0;// 该条新闻的热度
 
 	// 文章分级
 	public enum ArticleDegree {

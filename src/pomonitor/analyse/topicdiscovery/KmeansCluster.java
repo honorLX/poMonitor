@@ -91,7 +91,7 @@ public class KmeansCluster {
 
 			} while (uniqRand.size() != k);
 		}
-		return null;
+		return uniqRand;
 	}
 
 	/**

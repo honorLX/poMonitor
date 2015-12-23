@@ -5,13 +5,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import pomonitor.analyse.entity.TDArticle;
 import pomonitor.analyse.entity.TDArticleTerm;
-import pomonitor.analyse.entity.TDPosition;
 
 /**
  * 以向量空间模型表示新闻文本
@@ -22,17 +20,123 @@ import pomonitor.analyse.entity.TDPosition;
 public class TextVectorBuilder {
 
 	// 新闻文本集合
-	private List<TDArticle> topicDisArticleList = null;
+	private List<TDArticle> globalArticleList;
 	// 提取百分比
-	private final double EXTRACT_PERCENT = 0.15;
+	private final double EXTRACT_PERCENT = 0.1;
 	// body词的权重系数
 	private final double BODY_WEIGHT = 1;
 	// meta词的权重系数
 	private final double META_WEIGHT = 3;
 	// 总的特征集合
-	List<String> globalFeatureCollections = new ArrayList<String>();
-	// 含有此词汇文档的频数
-	Map<String, Double> globalDocumentFrequency = null;
+	public List<String> globalFeatureCollections = new ArrayList<String>();
+
+	/**
+	 * 根据总的特征集合和新闻文本对象集合，生成向量集合
+	 * 
+	 * @param topicDisArticleList
+	 * @param globalFeatureCollections
+	 * @return
+	 */
+	public List<TDArticle> buildVectors(List<TDArticle> topicDisArticleList) {
+		globalArticleList = topicDisArticleList;
+		// 生成每篇文章所有词项的权重信息
+		for (TDArticle article : globalArticleList) {
+			Map<String, Double> map = new HashMap<String, Double>();
+			for (TDArticleTerm _term : article.getArticleAllTerms()) {
+				map.put(_term.getvalue(), getWeight(article, _term));
+			}
+			article.setTermsWeights(map);
+		}
+		// 计算globalFeatureCollections 全局 特征词项集合
+		globalFeatureCollections = getFeatureSet();
+		// 计算每篇文本的向量模型
+		for (TDArticle tdArticle : globalArticleList) {
+			tdArticle = buildArticleVector(tdArticle);
+		}
+		return globalArticleList;
+	}
+
+	/**
+	 * 计算该篇文本的向量模型
+	 * 
+	 * @param TDArticle
+	 * @return TDArticle
+	 */
+
+	private TDArticle buildArticleVector(TDArticle article) {
+		TDArticle resTdArticle = article;
+		double[] vec = new double[globalFeatureCollections.size()];
+		for (int i = 0; i < vec.length; i++) {
+			if (article.getTermsWeights().containsKey(
+					globalFeatureCollections.get(i)))
+				vec[i] = article.getTermsWeights().get(
+						globalFeatureCollections.get(i));
+			else
+				vec[i] = 0;
+		}
+		resTdArticle.vectorSpace = vec;
+		return resTdArticle;
+	}
+
+	/**
+	 * 计算某个词项的权重值，该权重值与下列值有关 :
+	 * 1.该词项本身 (term)
+	 * 2.包含该词项的文章 (article)
+	 * 3.所有文章集合 (globalArticleList)
+	 * 
+	 * 该方法需要完善
+	 * 
+	 * @param article
+	 * @param term
+	 * @return
+	 */
+	private double getWeight(TDArticle article, TDArticleTerm term) {
+		return findTFIDF(article, term);
+	}
+
+	/**
+	 * 计算某个词的 tf-idf 值
+	 * 
+	 * @param article
+	 * @param term
+	 * @return
+	 */
+	private double findTFIDF(TDArticle article, TDArticleTerm term) {
+		double tf = findTermFrequency(article, term.getvalue());
+		double idf = findInverseDocumentFrequency(term.getvalue());
+		return tf * idf;
+	}
+
+	/**
+	 * 计算某个词在某篇文章中的 tf
+	 * 
+	 * @param article
+	 * @param term
+	 * @return
+	 */
+	private double findTermFrequency(TDArticle article, String term) {
+		double termCount = 0;
+		for (TDArticleTerm _term : article.getArticleAllTerms()) {
+			if (term.equals(_term.getvalue()))
+				termCount++;
+		}
+		return termCount / article.getArticleAllTerms().size();
+	}
+
+	/**
+	 * 计算某个词的 idf
+	 * 
+	 * @param term
+	 * @return
+	 */
+	private double findInverseDocumentFrequency(String term) {
+		double count = 0;
+		for (TDArticle article : globalArticleList) {
+			if (article.getArticleAllTerms().contains(term))
+				count++;
+		}
+		return Math.log((globalArticleList.size()) / (count + 0.001));
+	}
 
 	/**
 	 * 根据新闻文本集合和指定的提取百分比，获得有效的特征项集合，缩短向量长度
@@ -41,26 +145,16 @@ public class TextVectorBuilder {
 	 * @param percentage
 	 * @return 总特征集合，其长度即为向量长度
 	 */
-	private List<String> getFeatureSet(List<TDArticle> topicDisArticleList,
-			double percentage) {
+	private List<String> getFeatureSet() {
 		List<String> tmpGlobalFeatureCollections = new ArrayList<String>();
-		// 降序排序每篇文章的权值
-		for (TDArticle article : topicDisArticleList) {
-			List<TDArticleTerm> allTerms = article.getArticleAllTerms();
-			Collections.sort(allTerms, new Comparator<TDArticleTerm>() {
-				public int compare(TDArticleTerm o1, TDArticleTerm o2) {
-					double o1w = o1.getweight(), o2w = o2.getweight();
-					if (o1w > o2w)
-						return -1;
-					if (o1w < o2w)
-						return 1;
-					return 0;
-				}
-			});
+
+		for (TDArticle article : globalArticleList) {
+			ArrayList<Map.Entry<String, Double>> descSortedList = DescSort(article
+					.getTermsWeights());
 			// 提取指定比例到全局特征向量中
-			int extractsize = (int) (allTerms.size() * EXTRACT_PERCENT);
+			int extractsize = (int) (article.getTermsWeights().size() * EXTRACT_PERCENT);
 			for (int i = 0; i < extractsize; i++) {
-				tmpGlobalFeatureCollections.add(allTerms.get(i).getvalue());
+				tmpGlobalFeatureCollections.add(descSortedList.get(i).getKey());
 			}
 		}
 		// 去重
@@ -71,83 +165,28 @@ public class TextVectorBuilder {
 	}
 
 	/**
-	 * 根据总的特征集合和新闻文本对象集合，生成向量集合
+	 * 将 Map 按照 value 降序排列，返回 key 的 ArrayList
 	 * 
-	 * @param topicDisArticleList
-	 * @param globalFeatureCollections
+	 * @param map
 	 * @return
 	 */
-	public List<TDArticle> buildVectors(List<TDArticle> topicDisArticleList) {
-		// 计算globalDocumentFrequency
-		globalDocumentFrequency = new HashMap<String, Double>();
-		for (TDArticle article : topicDisArticleList) {
-			for (TDArticleTerm term : article.getArticleAllTerms()) {
-				String termValue = term.getvalue();
-				if (!globalDocumentFrequency.containsKey(termValue)) {
-					globalDocumentFrequency.put(termValue, (double) 0);
-				}
-				globalDocumentFrequency.put(termValue,
-						globalDocumentFrequency.get(termValue) + 1);
+	private ArrayList<Map.Entry<String, Double>> DescSort(
+			Map<String, Double> map) {
+		ArrayList<Map.Entry<String, Double>> mapList = new ArrayList<Map.Entry<String, Double>>(
+				map.entrySet());
+		Collections.sort(mapList, new Comparator<Map.Entry<String, Double>>() {
+			@Override
+			public int compare(Map.Entry<String, Double> o1,
+					Map.Entry<String, Double> o2) {
+				// 根据value降序排序
+				if ((o2.getValue() - o1.getValue()) < 0)
+					return -1;
+				else if ((o2.getValue() - o1.getValue()) > 0)
+					return 1;
+				else
+					return 0;
 			}
-		}
-		// 调用buildArticleVector，生成每篇文章所有词的权重
-		for (TDArticle article : topicDisArticleList) {
-			buildArticleVector(article);
-		}
-		// 计算globalFeatureCollections 全局特征向量
-		globalFeatureCollections = getFeatureSet(topicDisArticleList,
-				EXTRACT_PERCENT);
-		return topicDisArticleList;
-	}
-
-	/**
-	 * 计算一篇文章中所有词项的tf-idf(局部)
-	 * 
-	 * @param TDArticle
-	 * @return TDArticle
-	 */
-	public TDArticle buildArticleVector(TDArticle article) {
-		// 所有文章总数
-		int sumArticle = topicDisArticleList.size();
-		// 文章单词放入map中
-		Map<String, Double> tf = new HashMap<String, Double>();
-		// 这篇文章单词总数
-		int sumTerm = article.getArticleAllTerms().size();
-		// 计算词频值
-		for (TDArticleTerm term : article.getArticleAllTerms()) {
-			String termValue = term.getvalue();
-			if (!tf.containsKey(termValue)) {
-				tf.put(termValue, (double) 0);
-			}
-			/************ 权值的计算方法 ***************/
-			if (term.getposition() == TDPosition.META) {
-				tf.put(termValue, tf.get(termValue) + META_WEIGHT);
-			} else if (term.getposition() == TDPosition.BODY) {
-				tf.put(termValue, tf.get(termValue) + BODY_WEIGHT);
-			}
-			/****************************************/
-		}
-		// 得到tf值
-		for (Map.Entry<String, Double> tfentry : tf.entrySet()) {
-			tfentry.setValue(tfentry.getValue() / sumArticle);
-		}
-
-		// 给每个单词赋相应weight,并且去重
-		List<TDArticleTerm> articleAllTerms = article.getArticleAllTerms();
-		Iterator<TDArticleTerm> iter = articleAllTerms.iterator();
-		while (iter.hasNext()) {
-			TDArticleTerm term = iter.next();
-			String termValue = term.getvalue();
-			// 去重
-			if (!tf.containsKey(termValue))
-				iter.remove();
-			else {
-				double idf = Math.log(sumArticle
-						/ globalDocumentFrequency.get(termValue) + 0.01);
-				term.setweight(tf.get(termValue) * (idf));
-				tf.remove(termValue);
-			}
-		}
-		return article;
+		});
+		return mapList;
 	}
 }

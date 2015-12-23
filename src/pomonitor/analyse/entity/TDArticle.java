@@ -17,9 +17,7 @@ public class TDArticle {
 	private Date timestamp;
 	private String comeFrom;// 来源网站的名字
 	private List<TDArticleTerm> articleAllTerms;// 该文章包括的所有的词项集合
-	private Map<String, Double> articleVector; // 代表该篇文章的向量(2015-12-21 caihengyi
-												// 注:
-												// 此属性建议该为该篇文章中词项的权重Map，即局部向量，长短不一)
+	private Map<String, Double> termsWeights; // 代表该篇文章所有词项的权重信息
 	public double[] vectorSpace;// 和所有文本向量vectorSpace关联的有一个全局的有序词项序列
 
 	public String getTitle() {
@@ -66,16 +64,16 @@ public class TDArticle {
 		return articleAllTerms;
 	}
 
-	public void setArticleTerms(List<TDArticleTerm> articleAllTerms) {
+	public void setArticleAllTerms(List<TDArticleTerm> articleAllTerms) {
 		this.articleAllTerms = articleAllTerms;
 	}
 
-	public Map<String, Double> getArticleVector() {
-		return articleVector;
+	public Map<String, Double> getTermsWeights() {
+		return termsWeights;
 	}
 
-	public void setArticleVector(Map<String, Double> articleVector) {
-		this.articleVector = articleVector;
+	public void setTermsWeights(Map<String, Double> termsWeights) {
+		this.termsWeights = termsWeights;
 	}
 
 }
