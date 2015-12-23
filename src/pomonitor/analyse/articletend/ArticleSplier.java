@@ -28,9 +28,7 @@ public class ArticleSplier {
 	 */
 	public List<TendSentence> spil(String aricleStr) {
 		List<TendSentence> sentenceList = new ArrayList<>();
-		String utfUrlStr = "";
 		try {
-			utfUrlStr = SomeStaticValues.url;
 			// System.out.println(aricleStr);
 			// 对汉字做转码处理
 			aricleStr = URLEncoder.encode(aricleStr, "utf-8");
