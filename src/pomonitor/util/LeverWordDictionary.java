@@ -17,6 +17,7 @@ public class LeverWordDictionary {
 	public LeverWordDictionary() {
 		this.hashMap = new HashMap<String, LeverWord>();
 		this.leverWordDAO = new LeverWordDAO();
+		initDictionary();
 	}
 
 	// ≥ı ºªØ∏±¥ ¥ µ‰

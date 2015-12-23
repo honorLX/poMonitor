@@ -33,7 +33,7 @@ public class TestArticlePreAnalyse {
 	public void testSubSetenceGet() {
 		ArticlePreAnalyse apa = new ArticlePreAnalyse(new ArticleSplier());
 		NewsDAO newsDao = new NewsDAO();
-		News news = newsDao.findById(567);
+		News news = newsDao.findById(678);
 		NewsEntity newsEntity = NewsAndNewsEnriryTran.newsToNewsEntity(news);
 		TendAnalyseArticle article = apa.getPreArticle(newsEntity);
 		System.out.println(article.getSentences());
@@ -44,7 +44,7 @@ public class TestArticlePreAnalyse {
 		ssg.addScoreAdder(new SubScoreAddThink());
 		ssg.addScoreAdder(new SubScoreAddTitle());
 		ssg.countSubScore();
-		ssg.getSubSentence(4);
+		ssg.getSubSentence(3);
 		for (TendSentence sentence : article.getSubSentences()) {
 			String allSentence = "";
 			for (TendWord td : sentence.getWords()) {

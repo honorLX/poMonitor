@@ -3,7 +3,18 @@ package pomonitor.test;
 import org.junit.Test;
 
 import pomonitor.clawer.NewsCrawler;
-import pomonitor.clawer.newsanalyse.*;
+import pomonitor.clawer.newsanalyse.FenghuangAnalyse;
+import pomonitor.clawer.newsanalyse.GuangMing;
+import pomonitor.clawer.newsanalyse.HuaShengAnalyse;
+import pomonitor.clawer.newsanalyse.RedNetAnalyse;
+import pomonitor.clawer.newsanalyse.RedNetAnalyseF;
+import pomonitor.clawer.newsanalyse.SinaAnalyse;
+import pomonitor.clawer.newsanalyse.SouHuAnalyse;
+import pomonitor.clawer.newsanalyse.TengXunAnalyse;
+import pomonitor.clawer.newsanalyse.WangYi;
+import pomonitor.clawer.newsanalyse.WeiXinAnalyse;
+import pomonitor.clawer.newsanalyse.XinHuaAnalyse;
+import pomonitor.clawer.newsanalyse.ZhongXinAnalyse;
 
 public class TestNewsCrawler {
 	@Test
@@ -22,18 +33,18 @@ public class TestNewsCrawler {
 		TengXunAnalyse tengXun = new TengXunAnalyse("腾讯", true);
 		FenghuangAnalyse fenghuang = new FenghuangAnalyse("凤凰", true);
 		SouHuAnalyse souhu = new SouHuAnalyse("搜狐", true);
-		 clawer.addAnalyse(analyse);
-		// clawer.addAnalyse(redAnalysef);
-		// clawer.addAnalyse(redAnalyse);
-		// 失败 clawer.addAnalyse(zxAnalyse);
-		//clawer.addAnalyse(gmAnalyse);
-		// clawer.addAnalyse(hsAnalyse);
+		// clawer.addAnalyse(analyse);
+		clawer.addAnalyse(redAnalysef);
+		clawer.addAnalyse(redAnalyse);
+		// clawer.addAnalyse(zxAnalyse);
+		clawer.addAnalyse(gmAnalyse);
+		clawer.addAnalyse(hsAnalyse);
 		// 有错误 clawer.addAnalyse(weixinAnalyse);
-		// clawer.addAnalyse(xhAnalyse);
-		// clawer.addAnalyse(wangyi);
-		// clawer.addAnalyse(fenghuang);
-		// clawer.addAnalyse(souhu);
-		// clawer.addAnalyse(tengXun);
+		clawer.addAnalyse(xhAnalyse);
+		clawer.addAnalyse(wangyi);
+		clawer.addAnalyse(fenghuang);
+		clawer.addAnalyse(souhu);
+		clawer.addAnalyse(tengXun);
 
 		clawer.clawerAll("南华大学", false);
 		clawer.start(10);

@@ -38,6 +38,7 @@ public class SentenceSplier {
 		String urlStr = utfUrlStr + sentence;
 		String jsonStr = JsonContentGetter.getJsonContent(urlStr);
 		jsonStr = jsonStr.substring(4, jsonStr.length() - 3);
+		System.out.println("·ÖÎöÍêµÄjsonStr:" + jsonStr);
 		List<TendWord> list = JSON.parseArray(jsonStr, TendWord.class);
 		for (TendWord tw : list) {
 			System.out.println("id:" + tw.getId());
