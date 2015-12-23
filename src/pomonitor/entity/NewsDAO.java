@@ -3,6 +3,7 @@ package pomonitor.entity;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -215,6 +216,31 @@ public class NewsDAO implements INewsDAO {
 
 	public List<News> findByIsWorking(Object isWorking) {
 		return findByProperty(IS_WORKING, isWorking);
+	}
+
+	/**
+	 * 查询指定时间段内的新闻记录
+	 * 
+	 * @param startDateStr
+	 *            开始时间, 例如 : "2012-10-10"
+	 * @param endDateStr
+	 *            结束时间,例如 : "2013-10-10"
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<News> findBetweenDate(String startDateStr, String endDateStr) {
+		try {
+			final String queryString = "select model from News model where (model.time between "
+					+ "'" + startDateStr + "' and '" + endDateStr + "')";
+			Query query = getEntityManager().createQuery(queryString);
+			// query.setParameter("startDateStr", startDateStr);
+			// query.setParameter("endDateStr", endDateStr);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			EntityManagerHelper.log("find by property name failed",
+					Level.SEVERE, re);
+			throw re;
+		}
 	}
 
 	/**

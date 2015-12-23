@@ -12,11 +12,14 @@
 		<class>pomonitor.entity.User</class>
 		<class>pomonitor.entity.Emotionalword</class>
 		<class>pomonitor.entity.News</class>
+		<class>pomonitor.entity.IdeaWord</class>
+		<class>pomonitor.entity.NegWord</class>
+		<class>pomonitor.entity.WordProperty</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://192.168.1.100:3306/bit_robot" />
+				value="jdbc:mysql://192.168.1.112:3306/bit_robot" />
 			<property name="javax.persistence.jdbc.user" value="admin" />
 			<property name="javax.persistence.jdbc.password"
 				value="admin" />

@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import pomonitor.entity.News;
 import pomonitor.entity.NewsEntity;
@@ -33,7 +32,7 @@ public class NewsAndNewsEnriryTran {
 			if (keys[j].equals("#") || keys[j].equals(""))
 				;
 			else
-				keyw.add(j, keys[j]);
+				keyw.add(keys[j]);
 		}
 		// List<String> list = java.util.Arrays.asList(key);
 		// for(int i=0;i<list.size();i++){

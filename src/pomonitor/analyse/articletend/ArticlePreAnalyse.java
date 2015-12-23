@@ -1,10 +1,12 @@
 package pomonitor.analyse.articletend;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import pomonitor.analyse.entity.TendSentence;
 import pomonitor.analyse.entity.TendAnalyseArticle;
+import pomonitor.analyse.entity.TendSentence;
 import pomonitor.analyse.entity.TendWord;
 import pomonitor.entity.NewsEntity;
 
@@ -21,10 +23,21 @@ public class ArticlePreAnalyse {
 
 	// 句子分析器
 	private SentenceSplier sentenceSplier;
+ 
+	// 文章分析器
+	private ArticleSplier articleSplier;
 
-	public ArticlePreAnalyse(SentenceSplier sentenceSplier) {
-		this.sentenceSplier = new SentenceSplier();
-	}
+	// 需要加分的词性
+	private String propertys[] = { "a", "i", "j", "k", "m", "n", "nd", "nh",
+			"ni", "nl", "ns", "nt", "nz", "v", "ws" };
+	// 将需要加分的词性组装成set
+	private Set<String> propertysSet;
+
+	public ArticlePreAnalyse(ArticleSplier articleSplier) {
+		this.articleSplier = new ArticleSplier();
+		sentenceSplier = new SentenceSplier();
+		propertysSet = new HashSet<String>(Arrays.asList(propertys));
+ 	}
 
 	/**
 	 * 初始化一篇文章，加载基本参数
@@ -38,23 +51,34 @@ public class ArticlePreAnalyse {
 		article.setTitle(news.getTitle());
 	}
 
+
+	/**
+	 * 主要处理keyWord和title
+	 */
+	private void splitTitieAndKeyWord() {
+		Set<String> usefulWordSet = new HashSet<>();
+		String keyWords = "";
+		for (String key : article.getKeyWords()) {
+			keyWords += "#" + key;
+		}
+		String titleAndKey = news.getTitle() + keyWords;
+		List<TendWord> titleAndKeySpilwords = sentenceSplier.spil(titleAndKey);
+		for (TendWord td : titleAndKeySpilwords) {
+			if (propertysSet.contains(td.getPos())) {
+				usefulWordSet.add(td.getCont());
+			}
+		}
+		article.setSet(usefulWordSet);
+	}
+
 	/**
 	 * 断句并且分依每一句，主要处理文章正文
 	 */
+
+
 	private void splitArticle() {
 		String content = news.getAllContent();
-		String[] sentenceStrs = content.split("。");
-		List<TendSentence> relSentences = new ArrayList<TendSentence>();
-		for (int i = 0; i < sentenceStrs.length; i++) {
-			String sentenceStr = sentenceStrs[i].trim();
-			if (sentenceStr.length() > 5) {
-				TendSentence sentence = new TendSentence();
-				sentence.setId(i);
-				List<TendWord> list = sentenceSplier.spil(sentenceStr);
-				sentence.setWords(list);
-				relSentences.add(sentence);
-			}
-		}
+		List<TendSentence> relSentences = articleSplier.spil(content);
 		article.setSentences(relSentences);
 	}
 
@@ -67,7 +91,7 @@ public class ArticlePreAnalyse {
 	public TendAnalyseArticle getPreArticle(NewsEntity news) {
 		init(news);
 		splitArticle();
+		splitTitieAndKeyWord();
 		return article;
 	}
-
 }
