@@ -12,8 +12,8 @@ import pomonitor.analyse.topicdiscovery.TopicDiscovery;
 public class TestTopicDiscovery {
 	public static void main(String[] args) {
 		TopicDiscoveryAnalyse tda = new TopicDiscoveryAnalyse();
-		List<TDArticle> lists = tda.getArticlesBetweenDate("2014-09-10",
-				"2015-12-10");
+		List<TDArticle> lists = tda.getArticlesBetweenDate("2012-09-10",
+				"2013-02-10");
 		TextVectorBuilder tvb = new TextVectorBuilder();
 
 		lists = tvb.buildVectors(lists);
