@@ -14,9 +14,9 @@ public class TopicDiscoveryAnalyse {
 
 	public List<Topic> DiscoverTopics(Date startDate, Date endDate, int userId) {
 		// 根据起止时间获取数据库中的新闻文本
-		
+
 		// 作分词，过滤预处理
-		
+
 		// 调用话题发现功能模块，返回话题集合
 
 		return null;

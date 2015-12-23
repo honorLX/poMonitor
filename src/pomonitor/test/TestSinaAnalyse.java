@@ -11,14 +11,14 @@ import pomonitor.clawer.newsanalyse.SinaAnalyse;
 public class TestSinaAnalyse {
 	@Test
 	public void testGetPageCount() {
-		SinaAnalyse analyse = new SinaAnalyse("腾讯", true);
+		SinaAnalyse analyse = new SinaAnalyse("新浪", true);
 		int count = analyse.getPageCount("南华大学", false);
 		System.out.println(count);
 	}
 
 	@Test
 	public void testUrlAnalyse() {
-		SinaAnalyse analyse = new SinaAnalyse("搜狐", true);
+		SinaAnalyse analyse = new SinaAnalyse("新浪", true);
 		analyse.getPageCount("南华大学", false);
 		String newUrl = analyse.urlAnalyse(1);
 		System.out.println(newUrl);
@@ -26,7 +26,7 @@ public class TestSinaAnalyse {
 
 	@Test
 	public void tesAnalyseAnyPage() {
-		SinaAnalyse analyse = new SinaAnalyse("搜狐", true);
+		SinaAnalyse analyse = new SinaAnalyse("新浪", true);
 		analyse.getPageCount("南华大学", false);
 		String newUrl = analyse.urlAnalyse(1);
 		analyse.analyseAnyPage(newUrl);

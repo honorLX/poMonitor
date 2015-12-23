@@ -70,11 +70,11 @@ public class NewsAndNewsEnriryTran {
 		news.setUrl(newsentity.getUrl());
 		news.setContent(newsentity.getContent());
 		news.setWeb(newsentity.getWeb());
-		//对日期的过滤处理
-		String dateStr=newsentity.getTime();
-		dateStr=DateUnify.DataUn(dateStr);
-		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
-		Date date=null;
+		// 对日期的过滤处理
+		String dateStr = newsentity.getTime();
+		dateStr = DateUnify.DataUn(dateStr);
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = null;
 		try {
 			date = simpleDateFormat.parse(dateStr);
 		} catch (ParseException e) {

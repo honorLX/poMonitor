@@ -7,14 +7,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
+
 import ucar.nc2.util.net.URLencode;
 import pomonitor.clawer.newsanalyse.BaseAnalyse;
 import pomonitor.entity.NewsEntity;
+
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /**
  * 华声在线解析
@@ -100,6 +105,7 @@ public class HuaShengAnalyse extends BaseAnalyse {
 			Elements listEle = doc.getElementsByAttributeValue("class",
 					"result f s0");
 			for (Element e : listEle) {
+
 				NewsEntity HuashengEntity = new NewsEntity();
 				// 取出每条内容的每个url
 				Elements url1 = e.getElementsByTag("a");
@@ -108,7 +114,20 @@ public class HuaShengAnalyse extends BaseAnalyse {
 				// 取出title
 				Elements titleE = e.getElementsByAttributeValue("class",
 						"c-title");
-				String title = titleE.text();
+				String Ititle = titleE.text();
+				// Matcher date = p.matcher(title);
+				String reExpression = "[_-]+";
+				String expression = "\\s+";
+				Pattern pattern = Pattern.compile(expression);
+				Matcher m = pattern.matcher(Ititle);
+				Ititle = m.replaceAll("-");
+				Pattern p = Pattern.compile(reExpression);
+				String[] titles = p.split(Ititle);
+				String title = titles[0];
+				// String expression="\\s+";
+				// Pattern pattern = Pattern.compile(expression);
+				// String[] titles1= p.split(Ititles);
+				// String title=titles1[0];
 				System.out.println("title:" + title);
 				// 取出time
 				Elements timeE = e.getElementsByAttributeValue("class",

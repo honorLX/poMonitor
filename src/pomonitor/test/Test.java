@@ -36,20 +36,18 @@ public class Test {
 	}
 
 	@org.junit.Test
-
-
-	public void testJsion(){
-		//String jsonStr=UrlSender.sendGet("http://api.ltp-cloud.com/analysis/?api_key=15k332P7iaVazlMV1ZFXUyqyoMmP7PVcgQICeDTc&text=%E6%88%91%E6%98%AF%E4%B8%AD%E5%9B%BD%E4%BA%BA%E3%80%82&pattern=all&format=json");
-		String jsonStr=getJsonContent("http://api.ltp-cloud.com/analysis/?api_key=15k332P7iaVazlMV1ZFXUyqyoMmP7PVcgQICeDTc&text=%E6%88%91%E6%98%AF%E4%B8%AD%E5%9B%BD%E4%BA%BA%E3%80%82&pattern=all&format=json");
+	public void testJsion() {
+		// String
+		// jsonStr=UrlSender.sendGet("http://api.ltp-cloud.com/analysis/?api_key=15k332P7iaVazlMV1ZFXUyqyoMmP7PVcgQICeDTc&text=%E6%88%91%E6%98%AF%E4%B8%AD%E5%9B%BD%E4%BA%BA%E3%80%82&pattern=all&format=json");
+		String jsonStr = getJsonContent("http://api.ltp-cloud.com/analysis/?api_key=15k332P7iaVazlMV1ZFXUyqyoMmP7PVcgQICeDTc&text=%E6%88%91%E6%98%AF%E4%B8%AD%E5%9B%BD%E4%BA%BA%E3%80%82&pattern=all&format=json");
 		System.out.println(jsonStr);
-		jsonStr =jsonStr.substring(4, jsonStr.length()-3);
-		System.out.println("~~~~~"+jsonStr+"~~~");
-		
-		List<TendWord> list=JSON.parseArray(jsonStr, TendWord.class);
-	
-		//List list2=JSON.parseArray(jsonStr);
-		
-		
+		jsonStr = jsonStr.substring(4, jsonStr.length() - 3);
+		System.out.println("~~~~~" + jsonStr + "~~~");
+
+		List<TendWord> list = JSON.parseArray(jsonStr, TendWord.class);
+
+		// List list2=JSON.parseArray(jsonStr);
+
 		System.out.println(list.get(1).getArg().get(1).getBeg());
 		System.out.println(list.get(1).getArg().get(1).getEnd());
 
@@ -98,10 +96,10 @@ public class Test {
 		}
 		return jsonStr;
 	}
-	
+
 	@org.junit.Test
-	public  void testDate(){
-		Date date=new Date();
+	public void testDate() {
+		Date date = new Date();
 		System.out.println(date.toGMTString());
 		System.out.println(date.toLocaleString());
 		System.out.println(date.toString());

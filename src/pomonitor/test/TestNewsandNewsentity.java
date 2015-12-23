@@ -28,7 +28,7 @@ public class TestNewsandNewsentity {
 		String keyword = "1 ,2 ,3";
 		news1.setKeyWords(keyword);
 		news1.setRelId(6);
-		//news1.setTime("2011-1-1");
+		// news1.setTime("2011-1-1");
 		news1.setTitle("zhguo");
 		news1.setUrl("http");
 		news1.setWeb("hong");
