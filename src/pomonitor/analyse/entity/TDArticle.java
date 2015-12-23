@@ -14,13 +14,13 @@ public class TDArticle {
 	private String title;
 	private String url;
 	private String description;
-
 	private Date timestamp;
 	private String comeFrom;// 来源网站的名字
 	private List<TDArticleTerm> articleAllTerms;// 该文章包括的所有的词项集合
-
-	private Map<String, Double> articleVector;// 代表该篇文章的向量
-
+ 
+	private Map<String, Double> termsWeights; // 代表该篇文章所有词项的权重信息
+	public double[] vectorSpace;// 和所有文本向量vectorSpace关联的有一个全局的有序词项序列
+ 
 	public String getTitle() {
 		return title;
 	}
@@ -65,16 +65,16 @@ public class TDArticle {
 		return articleAllTerms;
 	}
 
-	public void setArticleTerms(List<TDArticleTerm> articleAllTerms) {
+	public void setArticleAllTerms(List<TDArticleTerm> articleAllTerms) {
 		this.articleAllTerms = articleAllTerms;
 	}
 
-	public Map<String, Double> getarticleVector() {
-		return articleVector;
+	public Map<String, Double> getTermsWeights() {
+		return termsWeights;
 	}
 
-	public void setarticleVector(Map<String, Double> articleVector) {
-		this.articleVector = articleVector;
+	public void setTermsWeights(Map<String, Double> termsWeights) {
+		this.termsWeights = termsWeights;
 	}
 
 }

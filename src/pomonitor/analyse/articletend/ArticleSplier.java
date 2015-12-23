@@ -39,6 +39,7 @@ public class ArticleSplier {
 			e.printStackTrace();
 		}
 		// 拼凑url请求的参数
+
 		// String urlStr = utfUrlStr + aricleStr;
 		// String jsonStr = JsonContentGetter.getJsonContent(urlStr);
 		// System.out.println(urlStr);

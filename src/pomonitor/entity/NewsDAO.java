@@ -220,15 +220,18 @@ public class NewsDAO implements INewsDAO {
 
 	/**
 	 * 查询指定时间段内的新闻记录
-	 * @param startDateStr 开始时间, 例如 : "2012-10-10"
-	 * @param endDateStr 结束时间,例如 : "2013-10-10"
+	 * 
+	 * @param startDateStr
+	 *            开始时间, 例如 : "2012-10-10"
+	 * @param endDateStr
+	 *            结束时间,例如 : "2013-10-10"
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	public List<News> findBetweenDate(String startDateStr, String endDateStr) {
 		try {
 			final String queryString = "select model from News model where (model.time between "
-					+ "'"+startDateStr + "' and '" + endDateStr + "')";
+					+ "'" + startDateStr + "' and '" + endDateStr + "')";
 			Query query = getEntityManager().createQuery(queryString);
 			// query.setParameter("startDateStr", startDateStr);
 			// query.setParameter("endDateStr", endDateStr);

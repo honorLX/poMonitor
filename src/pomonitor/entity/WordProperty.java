@@ -1,4 +1,5 @@
 package pomonitor.entity;
+
 // default package
 
 import javax.persistence.Column;
@@ -9,67 +10,48 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-
 /**
  * WordProperty entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name="wordproperty"
-    ,catalog="pomonitor"
-, uniqueConstraints = @UniqueConstraint(columnNames="property")
-)
+@Table(name = "wordproperty", catalog = "pomonitor", uniqueConstraints = @UniqueConstraint(columnNames = "property"))
+public class WordProperty implements java.io.Serializable {
 
-public class WordProperty  implements java.io.Serializable {
+	// Fields
 
+	private Integer id;
+	private String property;
 
-    // Fields    
+	// Constructors
 
-     private Integer id;
-     private String property;
+	/** default constructor */
+	public WordProperty() {
+	}
 
+	/** full constructor */
+	public WordProperty(String property) {
+		this.property = property;
+	}
 
-    // Constructors
+	// Property accessors
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	public Integer getId() {
+		return this.id;
+	}
 
-    /** default constructor */
-    public WordProperty() {
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    
-    /** full constructor */
-    public WordProperty(String property) {
-        this.property = property;
-    }
+	@Column(name = "property", unique = true, nullable = false, length = 10)
+	public String getProperty() {
+		return this.property;
+	}
 
-   
-    // Property accessors
-    @Id @GeneratedValue(strategy=IDENTITY)
-    
-    @Column(name="id", unique=true, nullable=false)
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    
-    @Column(name="property", unique=true, nullable=false, length=10)
-
-    public String getProperty() {
-        return this.property;
-    }
-    
-    public void setProperty(String property) {
-        this.property = property;
-    }
-   
-
-
-
-
-
-
-
+	public void setProperty(String property) {
+		this.property = property;
+	}
 
 }

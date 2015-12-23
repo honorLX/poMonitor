@@ -8,8 +8,10 @@ import pomonitor.analyse.entity.TDArticleTerm;
 import pomonitor.analyse.entity.TDPosition;
 import pomonitor.analyse.entity.Topic;
 import pomonitor.analyse.segment.TermsGenerator;
+import pomonitor.analyse.topicdiscovery.TopicDiscovery;
 import pomonitor.entity.News;
 import pomonitor.entity.NewsDAO;
+import pomonitor.entity.SenswordDAO;
 
 import com.hankcs.hanlp.seg.common.Term;
 
@@ -20,8 +22,26 @@ import com.hankcs.hanlp.seg.common.Term;
  */
 public class TopicDiscoveryAnalyse {
 
+
+	/**
+	 * 根据特定用户的敏感词库，获取一段时间内新闻文本的话题集合
+	 * 
+	 * @param startDateStr
+	 * @param endDateStr
+	 * @param userId
+	 * @return
+	 */
 	public List<Topic> DiscoverTopics(String startDateStr, String endDateStr,
 			int userId) {
+		// 调用话题发现功能模块，返回话题集合
+		TopicDiscovery td = new TopicDiscovery();
+		SenswordDAO sd = new SenswordDAO();
+		return td.getTopics(getArticlesBetweenDate(startDateStr, endDateStr),
+				sd.findByProperty("userid", userId));
+	}
+
+	public List<TDArticle> getArticlesBetweenDate(String startDateStr,
+			String endDateStr) {
 		// 根据起止时间获取数据库中的新闻文本
 		NewsDAO nd = new NewsDAO();
 		List<News> newsList = nd.findBetweenDate(startDateStr, endDateStr);
@@ -48,7 +68,7 @@ public class TopicDiscoveryAnalyse {
 				tmpArtTerm.setvalue(term.word);
 				tmpTDArtTerms.add(tmpArtTerm);
 			}
-			tmpArt.setArticleTerms(tmpTDArtTerms);
+			tmpArt.setArticleAllTerms(tmpTDArtTerms);
 			tmpArt.setComeFrom(news.getWeb());
 			tmpArt.setDescription(news.getContent());
 			tmpArt.setTimestamp(news.getTime());
@@ -56,8 +76,7 @@ public class TopicDiscoveryAnalyse {
 			tmpArt.setUrl(news.getUrl());
 			tdArticleList.add(tmpArt);
 		}
-		// 调用话题发现功能模块，返回话题集合
-
-		return null;
+		return tdArticleList;
 	}
+
 }

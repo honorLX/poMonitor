@@ -20,10 +20,11 @@ import pomonitor.util.NewsAndNewsEnriryTran;
 public class TestArticlePreAnalyse {
 	@Test
 	public void testGetPreArticle() {
+ 
 		ArticlePreAnalyse apa = new ArticlePreAnalyse(new ArticleSplier());
 		NewsDAO newsDao = new NewsDAO();
 		News news = newsDao.findById(8);
-		NewsEntity newsEntity = NewsAndNewsEnriryTran.newsToNewsEntity(news);
+ 		NewsEntity newsEntity = NewsAndNewsEnriryTran.newsToNewsEntity(news);
 		TendAnalyseArticle article = apa.getPreArticle(newsEntity);
 		System.out.println(article.getSentences());
 		System.out.println("title和keyword提取实词之后：" + article.getSet());

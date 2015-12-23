@@ -19,12 +19,11 @@ import pomonitor.clawer.newsanalyse.ZhongXinAnalyse;
 public class TestNewsCrawler {
 	@Test
 	public void testClawlerAll() {
-		NewsCrawler clawer = new NewsCrawler("E:/test/");
+		NewsCrawler clawer = new NewsCrawler("F:/test/");
 		SinaAnalyse analyse = new SinaAnalyse("新浪", true);
 		RedNetAnalyse redAnalyse = new RedNetAnalyse("红网", true);
 		RedNetAnalyseF redAnalysef = new RedNetAnalyseF("红网论坛", false);
 		ZhongXinAnalyse zxAnalyse = new ZhongXinAnalyse("中新网", true);
-
 		HuaShengAnalyse hsAnalyse = new HuaShengAnalyse("华声在线", true);
 		GuangMing gmAnalyse = new GuangMing("光明网", true);
 		WeiXinAnalyse weixinAnalyse = new WeiXinAnalyse("微信", true);
@@ -39,6 +38,7 @@ public class TestNewsCrawler {
 		// clawer.addAnalyse(zxAnalyse);
 		clawer.addAnalyse(gmAnalyse);
 		clawer.addAnalyse(hsAnalyse);
+
 		// 有错误 clawer.addAnalyse(weixinAnalyse);
 		clawer.addAnalyse(xhAnalyse);
 		clawer.addAnalyse(wangyi);

@@ -106,6 +106,9 @@ public class SinaAnalyse extends BaseAnalyse {
 					String title = aNode.childNode(0).outerHtml();
 					title = title.replaceAll("<span style=\"color:#C03\">", "");
 					title = title.replaceAll("</span>", "");
+					// title=e.select("a").text();
+					Elements Title = e.getElementsByTag("h2");
+					title = Title.select("a").text();
 					// 取时间和来源的字符串
 					String timeAndWeb = h2Node.childNode(2).childNode(0)
 							.outerHtml();

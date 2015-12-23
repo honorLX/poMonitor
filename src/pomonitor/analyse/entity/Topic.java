@@ -10,9 +10,9 @@ import java.util.List;
 public class Topic {
 
 	private String content;// 话题内容
-	private Double weight;// 话题权重
+	public double weight;// 话题权重
 	private boolean isSensitiveWords;// 该话题是否是敏感词（或其近义词）
-	private List<ArticleShow> articleViews;// 包含该话题的文章集合
+	public List<ArticleShow> articleViews;// 包含该话题的文章集合
 	private Attitude attitude;// 该话题的褒贬态度信息
 
 	public String getContent() {
@@ -37,14 +37,6 @@ public class Topic {
 
 	public void setSensitiveWords(boolean isSensitiveWords) {
 		this.isSensitiveWords = isSensitiveWords;
-	}
-
-	public List<ArticleShow> getArticleViews() {
-		return articleViews;
-	}
-
-	public void setArticleViews(List<ArticleShow> articleViews) {
-		this.articleViews = articleViews;
 	}
 
 	public Attitude getAttitude() {
