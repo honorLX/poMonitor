@@ -20,11 +20,11 @@ import pomonitor.util.NewsAndNewsEnriryTran;
 public class TestArticlePreAnalyse {
 	@Test
 	public void testGetPreArticle() {
- 
+
 		ArticlePreAnalyse apa = new ArticlePreAnalyse(new ArticleSplier());
 		NewsDAO newsDao = new NewsDAO();
 		News news = newsDao.findById(8);
- 		NewsEntity newsEntity = NewsAndNewsEnriryTran.newsToNewsEntity(news);
+		NewsEntity newsEntity = NewsAndNewsEnriryTran.newsToNewsEntity(news);
 		TendAnalyseArticle article = apa.getPreArticle(newsEntity);
 		System.out.println(article.getSentences());
 		System.out.println("title和keyword提取实词之后：" + article.getSet());
@@ -40,12 +40,11 @@ public class TestArticlePreAnalyse {
 		System.out.println(article.getSentences());
 		System.out.println("title和keyword提取实词之后：" + article.getSet());
 		SubSentenceGet ssg = new SubSentenceGet(
-				new SentenceSubCountByWeightAverage(), article);
+				new SentenceSubCountByWeightAverage());
 		ssg.addScoreAdder(new SubScoreAddPos());
 		ssg.addScoreAdder(new SubScoreAddThink());
 		ssg.addScoreAdder(new SubScoreAddTitle());
-		ssg.countSubScore();
-		ssg.getSubSentence(3);
+		ssg.getSubSentence(3, article);
 		for (TendSentence sentence : article.getSubSentences()) {
 			String allSentence = "";
 			for (TendWord td : sentence.getWords()) {

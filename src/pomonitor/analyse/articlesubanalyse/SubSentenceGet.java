@@ -28,20 +28,16 @@ public class SubSentenceGet {
 	 * 
 	 * @param countByWeight
 	 *            主题类加权方法
-	 * @param artice
-	 *            需要分析的文章对象
 	 */
-	public SubSentenceGet(ISentenceSubCountByWeight countByWeight,
-			TendAnalyseArticle artice) {
+	public SubSentenceGet(ISentenceSubCountByWeight countByWeight) {
 		adderList = new ArrayList<ISubScoreAdd>();
 		this.countWeight = countByWeight;
-		this.article = artice;
 	}
 
 	/**
 	 * 对文章每一个句子做主题分析，并将其存储到相应句子的相应分数， 并计算出每个句子的主题总分,并保存到主题总分字段
 	 */
-	public void countSubScore() {
+	private void countSubScore() {
 		for (TendSentence sentence : article.getSentences()) {
 			for (ISubScoreAdd add : adderList) {
 				add.add(article, sentence);
@@ -57,8 +53,10 @@ public class SubSentenceGet {
 	 * @param outCount
 	 *            需要提取的主题句多少
 	 */
-	public void getSubSentence(int outCount) {
-		List<TendSentence> sentences = article.getSentences();
+	public void getSubSentence(int outCount, TendAnalyseArticle article) {
+		this.article = article;
+		countSubScore();
+		List<TendSentence> sentences = this.article.getSentences();
 		List<TendSentence> subSentences = new ArrayList<TendSentence>();
 		int count = 0;
 		int index;
