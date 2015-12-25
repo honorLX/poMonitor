@@ -15,6 +15,8 @@
 		<class>pomonitor.entity.NegWord</class>
 		<class>pomonitor.entity.WordProperty</class>
 		<class>pomonitor.entity.Emotionalword</class>
+		<class>pomonitor.entity.NewsTend</class>
+		<class>pomonitor.entity.SynonyMousWord</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.jdbc.Driver" />

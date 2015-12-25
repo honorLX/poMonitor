@@ -153,10 +153,15 @@ public class SentenceTendAnalyseByCenture implements ISentenceTendAnalyse {
 	 * @return float
 	 */
 	private float findEmotionValue(String word) {
+		System.out.println("当前词：" + word);
 		float score = 0;
 		// 查找情感词典
+		System.out.println(emotionalDictionary);
 		Emotionalword eword = emotionalDictionary.getWord(word);
 		if (eword != null) {
+			System.out.println(eword.getId());
+			System.out.println(eword.getPolarity() + "~~~~~~~");
+			System.out.println(eword.getStrength() + "~~~~~~~~~");
 			// 计算分数
 			score = eword.getPolarity() * (float) eword.getStrength() / 10;
 		} else {

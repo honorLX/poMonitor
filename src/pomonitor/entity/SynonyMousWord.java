@@ -1,4 +1,5 @@
 package pomonitor.entity;
+// default package
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,14 +10,14 @@ import javax.persistence.Table;
 
 
 /**
- * Synonymousword entity. @author MyEclipse Persistence Tools
+ * SynonyMousWord entity. @author MyEclipse Persistence Tools
  */
 @Entity
 @Table(name="synonymousword"
     ,catalog="pomonitor"
 )
 
-public class Synonymousword  implements java.io.Serializable {
+public class SynonyMousWord  implements java.io.Serializable {
 
 
     // Fields    
@@ -29,12 +30,12 @@ public class Synonymousword  implements java.io.Serializable {
     // Constructors
 
     /** default constructor */
-    public Synonymousword() {
+    public SynonyMousWord() {
     }
 
     
     /** full constructor */
-    public Synonymousword(String category, String words) {
+    public SynonyMousWord(String category, String words) {
         this.category = category;
         this.words = words;
     }
@@ -63,7 +64,7 @@ public class Synonymousword  implements java.io.Serializable {
         this.category = category;
     }
     
-    @Column(name="words")
+    @Column(name="words", length=65535)
 
     public String getWords() {
         return this.words;

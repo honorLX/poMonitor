@@ -61,7 +61,7 @@ public class SubSentenceGet {
 		int count = 0;
 		int index;
 		for (int i = 0; i < sentences.size(); i++) {
-			if (count > outCount) {
+			if (count >= outCount) {
 				break;
 			}
 			count++;

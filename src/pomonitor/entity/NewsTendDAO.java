@@ -1,21 +1,26 @@
 package pomonitor.entity;
+// default package
 
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 /**
- 	* A data access object (DAO) providing persistence and search support for Synonymousword entities.
+ 	* A data access object (DAO) providing persistence and search support for NewsTend entities.
  	 		* Transaction control of the save(), update() and delete() operations must be handled externally by senders of these methods 
  		  or must be manually added to each of these methods for data to be persisted to the JPA datastore.	
- 	 * @see pomonitor.entity.Synonymousword
+ 	 * @see .NewsTend
   * @author MyEclipse Persistence Tools 
  */
-public class SynonymouswordDAO  implements ISynonymouswordDAO{
+public class NewsTendDAO  implements INewsTendDAO{
 	//property constants
-	public static final String CATEGORY = "category";
-	public static final String WORDS = "words";
+	public static final String NEWS_ID = "newsId";
+	public static final String WEB = "web";
+	public static final String TENDCLASS = "tendclass";
+	public static final String TENDSCORE = "tendscore";
 
 
 
@@ -26,21 +31,21 @@ public class SynonymouswordDAO  implements ISynonymouswordDAO{
 	}	
 	
 		/**
-	 Perform an initial save of a previously unsaved Synonymousword entity. 
+	 Perform an initial save of a previously unsaved NewsTend entity. 
 	 All subsequent persist actions of this entity should use the #update() method.
 	 This operation must be performed within the a database transaction context for the entity's data to be permanently saved to the persistence store, i.e., database. 
 	 This method uses the {@link javax.persistence.EntityManager#persist(Object) EntityManager#persist} operation.
 	 	 
 	 * <pre> 
 	 *   EntityManagerHelper.beginTransaction();
-	 *   SynonymouswordDAO.save(entity);
+	 *   NewsTendDAO.save(entity);
 	 *   EntityManagerHelper.commit();
 	 * </pre>
-	   @param entity Synonymousword entity to persist
+	   @param entity NewsTend entity to persist
 	  @throws RuntimeException when the operation fails
 	 */
-    public void save(Synonymousword entity) {
-    				EntityManagerHelper.log("saving Synonymousword instance", Level.INFO, null);
+    public void save(NewsTend entity) {
+    				EntityManagerHelper.log("saving NewsTend instance", Level.INFO, null);
 	        try {
             getEntityManager().persist(entity);
             			EntityManagerHelper.log("save successful", Level.INFO, null);
@@ -51,7 +56,7 @@ public class SynonymouswordDAO  implements ISynonymouswordDAO{
     }
     
     /**
-	 Delete a persistent Synonymousword entity.
+	 Delete a persistent NewsTend entity.
 	  This operation must be performed 
 	 within the a database transaction context for the entity's data to be
 	 permanently deleted from the persistence store, i.e., database. 
@@ -59,17 +64,17 @@ public class SynonymouswordDAO  implements ISynonymouswordDAO{
 	 	  
 	 * <pre>
 	 *   EntityManagerHelper.beginTransaction();
-	 *   SynonymouswordDAO.delete(entity);
+	 *   NewsTendDAO.delete(entity);
 	 *   EntityManagerHelper.commit();
 	 *   entity = null;
 	 * </pre>
-	   @param entity Synonymousword entity to delete
+	   @param entity NewsTend entity to delete
 	 @throws RuntimeException when the operation fails
 	 */
-    public void delete(Synonymousword entity) {
-    				EntityManagerHelper.log("deleting Synonymousword instance", Level.INFO, null);
+    public void delete(NewsTend entity) {
+    				EntityManagerHelper.log("deleting NewsTend instance", Level.INFO, null);
 	        try {
-        	entity = getEntityManager().getReference(Synonymousword.class, entity.getId());
+        	entity = getEntityManager().getReference(NewsTend.class, entity.getId());
             getEntityManager().remove(entity);
             			EntityManagerHelper.log("delete successful", Level.INFO, null);
 	        } catch (RuntimeException re) {
@@ -79,24 +84,24 @@ public class SynonymouswordDAO  implements ISynonymouswordDAO{
     }
     
     /**
-	 Persist a previously saved Synonymousword entity and return it or a copy of it to the sender. 
-	 A copy of the Synonymousword entity parameter is returned when the JPA persistence mechanism has not previously been tracking the updated entity. 
+	 Persist a previously saved NewsTend entity and return it or a copy of it to the sender. 
+	 A copy of the NewsTend entity parameter is returned when the JPA persistence mechanism has not previously been tracking the updated entity. 
 	 This operation must be performed within the a database transaction context for the entity's data to be permanently saved to the persistence
 	 store, i.e., database. This method uses the {@link javax.persistence.EntityManager#merge(Object) EntityManager#merge} operation.
 	 	 
 	 * <pre>
 	 *   EntityManagerHelper.beginTransaction();
-	 *   entity = SynonymouswordDAO.update(entity);
+	 *   entity = NewsTendDAO.update(entity);
 	 *   EntityManagerHelper.commit();
 	 * </pre>
-	   @param entity Synonymousword entity to update
-	 @return Synonymousword the persisted Synonymousword entity instance, may not be the same
+	   @param entity NewsTend entity to update
+	 @return NewsTend the persisted NewsTend entity instance, may not be the same
 	 @throws RuntimeException if the operation fails
 	 */
-    public Synonymousword update(Synonymousword entity) {
-    				EntityManagerHelper.log("updating Synonymousword instance", Level.INFO, null);
+    public NewsTend update(NewsTend entity) {
+    				EntityManagerHelper.log("updating NewsTend instance", Level.INFO, null);
 	        try {
-            Synonymousword result = getEntityManager().merge(entity);
+            NewsTend result = getEntityManager().merge(entity);
             			EntityManagerHelper.log("update successful", Level.INFO, null);
 	            return result;
         } catch (RuntimeException re) {
@@ -105,10 +110,10 @@ public class SynonymouswordDAO  implements ISynonymouswordDAO{
         }
     }
     
-    public Synonymousword findById( Integer id) {
-    				EntityManagerHelper.log("finding Synonymousword instance with id: " + id, Level.INFO, null);
+    public NewsTend findById( Integer id) {
+    				EntityManagerHelper.log("finding NewsTend instance with id: " + id, Level.INFO, null);
 	        try {
-            Synonymousword instance = getEntityManager().find(Synonymousword.class, id);
+            NewsTend instance = getEntityManager().find(NewsTend.class, id);
             return instance;
         } catch (RuntimeException re) {
         				EntityManagerHelper.log("find failed", Level.SEVERE, re);
@@ -118,18 +123,18 @@ public class SynonymouswordDAO  implements ISynonymouswordDAO{
     
 
 /**
-	 * Find all Synonymousword entities with a specific property value.  
+	 * Find all NewsTend entities with a specific property value.  
 	 
-	  @param propertyName the name of the Synonymousword property to query
+	  @param propertyName the name of the NewsTend property to query
 	  @param value the property value to match
-	  	  @return List<Synonymousword> found by query
+	  	  @return List<NewsTend> found by query
 	 */
     @SuppressWarnings("unchecked")
-    public List<Synonymousword> findByProperty(String propertyName, final Object value
+    public List<NewsTend> findByProperty(String propertyName, final Object value
         ) {
-    				EntityManagerHelper.log("finding Synonymousword instance with property: " + propertyName + ", value: " + value, Level.INFO, null);
+    				EntityManagerHelper.log("finding NewsTend instance with property: " + propertyName + ", value: " + value, Level.INFO, null);
 			try {
-			final String queryString = "select model from Synonymousword model where model." 
+			final String queryString = "select model from NewsTend model where model." 
 			 						+ propertyName + "= :propertyValue";
 								Query query = getEntityManager().createQuery(queryString);
 					query.setParameter("propertyValue", value);
@@ -139,29 +144,41 @@ public class SynonymouswordDAO  implements ISynonymouswordDAO{
 				throw re;
 		}
 	}			
-	public List<Synonymousword> findByCategory(Object category
+	public List<NewsTend> findByNewsId(Object newsId
 	) {
-		return findByProperty(CATEGORY, category
+		return findByProperty(NEWS_ID, newsId
 		);
 	}
 	
-	public List<Synonymousword> findByWords(Object words
+	public List<NewsTend> findByWeb(Object web
 	) {
-		return findByProperty(WORDS, words
+		return findByProperty(WEB, web
+		);
+	}
+	
+	public List<NewsTend> findByTendclass(Object tendclass
+	) {
+		return findByProperty(TENDCLASS, tendclass
+		);
+	}
+	
+	public List<NewsTend> findByTendscore(Object tendscore
+	) {
+		return findByProperty(TENDSCORE, tendscore
 		);
 	}
 	
 	
 	/**
-	 * Find all Synonymousword entities.
-	  	  @return List<Synonymousword> all Synonymousword entities
+	 * Find all NewsTend entities.
+	  	  @return List<NewsTend> all NewsTend entities
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Synonymousword> findAll(
+	public List<NewsTend> findAll(
 		) {
-					EntityManagerHelper.log("finding all Synonymousword instances", Level.INFO, null);
+					EntityManagerHelper.log("finding all NewsTend instances", Level.INFO, null);
 			try {
-			final String queryString = "select model from Synonymousword model";
+			final String queryString = "select model from NewsTend model";
 								Query query = getEntityManager().createQuery(queryString);
 					return query.getResultList();
 		} catch (RuntimeException re) {

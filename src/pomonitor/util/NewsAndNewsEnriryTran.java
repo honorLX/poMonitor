@@ -37,11 +37,7 @@ public class NewsAndNewsEnriryTran {
 		// List<String> list = java.util.Arrays.asList(key);
 		// for(int i=0;i<list.size();i++){
 		System.out.println(keyw + "!!!!!");
-
-		System.out.println(keyw.get(0) + "!!!!!");
-		// }
 		newsEntity.setKeywords(keyw);
-		// newsEntity.setFinish(Interage.parse((news.getIsFinsh()));
 		if (news.getIsFinsh() == 1) {
 
 			newsEntity.setFinish(true);
