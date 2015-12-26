@@ -54,7 +54,7 @@ public class TopicDiscoveryAnalyse {
 			List<Term> tmpTermList_allcontent = generateTerms.getTerms(news
 					.getAllContent());
 			List<Term> tmpTermList_keyword = generateTerms.getTerms(news
-					.getKeyWords());
+					.getKeyWords()+" "+news.getTitle());
 			for (Term term : tmpTermList_allcontent) {
 				TDArticleTerm tmpArtTerm = new TDArticleTerm();
 				tmpArtTerm.setposition(TDPosition.BODY);
@@ -67,6 +67,7 @@ public class TopicDiscoveryAnalyse {
 				tmpArtTerm.setvalue(term.word);
 				tmpTDArtTerms.add(tmpArtTerm);
 			}
+			
 			tmpArt.setArticleAllTerms(tmpTDArtTerms);
 			tmpArt.setComeFrom(news.getWeb());
 			tmpArt.setDescription(news.getContent());

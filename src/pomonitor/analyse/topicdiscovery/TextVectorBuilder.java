@@ -91,6 +91,7 @@ public class TextVectorBuilder {
 	 * @return
 	 */
 	private double getWeight(TDArticle article, TDArticleTerm term) {
+		
 		return findTFIDF(article, term);
 	}
 
