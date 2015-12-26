@@ -21,6 +21,8 @@ public class DateUnify {
 		if (Idatatime[2].length() < 2) {
 			Idatatime[2] = "0" + Idatatime[2];
 		}
+		String[] strs = p.split(dates);
+		System.out.println(strs[0] + strs[1]);
 		datatimes = Idatatime[0] + "-" + Idatatime[1] + "-" + Idatatime[2];
 		return datatimes;
 	}

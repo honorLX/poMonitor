@@ -1,16 +1,7 @@
 package pomonitor.util;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-
-import org.eclipse.persistence.internal.jpa.metadata.structures.ArrayAccessor;
 
 import pomonitor.entity.Emotionalword;
 import pomonitor.entity.EmotionalwordDAO;
@@ -26,6 +17,7 @@ public class EmotionalDictionary {
 	public EmotionalDictionary() {
 		hashMap = new HashMap<String, Emotionalword>();
 		emotionalwordDAO = new EmotionalwordDAO();
+		initDictionary();
 	}
 
 	// 初始化情感词字典

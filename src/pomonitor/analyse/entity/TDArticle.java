@@ -17,9 +17,10 @@ public class TDArticle {
 	private Date timestamp;
 	private String comeFrom;// 来源网站的名字
 	private List<TDArticleTerm> articleAllTerms;// 该文章包括的所有的词项集合
+ 
 	private Map<String, Double> termsWeights; // 代表该篇文章所有词项的权重信息
 	public double[] vectorSpace;// 和所有文本向量vectorSpace关联的有一个全局的有序词项序列
-
+ 
 	public String getTitle() {
 		return title;
 	}

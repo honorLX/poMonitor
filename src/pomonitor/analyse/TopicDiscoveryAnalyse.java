@@ -22,6 +22,7 @@ import com.hankcs.hanlp.seg.common.Term;
  */
 public class TopicDiscoveryAnalyse {
 
+
 	/**
 	 * 根据特定用户的敏感词库，获取一段时间内新闻文本的话题集合
 	 * 

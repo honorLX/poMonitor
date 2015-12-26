@@ -23,7 +23,7 @@ public class ArticlePreAnalyse {
 
 	// 句子分析器
 	private SentenceSplier sentenceSplier;
-
+ 
 	// 文章分析器
 	private ArticleSplier articleSplier;
 
@@ -37,7 +37,7 @@ public class ArticlePreAnalyse {
 		this.articleSplier = new ArticleSplier();
 		sentenceSplier = new SentenceSplier();
 		propertysSet = new HashSet<String>(Arrays.asList(propertys));
-	}
+ 	}
 
 	/**
 	 * 初始化一篇文章，加载基本参数
@@ -50,6 +50,7 @@ public class ArticlePreAnalyse {
 		article.setKeyWords(news.getKeywords());
 		article.setTitle(news.getTitle());
 	}
+
 
 	/**
 	 * 主要处理keyWord和title
@@ -73,6 +74,7 @@ public class ArticlePreAnalyse {
 	/**
 	 * 断句并且分依每一句，主要处理文章正文
 	 */
+
 
 	private void splitArticle() {
 		String content = news.getAllContent();

@@ -2,14 +2,17 @@ package pomonitor.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Emotionalword entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "emotionalword", catalog = "pomonitor")
+@Table(name = "emotionalword", catalog = "pomonitor", uniqueConstraints = @UniqueConstraint(columnNames = "word"))
 public class Emotionalword implements java.io.Serializable {
 
 	// Fields
@@ -27,14 +30,13 @@ public class Emotionalword implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Emotionalword(Integer id) {
-		this.id = id;
+	public Emotionalword(String word) {
+		this.word = word;
 	}
 
 	/** full constructor */
-	public Emotionalword(Integer id, String word, String speech,
-			Integer polarity, Integer strength) {
-		this.id = id;
+	public Emotionalword(String word, String speech, Integer polarity,
+			Integer strength) {
 		this.word = word;
 		this.speech = speech;
 		this.polarity = polarity;
@@ -43,6 +45,7 @@ public class Emotionalword implements java.io.Serializable {
 
 	// Property accessors
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
@@ -52,7 +55,7 @@ public class Emotionalword implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "word")
+	@Column(name = "word", unique = true, nullable = false)
 	public String getWord() {
 		return this.word;
 	}
@@ -88,8 +91,4 @@ public class Emotionalword implements java.io.Serializable {
 		this.strength = strength;
 	}
 
-	public String toString() {
-		return new String(this.word + " " + this.speech + " " + this.polarity
-				+ " " + this.strength);
-	}
 }
