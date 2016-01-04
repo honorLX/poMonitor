@@ -49,6 +49,7 @@ public class ArticlePreAnalyse {
 		article = new TendAnalyseArticle();
 		article.setKeyWords(news.getKeywords());
 		article.setTitle(news.getTitle());
+		article.setWeb(news.getWeb());
 	}
 
 
