@@ -29,7 +29,9 @@ public class KmeansCluster {
 	public static List<TDCentroid> ArticleCluster(int k,
 			List<TDArticle> articleCollection) {
 		/******************* 随机初始化 k 个类别 ***********************/
-		List<TDCentroid> centroidCollection = new ArrayList<TDCentroid>();
+		//方法一 随机K个中心
+		 
+		List<TDCentroid> centroidCollection  = new ArrayList<TDCentroid>();
 		TDCentroid c;
 		HashSet<Integer> uniqRand = GenerateRandomNumber(k,
 				articleCollection.size());
@@ -39,7 +41,11 @@ public class KmeansCluster {
 			c.GroupedArticle.add(articleCollection.get(i));
 			centroidCollection.add(c);
 		}
+		 
 		/***********************************************************/
+		//方法二  选择批次距离尽可能远的K个点
+		//List<TDCentroid> centroidCollection=getInitKCentroid(k,articleCollection);
+
 		boolean stoppingCriteria = false;
 		List<TDCentroid> resultSet;
 		List<TDCentroid> prevClusterCenter;
@@ -65,7 +71,53 @@ public class KmeansCluster {
 
 		return resultSet;
 	}
-
+	
+	/**
+	 * 选择批次距离尽可能远的K个点
+	 * @param k
+	 * @param articleCollection
+	 * 
+	 */
+	private static List<TDCentroid> getInitKCentroid(int k,
+			List<TDArticle> articleCollection){
+		List<TDCentroid> centroidCollection = new ArrayList<TDCentroid>();
+		TDCentroid c=null;
+		 //防止k超过最大值
+		if(k>articleCollection.size()) 
+			k=articleCollection.size();
+		do {
+			c=new TDCentroid();
+			c.GroupedArticle = new ArrayList<TDArticle>();
+			//第一个中心点由随机数决定
+			if(centroidCollection.size()==0){
+				int theFirstCent = new Random().nextInt(articleCollection.size());
+				c.GroupedArticle.add(articleCollection.get(theFirstCent));
+			}
+			//计算哪篇文章距离中心点最远
+			else{
+				TDArticle theFararticle=null;
+				double theFarDist=0.0; 
+				for(TDArticle article :articleCollection){
+					double theDist=0.0;
+					for(TDCentroid cent :centroidCollection){
+						theDist+=SimilarityMatrics.FindEuclideanDistance(article.vectorSpace,
+								cent.getGroupedArticle().get(0).vectorSpace);
+					}
+					//总距离比当前大 则更新
+					if(theDist>theFarDist){
+						theFarDist=theDist;
+						theFararticle=article;
+					}
+				}
+				if(theFararticle!=null)
+					c.GroupedArticle.add(theFararticle);
+			}
+			if(c!=null)
+			centroidCollection.add(c);
+		} while (centroidCollection.size() != k);
+		return centroidCollection;
+	}
+	
 	/**
 	 * 生成各不相同的 k 个整数索引
 	 * 

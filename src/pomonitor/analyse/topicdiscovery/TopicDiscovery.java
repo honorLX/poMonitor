@@ -17,7 +17,7 @@ import pomonitor.entity.Sensword;
  */
 public class TopicDiscovery {
 	private List<String> mBaseStrings;
-	private final int k = 3;
+	private final int k = 13;
 
 	// 根据新闻文本集合和用户的敏感词库，提取话题
 	public List<Topic> getTopics(List<TDArticle> articleLists,
@@ -29,10 +29,23 @@ public class TopicDiscovery {
 		List<TDCentroid> resTDCentroid = KmeansCluster.ArticleCluster(k,
 				tdArticlesWithVector);
 		// 对聚类结果进行处理
-
+		List<Topic> topics=new ArrayList<Topic>();
+		for (TDCentroid tdCentroid : resTDCentroid){
+			Topic tp=new Topic();
+			String content="";
+			double[] _vec = tdCentroid.GroupedArticle.get(0).vectorSpace;
+			double _maxVar = getMax(_vec);
+			for (int i = 0; i < _vec.length; i++) {
+				if (_vec[i] > 0.1 * _maxVar) {
+					content+=mBaseStrings.get(i)+" ";
+				}
+			}
+			tp.setContent(content);
+			topics.add(tp);
+		}
 		// 对话题结果按照 敏感词库 再次进行加权
 
-		return null;
+		return topics;
 	}
 
 	public List<Topic> getTopicFromCentroid(TDCentroid tdc,
@@ -72,5 +85,31 @@ public class TopicDiscovery {
 
 		}
 		return topicList;
+	}
+	
+	
+	
+	public static double getMax(double[] arr) {
+		double maxVar = arr[0];
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] > maxVar)
+				maxVar = arr[i];
+		}
+		return maxVar;
+	}
+	public static double getMin(double[] arr) {
+		double minVar = arr[0];
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] < minVar)
+				minVar = arr[i];
+		}
+		return minVar;
+	}
+	public static String vectorToString(double[] arr) {
+		String str = "";
+		for (double d : arr) {
+			str += d + "->";
+		}
+		return str;
 	}
 }
