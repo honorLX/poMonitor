@@ -30,7 +30,7 @@ public class KmeansCluster {
 			List<TDArticle> articleCollection) {
 		/******************* 随机初始化 k 个类别 ***********************/
 		//方法一 随机K个中心
-		 /*
+		 
 		List<TDCentroid> centroidCollection  = new ArrayList<TDCentroid>();
 		TDCentroid c;
 		HashSet<Integer> uniqRand = GenerateRandomNumber(k,
@@ -41,10 +41,10 @@ public class KmeansCluster {
 			c.GroupedArticle.add(articleCollection.get(i));
 			centroidCollection.add(c);
 		}
-		 */
+		 
 		/***********************************************************/
 		//方法二  选择批次距离尽可能远的K个点
-		List<TDCentroid> centroidCollection=getInitKCentroid(k,articleCollection);
+		//List<TDCentroid> centroidCollection=getInitKCentroid(k,articleCollection);
 
 		boolean stoppingCriteria = false;
 		List<TDCentroid> resultSet;
@@ -81,7 +81,7 @@ public class KmeansCluster {
 	private static List<TDCentroid> getInitKCentroid(int k,
 			List<TDArticle> articleCollection){
 		List<TDCentroid> centroidCollection = new ArrayList<TDCentroid>();
-		TDCentroid c;
+		TDCentroid c=null;
 		 //防止k超过最大值
 		if(k>articleCollection.size()) 
 			k=articleCollection.size();
@@ -96,9 +96,9 @@ public class KmeansCluster {
 			//计算哪篇文章距离中心点最远
 			else{
 				TDArticle theFararticle=null;
-				double theFarDist=-1.0; 
+				double theFarDist=0.0; 
 				for(TDArticle article :articleCollection){
-					double theDist=0;
+					double theDist=0.0;
 					for(TDCentroid cent :centroidCollection){
 						theDist+=SimilarityMatrics.FindEuclideanDistance(article.vectorSpace,
 								cent.getGroupedArticle().get(0).vectorSpace);
@@ -112,6 +112,7 @@ public class KmeansCluster {
 				if(theFararticle!=null)
 					c.GroupedArticle.add(theFararticle);
 			}
+			if(c!=null)
 			centroidCollection.add(c);
 		} while (centroidCollection.size() != k);
 		return centroidCollection;

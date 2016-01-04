@@ -19,7 +19,7 @@ public class TestTopicDiscovery {
 		lists = tvb.buildVectors(lists);
 		List<String> baseStr = tvb.globalFeatureCollections;
 		List<TDCentroid> resCluster = KmeansCluster.ArticleCluster(15, lists);
-		TopicDiscovery td = new TopicDiscovery();
+		//TopicDiscovery td = new TopicDiscovery();
 		System.out
 				.println("全局的特征项集合大小是:" + tvb.globalFeatureCollections.size());
 		for (TDCentroid tdCentroid : resCluster) {/*
