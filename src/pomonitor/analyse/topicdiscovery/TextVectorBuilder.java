@@ -10,6 +10,7 @@ import java.util.Map;
 
 import pomonitor.analyse.entity.TDArticle;
 import pomonitor.analyse.entity.TDArticleTerm;
+import pomonitor.analyse.entity.TDPosition;
 
 /**
  * 以向量空间模型表示新闻文本
@@ -25,8 +26,10 @@ public class TextVectorBuilder {
 	private final double EXTRACT_PERCENT = 0.1;
 	// body词的权重系数
 	private final double BODY_WEIGHT = 1;
+	//title词的权重系数
+	private final double TITLE_WEIGHT = 3;
 	// meta词的权重系数
-	private final double META_WEIGHT = 3;
+	private final double META_WEIGHT = 2;
 	// 总的特征集合
 	public List<String> globalFeatureCollections = new ArrayList<String>();
 
@@ -66,6 +69,7 @@ public class TextVectorBuilder {
 	private TDArticle buildArticleVector(TDArticle article) {
 		TDArticle resTdArticle = article;
 		double[] vec = new double[globalFeatureCollections.size()];
+		double sumVal=0,avgVal=0,maxVal,minVal;
 		for (int i = 0; i < vec.length; i++) {
 			if (article.getTermsWeights().containsKey(
 					globalFeatureCollections.get(i)))
@@ -73,6 +77,14 @@ public class TextVectorBuilder {
 						globalFeatureCollections.get(i));
 			else
 				vec[i] = 0;
+			sumVal+=vec[i];
+		}
+		//归一化处理
+		avgVal=sumVal/vec.length;
+		maxVal=TopicDiscovery.getMax(vec);
+		minVal=TopicDiscovery.getMin(vec);
+		for (int i = 0; i < vec.length; i++) {
+			vec[i]=(vec[i]-avgVal)/(maxVal-minVal);
 		}
 		resTdArticle.vectorSpace = vec;
 		return resTdArticle;
@@ -91,6 +103,7 @@ public class TextVectorBuilder {
 	 * @return
 	 */
 	private double getWeight(TDArticle article, TDArticleTerm term) {
+		
 		return findTFIDF(article, term);
 	}
 
@@ -108,8 +121,8 @@ public class TextVectorBuilder {
 	}
 
 	/**
-	 * 计算某个词在某篇文章中的 tf
-	 * 
+	 * 计算某个词在某篇文章中的 tf 
+	 * 加权词频因子
 	 * @param article
 	 * @param term
 	 * @return
@@ -117,8 +130,15 @@ public class TextVectorBuilder {
 	private double findTermFrequency(TDArticle article, String term) {
 		double termCount = 0;
 		for (TDArticleTerm _term : article.getArticleAllTerms()) {
-			if (term.equals(_term.getvalue()))
-				termCount++;
+			if (term.equals(_term.getvalue())){
+				if(_term.getposition()==TDPosition.BODY)
+					termCount+=BODY_WEIGHT;
+				else if(_term.getposition()==TDPosition.META)
+					termCount+=META_WEIGHT;
+				else if(_term.getposition()==TDPosition.TITLE){
+					termCount+=TITLE_WEIGHT;
+				}
+			}
 		}
 		return termCount / article.getArticleAllTerms().size();
 	}

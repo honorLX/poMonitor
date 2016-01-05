@@ -90,5 +90,8 @@ public class Emotionalword implements java.io.Serializable {
 	public void setStrength(Integer strength) {
 		this.strength = strength;
 	}
-
+	
+	public String toString(){
+		return new String(word + " " + speech + " " + polarity + " " + strength);
+	}
 }

@@ -2,6 +2,9 @@ package pomonitor.analyse.segment;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.hankcs.hanlp.dictionary.stopword.CoreStopWordDictionary;
 import com.hankcs.hanlp.seg.common.Term;
 
@@ -11,7 +14,7 @@ import com.hankcs.hanlp.seg.common.Term;
  */
 public class KeywordExtractor {
 	/**
-	 * 是否应当将这个term纳入计算，词性属于名词、动词、副词、形容词
+	 * 是否应当将这个term纳入计算，词性属于名词n、动词v、副词d、形容词a
 	 * 
 	 * @param term
 	 * @return 是否应当
@@ -34,7 +37,15 @@ public class KeywordExtractor {
 		case 'y':
 		case 'z':
 		case 'r':
-		case 'w': {
+		case 'w': 
+		case 'x':
+		case 't':
+		case 's':
+		case 'g':
+		case 'h':
+		case 'k':
+		case 'f':
+		{
 			return false;
 		}
 		default: {
@@ -52,6 +63,12 @@ public class KeywordExtractor {
 		Iterator<Term> iter = termList.iterator();
 		while (iter.hasNext()) {
 			Term term = iter.next();
+			Pattern p = Pattern.compile("^[0-9]*$"); 
+			Matcher m=p.matcher(term.word);
+			if(m.matches()==true){
+				iter.remove();
+				continue;
+			}
 			if (!shouldInclude(term)) {
 				iter.remove();
 			}
