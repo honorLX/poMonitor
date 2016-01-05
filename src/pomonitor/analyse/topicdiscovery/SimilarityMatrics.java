@@ -20,6 +20,9 @@ public class SimilarityMatrics {
 		double dotProduct = DotProduct(vecA, vecB);
 		double magnitudeOfA = Magnitude(vecA);
 		double magnitudeOfB = Magnitude(vecB);
+		if (isZero(magnitudeOfA, ZERO_THRESHOLD)
+				|| isZero(magnitudeOfB, ZERO_THRESHOLD))
+			return 0;
 		double result = dotProduct / (magnitudeOfA * magnitudeOfB);
 		return result;
 	}

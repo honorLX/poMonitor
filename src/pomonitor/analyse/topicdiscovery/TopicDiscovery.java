@@ -67,6 +67,7 @@ public class TopicDiscovery {
 					topicList.get(j).weight += tdc.GroupedArticle.get(i).vectorSpace[j];
 					topicList.get(j).setContent(baseSring.get(j));
 					// 该话题是否是敏感词，褒贬信息，没有设置
+
 				}
 			}
 
