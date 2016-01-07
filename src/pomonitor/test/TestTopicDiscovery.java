@@ -9,17 +9,22 @@ import pomonitor.analyse.topicdiscovery.KmeansCluster;
 import pomonitor.analyse.topicdiscovery.TextVectorBuilder;
 import pomonitor.analyse.topicdiscovery.TopicDiscovery;
 
+/**
+ * 测试热词发现的相关功能
+ * @author hengyi
+ *
+ */
 public class TestTopicDiscovery {
 	public static void main(String[] args) {
 		TopicDiscoveryAnalyse tda = new TopicDiscoveryAnalyse();
-		List<TDArticle> lists = tda.getArticlesBetweenDate("2012-09-10",
-				"2013-02-10");
+		List<TDArticle> lists = tda.getArticlesBetweenDate("2008-09-10",
+				"2009-02-10");
 		TextVectorBuilder tvb = new TextVectorBuilder();
 
 		lists = tvb.buildVectors(lists);
 		List<String> baseStr = tvb.globalFeatureCollections;
 		List<TDCentroid> resCluster = KmeansCluster.ArticleCluster(15, lists);
-		TopicDiscovery td = new TopicDiscovery();
+		//TopicDiscovery td = new TopicDiscovery();
 		System.out
 				.println("全局的特征项集合大小是:" + tvb.globalFeatureCollections.size());
 		for (TDCentroid tdCentroid : resCluster) {/*
@@ -63,6 +68,11 @@ public class TestTopicDiscovery {
 		}
 	}
 
+	/**
+	 * 求得一个数组的最大值
+	 * @param arr
+	 * @return
+	 */
 	private static double getMax(double[] arr) {
 		double maxVar = arr[0];
 		for (int i = 0; i < arr.length; i++) {
@@ -72,6 +82,11 @@ public class TestTopicDiscovery {
 		return maxVar;
 	}
 
+	/**
+	 * 将数组以字符串的形式表示
+	 * @param arr
+	 * @return
+	 */
 	public static String vectorToString(double[] arr) {
 		String str = "";
 		for (double d : arr) {

@@ -8,8 +8,9 @@ import java.util.List;
  * @author caihengyi 2015年12月15日 上午10:17:13
  */
 public class Topic {
-
+	
 	private String content;// 话题内容
+	
 	public double weight;// 话题权重
 	private boolean isSensitiveWords;// 该话题是否是敏感词（或其近义词）
 	public List<ArticleShow> articleViews;// 包含该话题的文章集合
