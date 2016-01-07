@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>热词统计</title>
+	<link rel="stylesheet" type="text/css" href="./bootstrap/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="index.css">
+	<script type="text/javascript">
+	</script>
+</head>
+<body>
+<div id="myDiv">hahaah</div>
+		Start_Date: <input type="date" id="date1" name="user_date" />
+		End_Date: <input type="date" id="date2" name="user_date" />
+		<button type="button" onclick="loadXMLDoc()">提交</button>
+		<div id="main" name="word"></div>
+			<script type="text/javascript" src="./echarts-2.2.7/build/dist/echarts.js"></script>
+			<script type="text/javascript" src="./zrender-master/doc/asset/js/esl/esl.js"></script>
+			<script type="text/javascript">
+
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: './echarts-2.2.7/build/dist'
+            }
+        });
+         require(
+            [
+                'echarts',
+                'echarts/chart/force' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main')); 
+                
+                var option = {
+                    title : {
+        text: '热词统计',
+        x:'right',
+        y:'bottom'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: '{a} : {b}'
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            restore : {show: true},
+            magicType: {show: true, type: ['force', 'chord']},
+            saveAsImage : {show: true}
+        }
+    },
+    legend: {
+        x: 'left',
+        data:['褒','贬','中']
+    },
+    series : [
+        {
+            type:'force',
+            name : "热词统计",
+            ribbonType: false,
+            categories : [
+                {
+                    name: '褒'
+                },
+                {
+                    name: '贬'
+                },
+                {
+                    name:'中'
+                }
+            ],
+            itemStyle: {
+                normal: {
+                    label: {
+                        show: true,
+                        textStyle: {
+                            color: '#333'
+                        }
+                    },
+                    nodeStyle : {
+                        brushType : 'both',
+                        borderColor : 'rgba(255,215,0,0.4)',
+                        borderWidth : 1
+                    },
+                    linkStyle: {
+                        type: 'curve'
+                    }
+                },
+                emphasis: {
+                    label: {
+                        show: false
+                        // textStyle: null      // 默认使用全局文本样式，详见TEXTSTYLE
+                    },
+                    nodeStyle : {
+                        //r: 30
+                    },
+                    linkStyle : {}
+                }
+            },
+            useWorker: false,
+            minRadius : 15,
+            maxRadius : 25,
+            gravity: 1.1,
+            scaling: 1.1,
+            roam: 'move',
+                    $.ajax({ 
+                        url: "http://localhost:8000/XXXService.svc/InsertCCFB", 
+                        type: "POST", 
+                        contentType: "json", 
+                        data: '{Start_Date:document.getElementById(date1),End_Date:document.getElementById(date2)}',
+                        dataType: "json", 
+                        success: function (data) { 
+                            var jsonobj=eval(data);
+                            var series_arr=jsonobj.nodes;
+                            for (var i=0;i<series_arr.length;i++)
+                            {
+                                option.nodes[i]=data.nodes[i];
+                            }
+                        alert(1); 
+                        }, 
+                        error: function () { 
+
+                        alert('没有进入'); 
+                        } 
+                        });
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+    </script>
+</body>
+</html>
