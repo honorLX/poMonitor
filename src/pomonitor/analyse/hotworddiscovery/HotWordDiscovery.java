@@ -1,4 +1,4 @@
-package pomonitor.analyse.topicdiscovery;
+package pomonitor.analyse.hotworddiscovery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import pomonitor.analyse.entity.ArticleShow;
 import pomonitor.analyse.entity.Attitude;
 import pomonitor.analyse.entity.TDArticle;
 import pomonitor.analyse.entity.TDCentroid;
-import pomonitor.analyse.entity.Topic;
+import pomonitor.analyse.entity.HotWord;
 import pomonitor.entity.Emotionalword;
 import pomonitor.entity.Sensword;
 import pomonitor.entity.SenswordDAO;
@@ -18,12 +18,12 @@ import pomonitor.util.EmotionalDictionary;
  * 
  * @author caihengyi 2015年12月14日 下午9:33:43
  */
-public class TopicDiscovery {
+public class HotWordDiscovery {
     private List<String> mBaseStrings;
     private final int k = 14;
 
     // 根据新闻文本集合和用户的敏感词库，提取话题
-    public List<Topic> getTopics(List<TDArticle> articleLists,
+    public List<HotWord> getTopics(List<TDArticle> articleLists,
 	    List<Sensword> sensitiveDict) {
 	TextVectorBuilder tvb = new TextVectorBuilder();
 	List<TDArticle> tdArticlesWithVector = tvb.buildVectors(articleLists);
@@ -32,9 +32,9 @@ public class TopicDiscovery {
 	List<TDCentroid> resTDCentroid = KmeansCluster.ArticleCluster(k,
 		tdArticlesWithVector);
 	// 对聚类结果进行处理得到topic
-	List<Topic> topics = new ArrayList<Topic>();
+	List<HotWord> topics = new ArrayList<HotWord>();
 	for (TDCentroid tdCentroid : resTDCentroid) {
-	    Topic t = getTopicFromCentroid2(tdCentroid, sensitiveDict);
+	    HotWord t = getTopicFromCentroid2(tdCentroid, sensitiveDict);
 	    topics.add(t);
 	}
 	// 对话题结果按照 敏感词库 再次进行加权
@@ -48,9 +48,9 @@ public class TopicDiscovery {
      * @param tdc
      * @return Topic
      */
-    public Topic getTopicFromCentroid2(TDCentroid tdc,
+    public HotWord getTopicFromCentroid2(TDCentroid tdc,
 	    List<Sensword> sensitiveDict) {
-	Topic t = new Topic();
+	HotWord t = new HotWord();
 	t.articleViews = new ArrayList<>();
 	t.weight = 0.0;
 	t.setAttitude(Attitude.NEUTRAL);
@@ -120,11 +120,11 @@ public class TopicDiscovery {
      * @param baseSring
      * @return
      */
-    public List<Topic> getTopicFromCentroid(TDCentroid tdc,
+    public List<HotWord> getTopicFromCentroid(TDCentroid tdc,
 	    List<String> baseSring) {
-	List<Topic> topicList = new ArrayList<Topic>(baseSring.size());
+	List<HotWord> topicList = new ArrayList<HotWord>(baseSring.size());
 	for (int i = 0; i < baseSring.size(); i++) {
-	    Topic t = new Topic();
+	    HotWord t = new HotWord();
 	    t.articleViews = new ArrayList<>();
 	    t.weight = 0.0;
 	    t.setAttitude(Attitude.NEUTRAL);

@@ -6,12 +6,13 @@ import java.util.List;
 import pomonitor.analyse.entity.TDArticle;
 import pomonitor.analyse.entity.TDArticleTerm;
 import pomonitor.analyse.entity.TDPosition;
-import pomonitor.analyse.entity.Topic;
+import pomonitor.analyse.entity.HotWord;
+import pomonitor.analyse.hotworddiscovery.HotWordDiscovery;
 import pomonitor.analyse.segment.TermsGenerator;
-import pomonitor.analyse.topicdiscovery.TopicDiscovery;
 import pomonitor.entity.News;
 import pomonitor.entity.NewsDAO;
 import pomonitor.entity.SenswordDAO;
+import pomonitor.util.ConsoleLog;
 
 import com.hankcs.hanlp.seg.common.Term;
 
@@ -20,7 +21,7 @@ import com.hankcs.hanlp.seg.common.Term;
  * 
  * @author caihengyi 2015年12月15日 下午4:12:07
  */
-public class TopicDiscoveryAnalyse {
+public class HotWordDiscoveryAnalyse {
 
     /**
      * 根据特定用户的敏感词库，获取一段时间内新闻文本的话题集合
@@ -30,10 +31,10 @@ public class TopicDiscoveryAnalyse {
      * @param userId
      * @return
      */
-    public List<Topic> DiscoverTopics(String startDateStr, String endDateStr,
+    public List<HotWord> DiscoverTopics(String startDateStr, String endDateStr,
 	    int userId) {
 	// 调用话题发现功能模块，返回话题集合
-	TopicDiscovery td = new TopicDiscovery();
+	HotWordDiscovery td = new HotWordDiscovery();
 	SenswordDAO sd = new SenswordDAO();
 	return td.getTopics(getArticlesBetweenDate(startDateStr, endDateStr),
 		sd.findByProperty("userid", userId));
@@ -43,7 +44,12 @@ public class TopicDiscoveryAnalyse {
 	    String endDateStr) {
 	// 根据起止时间获取数据库中的新闻文本
 	NewsDAO nd = new NewsDAO();
+	long start = System.currentTimeMillis();
 	List<News> newsList = nd.findBetweenDate(startDateStr, endDateStr);
+	long end = System.currentTimeMillis();
+	ConsoleLog.PrintInfo(HotWordDiscoveryAnalyse.class, "从数据库中取出"
+		+ startDateStr + "到" + endDateStr + "的文本，花费时间为" + (end - start)
+		+ "毫秒");
 	// 作分词，过滤预处理
 	List<TDArticle> tdArticleList = new ArrayList<TDArticle>();
 	TermsGenerator generateTerms = new TermsGenerator();

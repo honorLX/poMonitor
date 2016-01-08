@@ -1,4 +1,4 @@
-package pomonitor.analyse.topicdiscovery;
+package pomonitor.analyse.hotworddiscovery;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,7 +17,7 @@ public class KmeansCluster {
 
     private static int globalCounter = 0;
     private static int counter;
-    private static int MAX_NUM = 1100;
+    private static int MAX_NUM = 11000;
 
     /**
      * 给定文本向量集合，进行 k-means 聚类，返回类别集合
