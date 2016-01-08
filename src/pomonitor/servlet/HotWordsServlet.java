@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import pomonitor.analyse.TopicDiscoveryAnalyse;
-import pomonitor.analyse.entity.Topic;
+import pomonitor.analyse.HotWordDiscoveryAnalyse;
+import pomonitor.analyse.entity.HotWord;
 
 /**
  * 每一个servlet对应于前端的一个逻辑页面，前端可见的只是和当前页面相关的若干个请求接口， 每一个servlet不需要和后台的功能模块一一对应，特此说明
@@ -71,8 +71,8 @@ public class HotWordsServlet extends HttpServlet {
      */
     private String getHotWords(String startDateStr, String endDateStr,
 	    int userId) {
-	TopicDiscoveryAnalyse tdDiscovery = new TopicDiscoveryAnalyse();
-	List<Topic> topics = tdDiscovery.DiscoverTopics(startDateStr,
+	HotWordDiscoveryAnalyse tdDiscovery = new HotWordDiscoveryAnalyse();
+	List<HotWord> topics = tdDiscovery.DiscoverTopics(startDateStr,
 		endDateStr, userId);
 	String resJSON = "";
 	/******************* 将话题列表处理为JSON格式 *****************************/

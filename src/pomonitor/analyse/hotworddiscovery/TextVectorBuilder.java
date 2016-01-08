@@ -1,4 +1,4 @@
-package pomonitor.analyse.topicdiscovery;
+package pomonitor.analyse.hotworddiscovery;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -81,8 +81,8 @@ public class TextVectorBuilder {
 	}
 	// 归一化处理
 	avgVal = sumVal / vec.length;
-	maxVal = TopicDiscovery.getMax(vec);
-	minVal = TopicDiscovery.getMin(vec);
+	maxVal = HotWordDiscovery.getMax(vec);
+	minVal = HotWordDiscovery.getMin(vec);
 	for (int i = 0; i < vec.length; i++) {
 	    vec[i] = (vec[i] - avgVal) / (maxVal - minVal);
 	}

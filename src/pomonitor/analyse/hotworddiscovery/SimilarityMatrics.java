@@ -1,4 +1,4 @@
-package pomonitor.analyse.topicdiscovery;
+package pomonitor.analyse.hotworddiscovery;
 
 /**
  * 向量之间的相似度

@@ -7,7 +7,7 @@ import java.util.List;
  * 
  * @author caihengyi 2015年12月15日 上午10:17:13
  */
-public class Topic {
+public class HotWord {
 
     private String content;// 话题内容
 
