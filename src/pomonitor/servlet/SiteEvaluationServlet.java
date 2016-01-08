@@ -82,8 +82,8 @@ public class SiteEvaluationServlet extends HttpServlet {
 		for (Iterator iterator = hashMap.keySet().iterator(); iterator
 				.hasNext();) {
 			String webName = (String) iterator.next();
-			System.out.println(webName);
 			Float score = hashMap.get(webName);
+			webName = ArticleTendAnalyse.EnglishWebNameToChinese(webName);
 			String polarity = "";
 			if (score > -1 && score < 1) {
 				polarity = "¿Í¹Û";
