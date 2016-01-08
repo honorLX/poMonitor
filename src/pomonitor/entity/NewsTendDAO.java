@@ -2,7 +2,6 @@ package pomonitor.entity;
 
 // default package
 
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -180,6 +179,31 @@ public class NewsTendDAO implements INewsTendDAO {
 
     public List<NewsTend> findByTendscore(Object tendscore) {
 	return findByProperty(TENDSCORE, tendscore);
+    }
+
+    /**
+     * 查询指定时间段内的新闻记录
+     * 
+     * @param startDateStr
+     *            开始时间, 例如 : "2012-10-10"
+     * @param endDateStr
+     *            结束时间,例如 : "2013-10-10"
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<NewsTend> findBetweenDate(String startDateStr, String endDateStr) {
+	try {
+	    final String queryString = "select model from NewsTend model where (model.date between "
+		    + "'" + startDateStr + "' and '" + endDateStr + "')";
+	    Query query = getEntityManager().createQuery(queryString);
+	    // query.setParameter("startDateStr", startDateStr);
+	    // query.setParameter("endDateStr", endDateStr);
+	    return query.getResultList();
+	} catch (RuntimeException re) {
+	    EntityManagerHelper.log("find by property name failed",
+		    Level.SEVERE, re);
+	    throw re;
+	}
     }
 
     /**

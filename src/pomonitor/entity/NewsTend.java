@@ -13,16 +13,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 /**
- * 用于存储新闻倾向性的计算结果 的实体 NewsTend entity. @author MyEclipse Persistence Tools
+ * NewsTend entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "newstend", catalog = "pomonitor")
+@Table(name = "newstend", catalog = "pomonitor", uniqueConstraints = @UniqueConstraint(columnNames = "newsId"))
 public class NewsTend implements java.io.Serializable {
 
     // Fields
-
     private Integer id;
     private Integer newsId;
     private String web;
@@ -58,7 +58,7 @@ public class NewsTend implements java.io.Serializable {
 	this.id = id;
     }
 
-    @Column(name = "newsId", nullable = false)
+    @Column(name = "newsId", unique = true, nullable = false)
     public Integer getNewsId() {
 	return this.newsId;
     }
