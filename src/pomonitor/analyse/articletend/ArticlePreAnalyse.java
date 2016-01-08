@@ -17,82 +17,80 @@ import pomonitor.entity.NewsEntity;
  */
 public class ArticlePreAnalyse {
 
-	private NewsEntity news;
+    private NewsEntity news;
 
-	private TendAnalyseArticle article;
+    private TendAnalyseArticle article;
 
-	// 句子分析器
-	private SentenceSplier sentenceSplier;
- 
-	// 文章分析器
-	private ArticleSplier articleSplier;
+    // 句子分析器
+    private SentenceSplier sentenceSplier;
 
-	// 需要加分的词性
-	private String propertys[] = { "a", "i", "j", "k", "m", "n", "nd", "nh",
-			"ni", "nl", "ns", "nt", "nz", "v", "ws" };
-	// 将需要加分的词性组装成set
-	private Set<String> propertysSet;
+    // 文章分析器
+    private ArticleSplier articleSplier;
 
-	public ArticlePreAnalyse(ArticleSplier articleSplier) {
-		this.articleSplier = new ArticleSplier();
-		sentenceSplier = new SentenceSplier();
-		propertysSet = new HashSet<String>(Arrays.asList(propertys));
- 	}
+    // 需要加分的词性
+    private String propertys[] = { "a", "i", "j", "k", "m", "n", "nd", "nh",
+	    "ni", "nl", "ns", "nt", "nz", "v", "ws" };
+    // 将需要加分的词性组装成set
+    private Set<String> propertysSet;
 
-	/**
-	 * 初始化一篇文章，加载基本参数
-	 * 
-	 * @param news
-	 */
-	private void init(NewsEntity news) {
-		this.news = news;
-		article = new TendAnalyseArticle();
-		article.setKeyWords(news.getKeywords());
-		article.setTitle(news.getTitle());
-		article.setWeb(news.getWeb());
+    public ArticlePreAnalyse(ArticleSplier articleSplier) {
+	this.articleSplier = new ArticleSplier();
+	sentenceSplier = new SentenceSplier();
+	propertysSet = new HashSet<String>(Arrays.asList(propertys));
+    }
+
+    /**
+     * 初始化一篇文章，加载基本参数
+     * 
+     * @param news
+     */
+    private void init(NewsEntity news) {
+	this.news = news;
+	article = new TendAnalyseArticle();
+	article.setKeyWords(news.getKeywords());
+	article.setTitle(news.getTitle());
+	article.setWeb(news.getWeb());
+    }
+
+    /**
+     * 主要处理keyWord和title
+     */
+    private void splitTitieAndKeyWord() {
+	Set<String> usefulWordSet = new HashSet<>();
+	String keyWords = "";
+	for (String key : article.getKeyWords()) {
+	    keyWords += "#" + key;
 	}
-
-
-	/**
-	 * 主要处理keyWord和title
-	 */
-	private void splitTitieAndKeyWord() {
-		Set<String> usefulWordSet = new HashSet<>();
-		String keyWords = "";
-		for (String key : article.getKeyWords()) {
-			keyWords += "#" + key;
-		}
-		String titleAndKey = news.getTitle() + keyWords;
-		List<TendWord> titleAndKeySpilwords = sentenceSplier.spil(titleAndKey);
-		for (TendWord td : titleAndKeySpilwords) {
-			if (propertysSet.contains(td.getPos())) {
-				usefulWordSet.add(td.getCont());
-			}
-		}
-		article.setSet(usefulWordSet);
+	String titleAndKey = news.getTitle() + keyWords;
+	List<TendWord> titleAndKeySpilwords = sentenceSplier.spil(titleAndKey);
+	for (TendWord td : titleAndKeySpilwords) {
+	    if (propertysSet.contains(td.getPos())) {
+		usefulWordSet.add(td.getCont());
+	    }
 	}
+	article.setSet(usefulWordSet);
+    }
 
-	/**
-	 * 断句并且分依每一句，主要处理文章正文
-	 */
+    /**
+     * 断句并且分依每一句，主要处理文章正文
+     */
 
+    private void splitArticle() {
+	String content = news.getAllContent();
+	List<TendSentence> relSentences = articleSplier.spil(content);
+	article.setSentences(relSentences);
+    }
 
-	private void splitArticle() {
-		String content = news.getAllContent();
-		List<TendSentence> relSentences = articleSplier.spil(content);
-		article.setSentences(relSentences);
-	}
-
-	/**
-	 * 向外提供的文章预处理方法，格式化处理好的文章以待分析
-	 * 
-	 * @param news
-	 * @return TendAnalyseArticle
-	 */
-	public TendAnalyseArticle getPreArticle(NewsEntity news) {
-		init(news);
-		splitArticle();
-		splitTitieAndKeyWord();
-		return article;
-	}
+    /**
+     * 向外提供的文章预处理方法，格式化处理好的文章以待分析
+     * 
+     * @param news
+     * @return TendAnalyseArticle
+     */
+    public TendAnalyseArticle getPreArticle(NewsEntity news) {
+	init(news);
+	splitArticle();
+	splitTitieAndKeyWord();
+	return article;
+    }
 }

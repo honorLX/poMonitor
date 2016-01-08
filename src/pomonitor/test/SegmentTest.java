@@ -14,13 +14,13 @@ import com.hankcs.hanlp.seg.common.Term;
  */
 public class SegmentTest {
 
-	public static void main(String[] args) {
-		String text = ReadData.getContentFromText("E:\\Temp\\test.txt");
-		TermsGenerator generateTerms = new TermsGenerator();
-		List<Term> termList = generateTerms.getTerms(text);
-		for (Term term : termList) {
-			System.out.println(term.word + "#" + term.offset + "#"
-					+ term.nature);
-		}
+    public static void main(String[] args) {
+	String text = ReadData.getContentFromText("E:\\Temp\\test.txt");
+	TermsGenerator generateTerms = new TermsGenerator();
+	List<Term> termList = generateTerms.getTerms(text);
+	for (Term term : termList) {
+	    System.out.println(term.word + "#" + term.offset + "#"
+		    + term.nature);
 	}
+    }
 }

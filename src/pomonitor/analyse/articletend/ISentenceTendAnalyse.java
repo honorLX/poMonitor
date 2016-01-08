@@ -9,10 +9,10 @@ import pomonitor.analyse.entity.TendSentence;
  */
 public interface ISentenceTendAnalyse {
 
-	/**
-	 * 
-	 * @param sentence
-	 * @return sentenceTendScore
-	 */
-	public float analyseSentenceTend(TendSentence sentence);
+    /**
+     * 
+     * @param sentence
+     * @return sentenceTendScore
+     */
+    public float analyseSentenceTend(TendSentence sentence);
 }
