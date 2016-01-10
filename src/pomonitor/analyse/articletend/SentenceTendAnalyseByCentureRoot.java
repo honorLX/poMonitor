@@ -20,7 +20,7 @@ import pomonitor.util.NegWordDictionary;
  * 
  * @author zhaolong 2015年12月23日 下午7:09:30
  */
-public class SentenceTendAnalyseByCenture implements ISentenceTendAnalyse {
+public class SentenceTendAnalyseByCentureRoot implements ISentenceTendAnalyse {
 	// 情感词字典
 	private EmotionalDictionary emotionalDictionary;
 
@@ -45,7 +45,7 @@ public class SentenceTendAnalyseByCenture implements ISentenceTendAnalyse {
 	/**
 	 * 构造方法初始化一些基本信息
 	 */
-	public SentenceTendAnalyseByCenture() {
+	public SentenceTendAnalyseByCentureRoot() {
 		emotionalDictionary = new EmotionalDictionary();
 		levelDictionary = new LeverWordDictionary();
 		negDictionary = new NegWordDictionary();
@@ -71,7 +71,7 @@ public class SentenceTendAnalyseByCenture implements ISentenceTendAnalyse {
 	private int getId() {
 		int id = -1;
 		for (TendWord td : wordsList) {
-			if (td.getParent() == -1) {
+			if (td.getSemparent() == -1) {
 				id = td.getId();
 				System.out.println("获取到的核心词：" + td.getCont());
 			}
@@ -105,10 +105,10 @@ public class SentenceTendAnalyseByCenture implements ISentenceTendAnalyse {
 		// 计算当前词的孩子id
 		List<Integer> childrenIdList = findChildId(id);
 
-		if (le.level != 1.0f) {
-			System.out.println(le.level + " 被加入");
-			mapCount.put(le.level, 1);
-		}
+		// if (le.level != 1.0f) {
+		// System.out.println(le.level + " 被加入");
+		// mapCount.put(le.level, 1);
+		// }
 
 		// 若无孩子节点则返回当前节点
 		if (childrenIdList.size() == 0) {
@@ -123,6 +123,7 @@ public class SentenceTendAnalyseByCenture implements ISentenceTendAnalyse {
 				LevelAndEmotion lae = getTendScore(childId);
 				// 增加此查找只为了测试，以后效率可以省去
 				String nowWord = wordsList.get(childId).getCont();
+				// 如果有情感分数，则加上情感分数
 				if (Math.abs(lae.emotion) > 0) {
 					System.out.println(childId + "  加分  " + lae.emotion);
 					le.emotion += lae.emotion;
@@ -130,27 +131,33 @@ public class SentenceTendAnalyseByCenture implements ISentenceTendAnalyse {
 							+ nowWord + " 增加到 " + le.emotion);
 				} else {
 					le.level *= lae.level;
-					System.out.println("当前词：" + tendWord.getCont() + " 的强度被 "
-							+ nowWord + " 增加到 " + le.level);
+					if (lae.level != 1.0f)
+						System.out.println("当前词：" + tendWord.getCont()
+								+ " 的强度被 " + nowWord + " 增加到 " + le.level);
 				}
 			}
 			le.emotion *= le.level;
+
+			// 新增语句
+			if (le.emotion != 0)
+				le.level = 1.0f;
+
 			System.out.println("当前词：" + tendWord.getCont() + " 的情感最终为 "
 					+ le.emotion);
 		}
-		if (mapCount.containsKey(le.level)) {
-			int count = mapCount.get(le.level);
-			if (count < 2) {
-				count++;
-				mapCount.put(le.level, count);
-				System.out.println(le.level + "当前的数量是 ：" + count);
-			} else {
-				System.out.println(le.level + " 被移除");
-				mapCount.remove(le.level);
-				le.level = 1.0f;
-			}
-		} else {
-		}
+		// if (mapCount.containsKey(le.level)) {
+		// int count = mapCount.get(le.level);
+		// if (count < 2) {
+		// count++;
+		// mapCount.put(le.level, count);
+		// System.out.println(le.level + "当前的数量是 ：" + count);
+		// } else {
+		// System.out.println(le.level + " 被移除");
+		// mapCount.remove(le.level);
+		// le.level = 1.0f;
+		// }
+		// } else {
+		// }
 
 		return le;
 	}
@@ -164,7 +171,7 @@ public class SentenceTendAnalyseByCenture implements ISentenceTendAnalyse {
 	private List<Integer> findChildId(int id) {
 		List<Integer> childrenIdList = new ArrayList<>();
 		for (TendWord td : wordsList) {
-			if (td.getParent() == id) {
+			if (td.getSemparent() == id) {
 				childrenIdList.add(td.getId());
 			}
 		}
@@ -236,7 +243,7 @@ public class SentenceTendAnalyseByCenture implements ISentenceTendAnalyse {
 		List<TendWord> list = splier.spil(testStr);
 		TendSentence sentence = new TendSentence();
 		sentence.setWords(list);
-		SentenceTendAnalyseByCenture stab = new SentenceTendAnalyseByCenture();
+		SentenceTendAnalyseByCentureRoot stab = new SentenceTendAnalyseByCentureRoot();
 		float score = stab.analyseSentenceTend(sentence);
 		System.out.println(score);
 	}

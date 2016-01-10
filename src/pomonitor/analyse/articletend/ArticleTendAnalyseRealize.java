@@ -75,7 +75,7 @@ public class ArticleTendAnalyseRealize implements IArticleTendAnalyse {
 	@Test
 	public void test() {
 		NewsDAO newsDao = new NewsDAO();
-		News news = newsDao.findById(54);
+		News news = newsDao.findById(7);
 		ArticleTendAnalyseRealize articleTendAnalyse = new ArticleTendAnalyseRealize();
 		TendAnalyseArticle article = articleTendAnalyse
 				.analyseArticleTend(news);
