@@ -79,11 +79,11 @@ public class NewsCrawler implements ICrawler {
 			String id = MD5Util.MD5(url);
 			NewsEntity news = (NewsEntity) map.get(url);
 			news.setId(id);
+			System.out.println(news.getContent() + "~~~~~~~~~~~~~");
 			list.add(news);
 
 		}
 		return list;
-
 	}
 
 }

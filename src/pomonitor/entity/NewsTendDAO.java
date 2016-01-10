@@ -19,6 +19,7 @@ import javax.persistence.Query;
  * @author MyEclipse Persistence Tools
  */
 public class NewsTendDAO implements INewsTendDAO {
+
 	// property constants
 	public static final String NEWS_ID = "newsId";
 	public static final String WEB = "web";
@@ -127,28 +128,6 @@ public class NewsTendDAO implements INewsTendDAO {
 		}
 	}
 
-	/**
-	 * 查询指定时间段内的新闻倾向性计算结果
-	 * 
-	 * @param startDateStr
-	 *            开始时间, 例如 : "2012-10-10"
-	 * @param endDateStr
-	 *            结束时间,例如 : "2013-10-10"
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public List<NewsTend> findBetweenDate(String startDateStr, String endDateStr) {
-		try {
-			final String queryString = "select model from NewsTend model where (model.date between "
-					+ "'" + startDateStr + "' and '" + endDateStr + "')";
-			Query query = getEntityManager().createQuery(queryString);
-			return query.getResultList();
-		} catch (RuntimeException re) {
-			EntityManagerHelper.log("find  failed", Level.SEVERE, re);
-			throw re;
-		}
-	}
-
 	public NewsTend findById(Integer id) {
 		EntityManagerHelper.log("finding NewsTend instance with id: " + id,
 				Level.INFO, null);
@@ -201,6 +180,31 @@ public class NewsTendDAO implements INewsTendDAO {
 
 	public List<NewsTend> findByTendscore(Object tendscore) {
 		return findByProperty(TENDSCORE, tendscore);
+	}
+
+	/**
+	 * 查询指定时间段内的新闻记录
+	 * 
+	 * @param startDateStr
+	 *            开始时间, 例如 : "2012-10-10"
+	 * @param endDateStr
+	 *            结束时间,例如 : "2013-10-10"
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<NewsTend> findBetweenDate(String startDateStr, String endDateStr) {
+		try {
+			final String queryString = "select model from NewsTend model where (model.date between "
+					+ "'" + startDateStr + "' and '" + endDateStr + "')";
+			Query query = getEntityManager().createQuery(queryString);
+			// query.setParameter("startDateStr", startDateStr);
+			// query.setParameter("endDateStr", endDateStr);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			EntityManagerHelper.log("find by property name failed",
+					Level.SEVERE, re);
+			throw re;
+		}
 	}
 
 	/**

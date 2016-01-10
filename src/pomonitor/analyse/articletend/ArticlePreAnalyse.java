@@ -49,6 +49,7 @@ public class ArticlePreAnalyse {
 		article = new TendAnalyseArticle();
 		article.setKeyWords(news.getKeywords());
 		article.setTitle(news.getTitle());
+		article.setWeb(news.getWeb());
 	}
 
 	/**
@@ -60,14 +61,12 @@ public class ArticlePreAnalyse {
 		for (String key : article.getKeyWords()) {
 			keyWords += "#" + key;
 		}
+
 		String titleAndKey = news.getTitle() + keyWords;
-		List<TendSentence> titleAndKeySpilSentences = articleSplier
-				.spil(titleAndKey);
-		for (TendSentence ts : titleAndKeySpilSentences) {
-			for (TendWord td : ts.getWords()) {
-				if (propertysSet.contains(td.getPos())) {
-					usefulWordSet.add(td.getCont());
-				}
+		List<TendWord> titleAndKeySpilwords = sentenceSplier.spil(titleAndKey);
+		for (TendWord td : titleAndKeySpilwords) {
+			if (propertysSet.contains(td.getPos())) {
+				usefulWordSet.add(td.getCont());
 			}
 		}
 		article.setSet(usefulWordSet);

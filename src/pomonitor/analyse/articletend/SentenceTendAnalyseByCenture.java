@@ -39,9 +39,6 @@ public class SentenceTendAnalyseByCenture implements ISentenceTendAnalyse {
 	// 当前所处理的句子的词列表
 	private List<TendWord> wordsList;
 
-	// 一个强度累加计数器，当强度大于最大累加次数时，就释放强度
-	private Map<Float, Integer> mapCount;
-
 	/**
 	 * 构造方法初始化一些基本信息
 	 */
@@ -55,7 +52,6 @@ public class SentenceTendAnalyseByCenture implements ISentenceTendAnalyse {
 	public float analyseSentenceTend(TendSentence sentence) {
 		this.sentence = sentence;
 		wordsList = sentence.getWords();
-		mapCount = new HashMap<Float, Integer>();
 		int id = getId();
 		LevelAndEmotion result = getTendScore(id);
 		// 将当前的结果分数保存到sentence里面去
@@ -88,7 +84,6 @@ public class SentenceTendAnalyseByCenture implements ISentenceTendAnalyse {
 	private LevelAndEmotion getTendScore(int id) {
 		System.out.println();
 		System.out.println();
-
 		// 保存当前节点的计算结果
 		LevelAndEmotion le = new LevelAndEmotion();
 
@@ -107,7 +102,6 @@ public class SentenceTendAnalyseByCenture implements ISentenceTendAnalyse {
 
 		if (le.level != 1.0f) {
 			System.out.println(le.level + " 被加入");
-			mapCount.put(le.level, 1);
 		}
 
 		// 若无孩子节点则返回当前节点
@@ -115,6 +109,7 @@ public class SentenceTendAnalyseByCenture implements ISentenceTendAnalyse {
 			System.out.println("当前词 " + tendWord.getCont() + "  le.emotion: "
 					+ le.emotion + "    le.level: " + le.level);
 			return le;
+
 		} else {
 			System.out.println(tendWord.getCont() + "  拥有 "
 					+ +childrenIdList.size() + " 个孩子 ");
@@ -137,19 +132,6 @@ public class SentenceTendAnalyseByCenture implements ISentenceTendAnalyse {
 			le.emotion *= le.level;
 			System.out.println("当前词：" + tendWord.getCont() + " 的情感最终为 "
 					+ le.emotion);
-		}
-		if (mapCount.containsKey(le.level)) {
-			int count = mapCount.get(le.level);
-			if (count < 2) {
-				count++;
-				mapCount.put(le.level, count);
-				System.out.println(le.level + "当前的数量是 ：" + count);
-			} else {
-				System.out.println(le.level + " 被移除");
-				mapCount.remove(le.level);
-				le.level = 1.0f;
-			}
-		} else {
 		}
 
 		return le;
@@ -217,18 +199,6 @@ public class SentenceTendAnalyseByCenture implements ISentenceTendAnalyse {
 		return score;
 	}
 
-	/**
-	 * 一个用于保存每次计算状态的类
-	 * 
-	 * @author zhaolong 2015年12月23日 下午7:18:17
-	 */
-	class LevelAndEmotion {
-		boolean isEmotion = false;
-		float level = 1;
-		float emotion = 0;
-		String count;
-	}
-
 	@Test
 	public void test() {
 		SentenceSplier splier = new SentenceSplier();
@@ -248,4 +218,17 @@ public class SentenceTendAnalyseByCenture implements ISentenceTendAnalyse {
 		map.put(1.0f, 4);
 		System.out.println(map.get(1.0f));
 	}
+
+	/**
+	 * 一个用于保存每次计算状态的类
+	 * 
+	 * @author zhaolong 2015年12月23日 下午7:18:17
+	 */
+	class LevelAndEmotion {
+		boolean isEmotion = false;
+		float level = 1;
+		float emotion = 0;
+		String count;
+	}
+
 }
