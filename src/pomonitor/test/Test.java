@@ -139,9 +139,10 @@ public class Test {
 	public void testArticleSplier() {
 		NewsDAO nd = new NewsDAO();
 		News news = nd.findById(1);
-		String content = news.getAllContent();
-		ArticleSplier splier = new ArticleSplier();
-		splier.spil(content);
+		System.out.println(news.getTitle());
+//		String content = news.getAllContent();
+//		ArticleSplier splier = new ArticleSplier();
+//		splier.spil(content);
 	}
 
 	@org.junit.Test
