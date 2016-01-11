@@ -7,19 +7,18 @@ import pomonitor.analyse.entity.TDArticle;
 import pomonitor.analyse.entity.TDCentroid;
 import pomonitor.analyse.topicdiscovery.KmeansCluster;
 import pomonitor.analyse.topicdiscovery.TextVectorBuilder;
-import pomonitor.analyse.topicdiscovery.TopicDiscovery;
 
 public class TestTopicDiscovery {
 	public static void main(String[] args) {
 		TopicDiscoveryAnalyse tda = new TopicDiscoveryAnalyse();
-		List<TDArticle> lists = tda.getArticlesBetweenDate("2012-09-10",
-				"2013-02-10");
+		List<TDArticle> lists = tda.getArticlesBetweenDate("2011-09-10",
+				"2012-02-10");
 		TextVectorBuilder tvb = new TextVectorBuilder();
 
 		lists = tvb.buildVectors(lists);
 		List<String> baseStr = tvb.globalFeatureCollections;
 		List<TDCentroid> resCluster = KmeansCluster.ArticleCluster(15, lists);
-		//TopicDiscovery td = new TopicDiscovery();
+		// TopicDiscovery td = new TopicDiscovery();
 		System.out
 				.println("全局的特征项集合大小是:" + tvb.globalFeatureCollections.size());
 		for (TDCentroid tdCentroid : resCluster) {/*
@@ -55,7 +54,7 @@ public class TestTopicDiscovery {
 			double[] _vec = tdCentroid.GroupedArticle.get(0).vectorSpace;
 			double _maxVar = getMax(_vec);
 			for (int i = 0; i < _vec.length; i++) {
-				if (_vec[i] > 0.1 * _maxVar) {
+				if (_vec[i] > 0.6 * _maxVar) {
 					System.out.println(baseStr.get(i) + "-->" + _vec[i]);
 				}
 			}

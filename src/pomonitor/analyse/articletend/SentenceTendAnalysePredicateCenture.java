@@ -215,7 +215,7 @@ public class SentenceTendAnalysePredicateCenture implements
 	@Test
 	public void test() {
 		SentenceSplier splier = new SentenceSplier();
-		String testStr = "他的四肢很不发达";
+		String testStr = "今天的天气很不好";
 		List<TendWord> list = splier.spil(testStr);
 		TendSentence sentence = new TendSentence();
 		sentence.setWords(list);
