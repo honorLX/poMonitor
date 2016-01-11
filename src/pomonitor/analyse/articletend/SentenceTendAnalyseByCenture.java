@@ -1,7 +1,9 @@
 package pomonitor.analyse.articletend;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -82,7 +84,6 @@ public class SentenceTendAnalyseByCenture implements ISentenceTendAnalyse {
 	private LevelAndEmotion getTendScore(int id) {
 		System.out.println();
 		System.out.println();
-
 		// 保存当前节点的计算结果
 		LevelAndEmotion le = new LevelAndEmotion();
 
@@ -98,11 +99,17 @@ public class SentenceTendAnalyseByCenture implements ISentenceTendAnalyse {
 		le.level = level;
 		// 计算当前词的孩子id
 		List<Integer> childrenIdList = findChildId(id);
+
+		if (le.level != 1.0f) {
+			System.out.println(le.level + " 被加入");
+		}
+
 		// 若无孩子节点则返回当前节点
 		if (childrenIdList.size() == 0) {
 			System.out.println("当前词 " + tendWord.getCont() + "  le.emotion: "
 					+ le.emotion + "    le.level: " + le.level);
 			return le;
+
 		} else {
 			System.out.println(tendWord.getCont() + "  拥有 "
 					+ +childrenIdList.size() + " 个孩子 ");
@@ -192,6 +199,26 @@ public class SentenceTendAnalyseByCenture implements ISentenceTendAnalyse {
 		return score;
 	}
 
+	@Test
+	public void test() {
+		SentenceSplier splier = new SentenceSplier();
+		String testStr = "说到医科大，由于学风好生源质量高的缘故，好像很受名牌大学的欢迎，纷纷走上合并之路：华西医科大并入四川大学，中山医科大并入中山大学，北京医科大并入北京大学，上海医科大并入复旦大学，山东医科大并入山东大学，走的都是强强合并路线，在名声上我认为并不存在占了便宜的说法，医科大由于其学科的特殊性，得到医学界的认可就算是成功了，合并在某种程度上反而削弱了其特色，或许是因为这个关系，北京医科大在合并之后仍以“北京大学医学部”、上海医科大以“复旦大学医学院”的身份独立招生，对于这些名牌医科大来说，合并的好外多在于可以得到更多的硬件和财力上的支持";
+		List<TendWord> list = splier.spil(testStr);
+		TendSentence sentence = new TendSentence();
+		sentence.setWords(list);
+		SentenceTendAnalyseByCenture stab = new SentenceTendAnalyseByCenture();
+		float score = stab.analyseSentenceTend(sentence);
+		System.out.println(score);
+	}
+
+	@Test
+	public void testLv() {
+		Map<Float, Integer> map = new HashMap<>();
+		map.put(1.2f, 1);
+		map.put(1.0f, 4);
+		System.out.println(map.get(1.0f));
+	}
+
 	/**
 	 * 一个用于保存每次计算状态的类
 	 * 
@@ -204,15 +231,4 @@ public class SentenceTendAnalyseByCenture implements ISentenceTendAnalyse {
 		String count;
 	}
 
-	@Test
-	public void test() {
-		SentenceSplier splier = new SentenceSplier();
-		String testStr = "你这个非常笨的笨蛋";
-		List<TendWord> list = splier.spil(testStr);
-		TendSentence sentence = new TendSentence();
-		sentence.setWords(list);
-		SentenceTendAnalyseByCenture stab = new SentenceTendAnalyseByCenture();
-		float score = stab.analyseSentenceTend(sentence);
-		System.out.println(score);
-	}
 }

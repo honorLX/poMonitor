@@ -11,9 +11,9 @@ import pomonitor.analyse.entity.TendSentence;
  */
 public class SubScoreAddWord implements ISubScoreAdd {
 
-	@Override
-	public TendSentence add(TendAnalyseArticle article, TendSentence sentence) {
-		return null;
-	}
+    @Override
+    public TendSentence add(TendAnalyseArticle article, TendSentence sentence) {
+	return null;
+    }
 
 }

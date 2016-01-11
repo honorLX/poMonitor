@@ -29,10 +29,32 @@
   <servlet>  
     <servlet-name>TopicDiscoveryServlet</servlet-name>  
     <servlet-class>pomonitor.controller.TopicDiscoveryController</servlet-class>  
-  </servlet>  
+  </servlet>
+  <servlet>
+    <servlet-name>HotWordsServlet</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>pomonitor.servlet.HotWordsServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>SiteEvaluationServlet</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>pomonitor.servlet.SiteEvaluationServlet</servlet-class>
+  </servlet>
+
+  
   
   <servlet-mapping>  
     <servlet-name>TopicDiscoveryServlet</servlet-name>  
     <url-pattern>/TD.do</url-pattern>  
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>HotWordsServlet</servlet-name>
+    <url-pattern>/servlet/HotWordsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SiteEvaluationServlet</servlet-name>
+    <url-pattern>/servlet/SiteEvaluationServlet</url-pattern>
   </servlet-mapping>
 </web-app>

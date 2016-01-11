@@ -29,15 +29,23 @@ public class ArticleSplier {
 	public List<TendSentence> spil(String aricleStr) {
 		List<TendSentence> sentenceList = new ArrayList<>();
 		try {
+			// 如果文章超过了最大所能分析的字数限制，就做截断处理，没办法之举动
+			if (aricleStr.length() > 6876) {
+				aricleStr = aricleStr.substring(0, 6876);
+				int last = aricleStr.lastIndexOf("。");
+				aricleStr = aricleStr.substring(0, last + 1);
+			}
 			// System.out.println(aricleStr);
+			// System.out.println(aricleStr.length());
+			// System.out.println(aricleStr.getBytes().length);
 			// 对汉字做转码处理
 			aricleStr = URLEncoder.encode(aricleStr, "utf-8");
 		} catch (UnsupportedEncodingException e) {
 			System.out.println("句子转换编码集错误转换失败");
 			e.printStackTrace();
 		}
-		// 拼凑url请求的参数
 
+		// 拼凑url请求的参数
 		// String urlStr = utfUrlStr + aricleStr;
 		// String jsonStr = JsonContentGetter.getJsonContent(urlStr);
 		// System.out.println(urlStr);
