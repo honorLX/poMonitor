@@ -1,3 +1,7 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
 validator.Checked=src/META-INF/persistence.xml,WebRoot
+=======
+validator.Checked=/
+>>>>>>> branch 'develop' of https://github.com/herozhao/poMonitor.git
 validator.Unchecked=
