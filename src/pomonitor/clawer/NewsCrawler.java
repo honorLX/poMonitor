@@ -3,11 +3,8 @@ package pomonitor.clawer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.bouncycastle.jce.provider.JCEMac.MD5;
 
 import pomonitor.clawer.newsanalyse.Ianalyse;
 import pomonitor.entity.NewsEntity;
@@ -87,7 +84,6 @@ public class NewsCrawler implements ICrawler {
 
 		}
 		return list;
-
 	}
 
 }

@@ -10,21 +10,21 @@ import pomonitor.analyse.entity.TendSentence;
  * 
  */
 public class SubScoreAddPos implements ISubScoreAdd {
-	// 最高分
-	private float heighScore = 1;
+    // 最高分
+    private float heighScore = 1;
 
-	@Override
-	public TendSentence add(TendAnalyseArticle article, TendSentence sentence) {
-		float subScore = 0;
-		if (sentence.getId() == 0) {
-			subScore = heighScore;
-		} else {
-			float sentenceNum = article.getSentences().size();
-			float sentenceTh = sentence.getId();
-			subScore = (float) (heighScore - Math.log10(sentenceNum
-					/ sentenceTh));
-		}
-		sentence.setPosScore(subScore);
-		return sentence;
+    @Override
+    public TendSentence add(TendAnalyseArticle article, TendSentence sentence) {
+	float subScore = 0;
+	if (sentence.getId() == 0) {
+	    subScore = heighScore;
+	} else {
+	    float sentenceNum = article.getSentences().size();
+	    float sentenceTh = sentence.getId();
+	    subScore = (float) (heighScore - Math.log10(sentenceNum
+		    / sentenceTh));
 	}
+	sentence.setPosScore(subScore);
+	return sentence;
+    }
 }

@@ -13,9 +13,9 @@ import pomonitor.entity.UserDAO;
 
 public class TestUserAndSensword {
 
-	public static void main(String[] args) {
-		NewsDAO nd = new NewsDAO();
-		List<News> newsList = nd.findBetweenDate("2009-07-20", "2011-02-20");
-		System.out.println(newsList.size());
-	}
+    public static void main(String[] args) {
+	NewsDAO nd = new NewsDAO();
+	List<News> newsList = nd.findBetweenDate("2009-07-20", "2011-02-20");
+	System.out.println(newsList.size());
+    }
 }

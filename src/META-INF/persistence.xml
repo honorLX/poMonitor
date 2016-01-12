@@ -10,11 +10,13 @@
 		<class>pomonitor.entity.LeverWord</class>
 		<class>pomonitor.entity.Sensword</class>
 		<class>pomonitor.entity.User</class>
-		<class>pomonitor.entity.Emotionalword</class>
 		<class>pomonitor.entity.News</class>
 		<class>pomonitor.entity.IdeaWord</class>
 		<class>pomonitor.entity.NegWord</class>
 		<class>pomonitor.entity.WordProperty</class>
+		<class>pomonitor.entity.Emotionalword</class>
+		<class>pomonitor.entity.NewsTend</class>
+		<class>pomonitor.entity.SynonyMousWord</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.jdbc.Driver" />
@@ -22,7 +24,9 @@
 				value="jdbc:mysql://localhost:3306/pomonitor" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password"
-				value="7656329" />
+ 
+				value="ailisa1314" />
+ 
 		</properties>
 	</persistence-unit>
 </persistence>

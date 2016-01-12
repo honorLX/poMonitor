@@ -23,7 +23,7 @@ public class ArticlePreAnalyse {
 
 	// 句子分析器
 	private SentenceSplier sentenceSplier;
- 
+
 	// 文章分析器
 	private ArticleSplier articleSplier;
 
@@ -37,7 +37,7 @@ public class ArticlePreAnalyse {
 		this.articleSplier = new ArticleSplier();
 		sentenceSplier = new SentenceSplier();
 		propertysSet = new HashSet<String>(Arrays.asList(propertys));
- 	}
+	}
 
 	/**
 	 * 初始化一篇文章，加载基本参数
@@ -49,8 +49,8 @@ public class ArticlePreAnalyse {
 		article = new TendAnalyseArticle();
 		article.setKeyWords(news.getKeywords());
 		article.setTitle(news.getTitle());
+		article.setWeb(news.getWeb());
 	}
-
 
 	/**
 	 * 主要处理keyWord和title
@@ -61,6 +61,7 @@ public class ArticlePreAnalyse {
 		for (String key : article.getKeyWords()) {
 			keyWords += "#" + key;
 		}
+
 		String titleAndKey = news.getTitle() + keyWords;
 		List<TendWord> titleAndKeySpilwords = sentenceSplier.spil(titleAndKey);
 		for (TendWord td : titleAndKeySpilwords) {
@@ -74,7 +75,6 @@ public class ArticlePreAnalyse {
 	/**
 	 * 断句并且分依每一句，主要处理文章正文
 	 */
-
 
 	private void splitArticle() {
 		String content = news.getAllContent();
