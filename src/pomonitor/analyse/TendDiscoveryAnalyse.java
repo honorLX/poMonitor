@@ -2,6 +2,8 @@ package pomonitor.analyse;
 
 import java.util.List;
 
+import org.junit.Test;
+
 import pomonitor.analyse.articletend.ArticleTendAnalyseRealize;
 import pomonitor.analyse.articletend.IArticleTendAnalyse;
 import pomonitor.analyse.entity.TendAnalyseArticle;
@@ -52,7 +54,7 @@ public class TendDiscoveryAnalyse {
 				newsTend.setNewsId(news.getRelId());
 				newsTend.setWeb(news.getWeb());
 				// 此处的级别还需进一步处理
-				newsTend.setTendclass(-1);
+				newsTend.setTendclass(1);
 				// 持久化分析结果
 				EntityManagerHelper.beginTransaction();
 				newsTendDao.save(newsTend);
@@ -83,5 +85,11 @@ public class TendDiscoveryAnalyse {
 	/**
 	 * 传入时间参数，返回当前的newsTend列表，并返回前台需要的数据形式，形式有待商定,方法有待完成
 	 */
+
+	@Test
+	public void test() {
+		startTendAnalyse();
+
+	}
 
 }
