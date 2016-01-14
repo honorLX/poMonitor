@@ -28,117 +28,117 @@ import ucar.nc2.util.net.URLencode;
 
 public class WangYi extends BaseAnalyse {
 
-    public WangYi(String webName, boolean isKeep) {
-	super(webName, isKeep);
-	// url
+	public WangYi(String webName, boolean isKeep) {
+		super(webName, isKeep);
+		// url
 
-	seedUrl = "http://news.sogou.com/news?";
-	// 参数
-	params = "mode=1&manual=true&sort=1&page=1&p=42230302&dp=1 ";
-    }
-
-    @Override
-    public int getPageCount(String key, boolean isLatest) {
-	key = URLencode.escape(key);
-	int count = 0;
-	int pageCount = 0;
-	// 设置要搜索的关键字
-	String key1 = "site%3A163.com+";
-	String searchKeyStr = "&query=" + key1 + key;
-
-	// String searchTimeStr = "&startTime=";
-	// String sarchTimeEnd="&endTime=";
-
-	// 连接要搜索的参数
-	params = params + searchKeyStr;
-
-	// 整合搜索的url
-	seedUrl = seedUrl + params;
-	System.out.println(seedUrl);
-	if (isLatest) {
-	    // 搜索最近新闻
-	    pageCount = 2;
-	    return pageCount;
-
-	} else {
-	    // 搜索所有 新闻
-	    URL url;
-
-	    try {
-
-		// 从URL直接加载HTML 文档
-		url = new URL(seedUrl);
-		Document doc = null;
-		doc = Jsoup.parse(url, 1000);
-		Elements listEle = doc.getElementsByAttributeValue("class",
-			"mun");
-		String countStr = listEle.get(0).text().trim();
-		countStr = countStr.substring(3, 8);
-		countStr = countStr.replaceAll(",", "");
-		System.out.println(countStr);
-		count = Integer.parseInt(countStr);
-		pageCount = count / 10 + 1;
-	    } catch (MalformedURLException e) {
-		e.printStackTrace();
-	    } catch (IOException e) {
-		e.printStackTrace();
-	    }
+		seedUrl = "http://news.sogou.com/news?";
+		// 参数
+		params = "mode=1&manual=true&sort=1&page=1&p=42230302&dp=1 ";
 	}
-	return pageCount;
-    }
 
-    @Override
-    public HashMap<String, Object> analyseAnyPage(String Strurl) {
-	HashMap<String, Object> map = new HashMap<String, Object>();
-	try {
-	    URL url = new URL(Strurl);
-	    Document doc = Jsoup.parse(url, 3000);
-	    Elements listEle = doc.getElementsByAttributeValue("class", "rb");
+	@Override
+	public int getPageCount(String key, boolean isLatest) {
+		key = URLencode.escape(key);
+		int count = 0;
+		int pageCount = 0;
+		// 设置要搜索的关键字
+		String key1 = "site%3A163.com+";
+		String searchKeyStr = "&query=" + key1 + key;
 
-	    for (Element e : listEle) {
+		// String searchTimeStr = "&startTime=";
+		// String sarchTimeEnd="&endTime=";
 
-		NewsEntity WangYiEntity = new NewsEntity();
-		// 解析url
-		Elements getUrl1 = e.getElementsByAttributeValueContaining(
-			"class", "pp");
+		// 连接要搜索的参数
+		params = params + searchKeyStr;
 
-		String getUrl = getUrl1.attr("href");
-		System.out.println(getUrl);
-		// 解析title
-		String title = getUrl1.text();
-		System.out.println(title);
-		// 得到time
-		Elements timE = e.getElementsByTag("h3");
-		String time = timE.text();
-		time = time.substring(time.length() - 16, time.length());
-		time = time.substring(0, 11);
+		// 整合搜索的url
+		seedUrl = seedUrl + params;
+		System.out.println(seedUrl);
+		if (isLatest) {
+			// 搜索最近新闻
+			pageCount = 2;
+			return pageCount;
 
-		System.out.println(time);
-		String web = "网易";
-		// 取得content
-		Elements contenT = e.getElementsByAttributeValue("class", "ft");
-		String content = contenT.text();
-		System.out.println(content);
+		} else {
+			// 搜索所有 新闻
+			URL url;
 
-		WangYiEntity.setUrl(getUrl);
-		WangYiEntity.setContent(content);
-		WangYiEntity.setTime(time);
-		WangYiEntity.setWeb(webName);
-		WangYiEntity.setTitle(title);
-		map.put(getUrl, WangYiEntity);
-	    }
-	} catch (IOException e) {
-	    e.printStackTrace();
+			try {
+
+				// 从URL直接加载HTML 文档
+				url = new URL(seedUrl);
+				Document doc = null;
+				doc = Jsoup.parse(url, 1000);
+				Elements listEle = doc.getElementsByAttributeValue("class",
+						"mun");
+				String countStr = listEle.get(0).text().trim();
+				countStr = countStr.substring(3, 8);
+				countStr = countStr.replaceAll(",", "");
+				System.out.println(countStr);
+				count = Integer.parseInt(countStr);
+				pageCount = count / 10 + 1;
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return pageCount;
 	}
-	return map;
-    }
 
-    @Override
-    public String urlAnalyse(int i) {
-	String urlStr = seedUrl;
-	String replaceStr = "page=" + i;
-	urlStr = urlStr.replaceAll("page=[1-9]*", replaceStr);
-	return urlStr;
-    }
+	@Override
+	public HashMap<String, Object> analyseAnyPage(String Strurl) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		try {
+			URL url = new URL(Strurl);
+			Document doc = Jsoup.parse(url, 3000);
+			Elements listEle = doc.getElementsByAttributeValue("class", "rb");
+
+			for (Element e : listEle) {
+
+				NewsEntity WangYiEntity = new NewsEntity();
+				// 解析url
+				Elements getUrl1 = e.getElementsByAttributeValueContaining(
+						"class", "pp");
+
+				String getUrl = getUrl1.attr("href");
+				System.out.println(getUrl);
+				// 解析title
+				String title = getUrl1.text();
+				System.out.println(title);
+				// 得到time
+				Elements timE = e.getElementsByTag("h3");
+				String time = timE.text();
+				time = time.substring(time.length() - 16, time.length());
+				time = time.substring(0, 11);
+
+				System.out.println(time);
+				String web = "网易";
+				// 取得content
+				Elements contenT = e.getElementsByAttributeValue("class", "ft");
+				String content = contenT.text();
+				System.out.println(content);
+
+				WangYiEntity.setUrl(getUrl);
+				WangYiEntity.setContent(content);
+				WangYiEntity.setTime(time);
+				WangYiEntity.setWeb(webName);
+				WangYiEntity.setTitle(title);
+				map.put(getUrl, WangYiEntity);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
+
+	@Override
+	public String urlAnalyse(int i) {
+		String urlStr = seedUrl;
+		String replaceStr = "page=" + i;
+		urlStr = urlStr.replaceAll("page=[1-9]*", replaceStr);
+		return urlStr;
+	}
 
 }

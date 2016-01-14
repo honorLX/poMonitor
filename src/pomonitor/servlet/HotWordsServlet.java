@@ -21,83 +21,83 @@ import pomonitor.analyse.entity.HotWord;
  */
 public class HotWordsServlet extends HttpServlet {
 
-    public HotWordsServlet() {
-	super();
-    }
-
-    public void destroy() {
-	super.destroy(); // Just puts "destroy" string in log
-	// Put your code here
-    }
-
-    /**
-     * doGet或者doPost在这里相当于转发器，根据method参数调用对应方法，统一向外返回resultJson(不同分支赋予不同内容)
-     */
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	String methodName = request.getParameter("method");
-	String resultJson = "";
-	// 根据请求的方法，返回对应信息 resultJson
-	switch (methodName) {
-	case "getHotWords":
-	    // 返回热词集合
-	    String startDateStr = request.getParameter("startTime");
-	    String endDateStr = request.getParameter("endTime");
-	    int userId = Integer.parseInt(request.getParameter("userId"));
-	    resultJson = getHotWords(startDateStr, endDateStr, userId);
-	    break;
-	case "getNewsByTopic":
-	    // 根据热词编号返回新闻列表
-	    resultJson = getNewsByTopic();
-	    break;
-	default:
-	    break;
+	public HotWordsServlet() {
+		super();
 	}
 
-	response.setContentType("application/json");
-	response.setCharacterEncoding("UTF-8");
-	response.getWriter().write(resultJson);
-    }
+	public void destroy() {
+		super.destroy(); // Just puts "destroy" string in log
+		// Put your code here
+	}
 
-    /**
-     * 返回热词集合
-     * 
-     * 问题：话题下巨多的新闻列表信息，需要延迟加载
-     * 
-     * @param startDateStr
-     * @param endDateStr
-     * @param userId
-     * @return
-     */
-    private String getHotWords(String startDateStr, String endDateStr,
-	    int userId) {
-	HotWordDiscoveryAnalyse tdDiscovery = new HotWordDiscoveryAnalyse();
-	List<HotWord> hotwords = tdDiscovery.discoverHotWords(startDateStr,
-		endDateStr, userId);
-	String resJSON = "";
-	/******************* 将话题列表处理为JSON格式 *****************************/
+	/**
+	 * doGet或者doPost在这里相当于转发器，根据method参数调用对应方法，统一向外返回resultJson(不同分支赋予不同内容)
+	 */
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String methodName = request.getParameter("method");
+		String resultJson = "";
+		// 根据请求的方法，返回对应信息 resultJson
+		switch (methodName) {
+		case "getHotWords":
+			// 返回热词集合
+			String startDateStr = request.getParameter("startTime");
+			String endDateStr = request.getParameter("endTime");
+			int userId = Integer.parseInt(request.getParameter("userId"));
+			resultJson = getHotWords(startDateStr, endDateStr, userId);
+			break;
+		case "getNewsByTopic":
+			// 根据热词编号返回新闻列表
+			resultJson = getNewsByTopic();
+			break;
+		default:
+			break;
+		}
 
-	/***********************************************************************/
-	return resJSON;
-    }
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(resultJson);
+	}
 
-    /**
-     * 根据指定话题返回相关的新闻列表
-     * 
-     * @return
-     */
-    private String getNewsByTopic() {
-	String resJSON = "";
-	return resJSON;
-    }
+	/**
+	 * 返回热词集合
+	 * 
+	 * 问题：话题下巨多的新闻列表信息，需要延迟加载
+	 * 
+	 * @param startDateStr
+	 * @param endDateStr
+	 * @param userId
+	 * @return
+	 */
+	private String getHotWords(String startDateStr, String endDateStr,
+			int userId) {
+		HotWordDiscoveryAnalyse tdDiscovery = new HotWordDiscoveryAnalyse();
+		List<HotWord> hotwords = tdDiscovery.discoverHotWords(startDateStr,
+				endDateStr, userId);
+		String resJSON = "";
+		/******************* 将话题列表处理为JSON格式 *****************************/
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	doGet(request, response);
-    }
+		/***********************************************************************/
+		return resJSON;
+	}
 
-    public void init() throws ServletException {
-	// Put your code here
-    }
+	/**
+	 * 根据指定话题返回相关的新闻列表
+	 * 
+	 * @return
+	 */
+	private String getNewsByTopic() {
+		String resJSON = "";
+		return resJSON;
+	}
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+	public void init() throws ServletException {
+		// Put your code here
+	}
 
 }

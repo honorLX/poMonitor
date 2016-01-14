@@ -17,41 +17,41 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "negword", catalog = "pomonitor", uniqueConstraints = @UniqueConstraint(columnNames = "word"))
 public class NegWord implements java.io.Serializable {
 
-    // Fields
+	// Fields
 
-    private Integer id;
-    private String word;
+	private Integer id;
+	private String word;
 
-    // Constructors
+	// Constructors
 
-    /** default constructor */
-    public NegWord() {
-    }
+	/** default constructor */
+	public NegWord() {
+	}
 
-    /** full constructor */
-    public NegWord(String word) {
-	this.word = word;
-    }
+	/** full constructor */
+	public NegWord(String word) {
+		this.word = word;
+	}
 
-    // Property accessors
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    public Integer getId() {
-	return this.id;
-    }
+	// Property accessors
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	public Integer getId() {
+		return this.id;
+	}
 
-    public void setId(Integer id) {
-	this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    @Column(name = "word", unique = true, nullable = false, length = 10)
-    public String getWord() {
-	return this.word;
-    }
+	@Column(name = "word", unique = true, nullable = false, length = 10)
+	public String getWord() {
+		return this.word;
+	}
 
-    public void setWord(String word) {
-	this.word = word;
-    }
+	public void setWord(String word) {
+		this.word = word;
+	}
 
 }

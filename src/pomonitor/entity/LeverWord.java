@@ -14,52 +14,52 @@ import javax.persistence.Table;
 @Table(name = "levelword", catalog = "pomonitor")
 public class LeverWord implements java.io.Serializable {
 
-    // Fields
+	// Fields
 
-    private Integer id;
-    private String word;
-    private Float score;
+	private Integer id;
+	private String word;
+	private Float score;
 
-    // Constructors
+	// Constructors
 
-    /** default constructor */
-    public LeverWord() {
-    }
+	/** default constructor */
+	public LeverWord() {
+	}
 
-    /** full constructor */
-    public LeverWord(Integer id, String word, Float score) {
-	this.id = id;
-	this.word = word;
-	this.score = score;
-    }
+	/** full constructor */
+	public LeverWord(Integer id, String word, Float score) {
+		this.id = id;
+		this.word = word;
+		this.score = score;
+	}
 
-    // Property accessors
-    @Id
-    @Column(name = "id", unique = true, nullable = false)
-    public Integer getId() {
-	return this.id;
-    }
+	// Property accessors
+	@Id
+	@Column(name = "id", unique = true, nullable = false)
+	public Integer getId() {
+		return this.id;
+	}
 
-    public void setId(Integer id) {
-	this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    @Column(name = "word", nullable = false)
-    public String getWord() {
-	return this.word;
-    }
+	@Column(name = "word", nullable = false)
+	public String getWord() {
+		return this.word;
+	}
 
-    public void setWord(String word) {
-	this.word = word;
-    }
+	public void setWord(String word) {
+		this.word = word;
+	}
 
-    @Column(name = "score", nullable = false, precision = 12, scale = 0)
-    public Float getScore() {
-	return this.score;
-    }
+	@Column(name = "score", nullable = false, precision = 12, scale = 0)
+	public Float getScore() {
+		return this.score;
+	}
 
-    public void setScore(Float score) {
-	this.score = score;
-    }
+	public void setScore(Float score) {
+		this.score = score;
+	}
 
 }
