@@ -90,4 +90,10 @@ public class ArticleShow implements Comparable<ArticleShow> {
 			return 1;
 		return 0;
 	}
+	public boolean equals(ArticleShow o){
+		if(this.title==o.title&&this.description==o.description&&
+				this.url==o.url&&this.timestamp==o.timestamp)
+			return true;
+		return false;
+	}
 }

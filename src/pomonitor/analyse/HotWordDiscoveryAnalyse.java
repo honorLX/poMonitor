@@ -36,8 +36,9 @@ public class HotWordDiscoveryAnalyse {
 		// 调用话题发现功能模块，返回话题集合
 		HotWordDiscovery td = new HotWordDiscovery();
 		SenswordDAO sd = new SenswordDAO();
-		return td.getHotWords(getArticlesBetweenDate(startDateStr, endDateStr),
+		td.getHotWords(getArticlesBetweenDate(startDateStr, endDateStr),
 				sd.findByProperty("userid", userId));
+		return td.getSumHotWords();
 	}
 
 	public List<TDArticle> getArticlesBetweenDate(String startDateStr,

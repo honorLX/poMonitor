@@ -25,7 +25,9 @@ public class HotWordDiscovery {
 	private List<String> mBaseStrings;
 	private final int k;
 	private final double sensWeight;// 敏感词加权系数
-
+	private double[][] globalTDCentroidDist;
+	private List<HotWord> sumHotWords;
+	private double[][] relevanceMat;
 	/**
 	 * 初始化参数信息
 	 */
@@ -51,12 +53,33 @@ public class HotWordDiscovery {
 		// 对文本向量进行聚类
 		List<TDCentroid> resTDCentroid = KmeansCluster.ArticleCluster(k,
 				tdArticlesWithVector);
+		
+		//得到两两TDCentroid之间的相似度
+		int num=resTDCentroid.size();
+		globalTDCentroidDist=new double[num][num];
+		for(TDCentroid tdc1 : resTDCentroid){
+			for(TDCentroid tdc2 : resTDCentroid){
+				int i=tdc1.CentroidNumber,j=tdc2.CentroidNumber;
+				globalTDCentroidDist[i][j]=calTDCentroidDist(tdc1,tdc2);
+			}
+		}
+		
 		// 对聚类结果进行处理得到全部的HotWord
-		List<HotWord> sumHotWords = new ArrayList<HotWord>();
 		for (TDCentroid tdCentroid : resTDCentroid) {
 			List<HotWord> t = getHotWordsFromCentroid(tdCentroid, sensitiveDict);
 			sumHotWords.addAll(t);
 		}
+
+		//得到关联矩阵
+		DistanceMatrix distMat=new DistanceMatrix(sumHotWords);
+		double[][] classDistMat=distMat.calClassDistMat(globalTDCentroidDist);
+		double[][] overlapMat=distMat.calOverlapMat();
+		int len=sumHotWords.size();
+		relevanceMat=new double[len][len];
+		for(int i=0;i<len;i++)
+			for(int j=0;j<len;j++){
+				relevanceMat[i][j]=classDistMat[i][j]+overlapMat[i][j];
+			}
 		return sumHotWords;
 	}
 
@@ -84,7 +107,7 @@ public class HotWordDiscovery {
 		double[] base = tdc.GroupedArticle.get(0).vectorSpace;
 		for (int i = 1; i < tdc.GroupedArticle.size(); i++) {
 			ArticleShow as = new ArticleShow();
-			/****** 每条向量代表一篇文章 *****/
+			/****** 每条向量代表一篇文章 *****/ 
 			as.setComeFrom(tdc.GroupedArticle.get(i).getComeFrom());
 			as.setDescription(tdc.GroupedArticle.get(i).getDescription());
 			as.setTimestamp(tdc.GroupedArticle.get(i).getTimestamp());
@@ -185,7 +208,7 @@ public class HotWordDiscovery {
 			if (arr[i] > maxVar)
 				maxVar = arr[i];
 		}
-		return maxVar;
+		return maxVar; 
 	}
 
 	public static double getMin(double[] arr) {
@@ -203,5 +226,26 @@ public class HotWordDiscovery {
 			str += d + "->";
 		}
 		return str;
+	}
+	/**
+	 * 计算两个TDCentroid之间相似度
+	 * @param tdc1
+	 * @param tdc2
+	 * @return
+	 */
+	public double calTDCentroidDist(TDCentroid tdc1,TDCentroid tdc2){
+		double dist=0;
+		double[] vecA = tdc1.GroupedArticle.get(0).vectorSpace;
+		double[] vecB = tdc2.GroupedArticle.get(0).vectorSpace;
+		dist=SimilarityMatrics.FindCosineSimilarity(vecA, vecB);
+		return dist;
+	}
+
+	public List<HotWord> getSumHotWords() {
+		return sumHotWords;
+	}
+
+	public void setSumHotWords(List<HotWord> sumHotWords) {
+		this.sumHotWords = sumHotWords;
 	}
 }
