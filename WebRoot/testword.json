@@ -1,0 +1,81 @@
+﻿{
+    "status": 0,
+    "message": "Query success!",
+    "results": {
+        "links": [
+            {
+                "target": "南华大学",
+                "weight": 1,
+                "source": "硕士"
+            },
+            {
+                "target": "南华大学",
+                "weight": 1,
+                "source": "分数线"
+            },
+            {
+                "target": "南华大学",
+                "weight": 1,
+                "source": "招生"
+            },
+            {
+                "target": "硕士",
+                "weight": 1,
+                "source": "招生"
+            },
+            {
+                "target": "分数线",
+                "weight": 1,
+                "source": "招生"
+            },
+            {
+                "target": "南华大学",
+                "weight": 1,
+                "source": "核电"
+            },
+            {
+                "target": "南华大学",
+                "weight": 1,
+                "source": "专业"
+            }
+        ],
+        "nodes": [
+            {
+                "value": 46,
+                "name": "南华大学",
+                "category": 0,
+                "id": 1
+            },
+            {
+                "value": 29,
+                "name": "硕士",
+                "category": 1,
+                "id": 3
+            },
+            {
+                "value": 35,
+                "name": "分数线",
+                "category": 1,
+                "id": 4
+            },
+            {
+                "value": 40,
+                "name": "核电",
+                "category": 1,
+                "id": 5
+            },
+            {
+                "value": 31,
+                "name": "招生",
+                "category": 1,
+                "id": 6
+            },
+            {
+                "value": 25,
+                "name": "专业",
+                "category": 2,
+                "id": 7
+            }
+        ]
+    }
+}
