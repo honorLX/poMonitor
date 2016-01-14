@@ -11,12 +11,12 @@ import pomonitor.analyse.entity.TendSentence;
  */
 public interface ISubScoreAdd {
 
-    /**
-     * 
-     * @param article
-     * @param sentence
-     * @return sentence
-     */
-    public TendSentence add(TendAnalyseArticle article, TendSentence sentence);
+	/**
+	 * 
+	 * @param article
+	 * @param sentence
+	 * @return sentence
+	 */
+	public TendSentence add(TendAnalyseArticle article, TendSentence sentence);
 
 }

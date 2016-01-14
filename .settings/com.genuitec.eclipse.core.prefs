@@ -1,3 +1,7 @@
 eclipse.preferences.version=1
-validator.Checked=WebRoot/lib,WebRoot/echarts-2.2.7,WebRoot/js/lib/jquery.min.js,WebRoot/js/lib/echarts.js,WebRoot/zrender-master/benchmark/lib/etpl.js,WebRoot/zrender-master/build,WebRoot/jquery.min.js,WebRoot/echarts.js
+<<<<<<< HEAD
+validator.Checked=src/META-INF/persistence.xml,WebRoot
+=======
+validator.Checked=/
+>>>>>>> branch 'develop' of https://github.com/herozhao/poMonitor.git
 validator.Unchecked=

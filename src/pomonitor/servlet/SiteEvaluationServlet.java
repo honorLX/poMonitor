@@ -72,74 +72,10 @@ public class SiteEvaluationServlet extends HttpServlet {
 	 * @param userID
 	 * @return
 	 */
-	private String getWebTend(String start_time, String end_time, String userID) {
+	private String getWebTend(String start_time, String end_time, String UserId) {
 		String resJson = "";
-		ArticleTendAnalyseRealize articleTendAnalyse = new ArticleTendAnalyseRealize();
-		ArticleTendAnalyse.tendAnalyse(start_time, end_time, userID);
-		HashMap<String, Float> hashMap = ArticleTendAnalyse.showWebTend(
-				start_time, end_time, userID);
-		List<GeneratePara> testJSons = new ArrayList<>();
-		for (Iterator iterator = hashMap.keySet().iterator(); iterator
-				.hasNext();) {
-			String webName = (String) iterator.next();
-			Float score = hashMap.get(webName);
-			webName = ArticleTendAnalyse.EnglishWebNameToChinese(webName);
-			String polarity = "";
-			if (score > -1 && score < 1) {
-				polarity = "客观";
-			} else if (score > 1) {
-				polarity = "正面";
-			} else {
-				polarity = "负面";
-			}
-			Series series = new Series(score, polarity);
-			GeneratePara json = new GeneratePara(webName, series);
-			testJSons.add(json);
-		}
-		resJson = JSON.toJSONString(testJSons);
+		ArticleTendAnalyse articleTendAnalyse = new ArticleTendAnalyse();
+		resJson = articleTendAnalyse.GenerateJSon(start_time, end_time, UserId);
 		return resJson;
-	}
-
-	/**
-	 * 构造生成Json的内部类
-	 * 
-	 * @author xiaoyulun 2016年1月7日 上午10:30:53
-	 */
-
-	class Series {
-		private Float data;
-		private String name;
-
-		public Series(Float data, String name) {
-			this.data = data;
-			this.name = name;
-
-		}
-
-		public Float getData() {
-			return this.data;
-		}
-
-		public String getName() {
-			return this.name;
-		}
-	}
-
-	class GeneratePara {
-		private String xAxis;
-		private Series series;
-
-		public GeneratePara(String xAxis, Series series) {
-			this.xAxis = xAxis;
-			this.series = series;
-		}
-
-		public String getXAxis() {
-			return this.xAxis;
-		}
-
-		public Series getSeries() {
-			return this.series;
-		}
 	}
 }

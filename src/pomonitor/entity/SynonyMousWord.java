@@ -16,52 +16,52 @@ import javax.persistence.Table;
 @Table(name = "synonymousword", catalog = "pomonitor")
 public class SynonyMousWord implements java.io.Serializable {
 
-    // Fields
+	// Fields
 
-    private Integer id;
-    private String category;
-    private String words;
+	private Integer id;
+	private String category;
+	private String words;
 
-    // Constructors
+	// Constructors
 
-    /** default constructor */
-    public SynonyMousWord() {
-    }
+	/** default constructor */
+	public SynonyMousWord() {
+	}
 
-    /** full constructor */
-    public SynonyMousWord(String category, String words) {
-	this.category = category;
-	this.words = words;
-    }
+	/** full constructor */
+	public SynonyMousWord(String category, String words) {
+		this.category = category;
+		this.words = words;
+	}
 
-    // Property accessors
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    public Integer getId() {
-	return this.id;
-    }
+	// Property accessors
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	public Integer getId() {
+		return this.id;
+	}
 
-    public void setId(Integer id) {
-	this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    @Column(name = "category")
-    public String getCategory() {
-	return this.category;
-    }
+	@Column(name = "category")
+	public String getCategory() {
+		return this.category;
+	}
 
-    public void setCategory(String category) {
-	this.category = category;
-    }
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
-    @Column(name = "words", length = 65535)
-    public String getWords() {
-	return this.words;
-    }
+	@Column(name = "words", length = 65535)
+	public String getWords() {
+		return this.words;
+	}
 
-    public void setWords(String words) {
-	this.words = words;
-    }
+	public void setWords(String words) {
+		this.words = words;
+	}
 
 }

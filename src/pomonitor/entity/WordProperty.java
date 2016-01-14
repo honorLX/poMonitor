@@ -17,41 +17,41 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "wordproperty", catalog = "pomonitor", uniqueConstraints = @UniqueConstraint(columnNames = "property"))
 public class WordProperty implements java.io.Serializable {
 
-    // Fields
+	// Fields
 
-    private Integer id;
-    private String property;
+	private Integer id;
+	private String property;
 
-    // Constructors
+	// Constructors
 
-    /** default constructor */
-    public WordProperty() {
-    }
+	/** default constructor */
+	public WordProperty() {
+	}
 
-    /** full constructor */
-    public WordProperty(String property) {
-	this.property = property;
-    }
+	/** full constructor */
+	public WordProperty(String property) {
+		this.property = property;
+	}
 
-    // Property accessors
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    public Integer getId() {
-	return this.id;
-    }
+	// Property accessors
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	public Integer getId() {
+		return this.id;
+	}
 
-    public void setId(Integer id) {
-	this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    @Column(name = "property", unique = true, nullable = false, length = 10)
-    public String getProperty() {
-	return this.property;
-    }
+	@Column(name = "property", unique = true, nullable = false, length = 10)
+	public String getProperty() {
+		return this.property;
+	}
 
-    public void setProperty(String property) {
-	this.property = property;
-    }
+	public void setProperty(String property) {
+		this.property = property;
+	}
 
 }

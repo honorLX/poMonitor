@@ -2,15 +2,15 @@ package pomonitor.analyse.entity;
 
 public enum Attitude {
 
-    PRAISE("praise"), NEUTRAL("neutral"), DEROGATORY("derogatory");
+	PRAISE("praise"), NEUTRAL("neutral"), DEROGATORY("derogatory");
 
-    private String attitude;
+	private String attitude;
 
-    private Attitude(String attitude) {
-	this.attitude = attitude;
-    }
+	private Attitude(String attitude) {
+		this.attitude = attitude;
+	}
 
-    public String getAttitude() {
-	return this.attitude;
-    }
+	public String getAttitude() {
+		return this.attitude;
+	}
 }

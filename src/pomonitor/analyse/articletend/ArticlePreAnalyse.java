@@ -21,9 +21,6 @@ public class ArticlePreAnalyse {
 
 	private TendAnalyseArticle article;
 
-	// 句子分析器
-	private SentenceSplier sentenceSplier;
-
 	// 文章分析器
 	private ArticleSplier articleSplier;
 
@@ -35,7 +32,6 @@ public class ArticlePreAnalyse {
 
 	public ArticlePreAnalyse(ArticleSplier articleSplier) {
 		this.articleSplier = new ArticleSplier();
-		sentenceSplier = new SentenceSplier();
 		propertysSet = new HashSet<String>(Arrays.asList(propertys));
 	}
 
@@ -63,11 +59,12 @@ public class ArticlePreAnalyse {
 		}
 
 		String titleAndKey = news.getTitle() + keyWords;
-		List<TendWord> titleAndKeySpilwords = sentenceSplier.spil(titleAndKey);
-		for (TendWord td : titleAndKeySpilwords) {
-			if (propertysSet.contains(td.getPos())) {
-				usefulWordSet.add(td.getCont());
-			}
+		List<TendSentence> sentenceList = articleSplier.spil(titleAndKey);
+		for (TendSentence ts : sentenceList) {
+			for (TendWord td : ts.getWords())
+				if (propertysSet.contains(td.getPos())) {
+					usefulWordSet.add(td.getCont());
+				}
 		}
 		article.setSet(usefulWordSet);
 	}

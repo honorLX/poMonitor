@@ -9,13 +9,14 @@ import java.util.List;
  */
 public class TDCentroid {
 
-    public List<TDArticle> GroupedArticle;
+	public List<TDArticle> GroupedArticle;
+	public Integer CentroidNumber = 0;
 
-    public List<TDArticle> getGroupedArticle() {
-	return GroupedArticle;
-    }
+	public List<TDArticle> getGroupedArticle() {
+		return GroupedArticle;
+	}
 
-    public void setGroupedArticle(List<TDArticle> groupedArticle) {
-	GroupedArticle = groupedArticle;
-    }
+	public void setGroupedArticle(List<TDArticle> groupedArticle) {
+		GroupedArticle = groupedArticle;
+	}
 }
