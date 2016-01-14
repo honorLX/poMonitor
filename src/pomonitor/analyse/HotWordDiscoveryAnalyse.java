@@ -31,12 +31,12 @@ public class HotWordDiscoveryAnalyse {
      * @param userId
      * @return
      */
-    public List<HotWord> DiscoverTopics(String startDateStr, String endDateStr,
+    public List<HotWord> discoverHotWords(String startDateStr, String endDateStr,
 	    int userId) {
 	// 调用话题发现功能模块，返回话题集合
 	HotWordDiscovery td = new HotWordDiscovery();
 	SenswordDAO sd = new SenswordDAO();
-	return td.getTopics(getArticlesBetweenDate(startDateStr, endDateStr),
+	return td.getHotWords(getArticlesBetweenDate(startDateStr, endDateStr),
 		sd.findByProperty("userid", userId));
     }
 

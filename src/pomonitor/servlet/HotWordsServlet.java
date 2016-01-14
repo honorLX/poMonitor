@@ -72,7 +72,7 @@ public class HotWordsServlet extends HttpServlet {
     private String getHotWords(String startDateStr, String endDateStr,
 	    int userId) {
 	HotWordDiscoveryAnalyse tdDiscovery = new HotWordDiscoveryAnalyse();
-	List<HotWord> topics = tdDiscovery.DiscoverTopics(startDateStr,
+	List<HotWord> hotwords = tdDiscovery.discoverHotWords(startDateStr,
 		endDateStr, userId);
 	String resJSON = "";
 	/******************* 将话题列表处理为JSON格式 *****************************/
