@@ -3,17 +3,23 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>网站评测</title>
+<title>南华印象</title>
 <link rel="stylesheet" type="text/css"
     href="./css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="./css/index.css">
 <script type="text/javascript" src="./js/lib/jquery-1.11.3.js"></script>
+<style type="text/css">
+body{
+	    margin:1%;
+	    padding:1%;
+    }
+</style>
 </head>
 <body>
-    Start_Date:
-    <input type="date" id="date1" name="user_date" /> End_Date:
-    <input type="date" id="date2" name="user_date" />
-    <button type="button">提交</button>
+      起止时间:&nbsp&nbsp
+    <input type="date" id="date1" name="user_date" /> &nbsp&nbsp至&nbsp&nbsp
+    <input type="date" id="date2" name="user_date" /> &nbsp&nbsp
+    <button type="button">确定</button>
     <div id="main" name="news"></div>
     <script type="text/javascript"
         src="./js/lib/echarts.js"></script>
@@ -86,18 +92,18 @@
                                             },
                                             legend : {
                                                 x : 'left',
-                                                data : [ '褒', '贬', '中' ]
+                                                data : [ '主要', '次要', '一般' ]
                                             },
                                             series : [ {
                                                 type : 'force',
                                                 name : "热词统计",
                                                 ribbonType : false,
                                                 categories : [ {
-                                                    name : '褒'
+                                                    name : '主要'
                                                 }, {
-                                                    name : '贬'
+                                                    name : '次要'
                                                 }, {
-                                                    name : '中'
+                                                    name : '一般'
                                                 } ],
                                                 itemStyle : {
                                                     normal : {

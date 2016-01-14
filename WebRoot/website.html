@@ -7,23 +7,32 @@
     href="./css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="./css/index.css">
 <script type="text/javascript" src="./js/lib/jquery-1.11.3.js"></script>
+<style type="text/css">
+body{
+	    margin:1%;
+	    padding:1%;
+    }
+ #main1{
+ padding:1%;
+ }
+</style>
 </head>
 <body>
-    Start_Date:
-    <input type="date" id="date1" name="user_date" /> End_Date:
-    <input type="date" id="date2" name="user_date" />
-    <button type="button">提交</button>
+    起止时间:&nbsp&nbsp
+    <input type="date" id="date1" name="user_date" /> &nbsp&nbsp至&nbsp&nbsp
+    <input type="date" id="date2" name="user_date" /> &nbsp&nbsp
+    <button type="button">确定</button>
     <div id="main1" name="news"></div>
     <script type="text/javascript"
         src="./js/lib/echarts.js"></script>
     <script type="text/javascript"
         src="./js/lib/esl.js"></script>
     <script type="text/javascript">
-        var jsonobj, xAxis1, name1, name2, name3;
+        var jsonobj, xAxis1, name1, name2, name3,length1;
 
         $("button").click(function() {
             $.ajax({
-                url : "./testwebsite.json",
+                url : "/servlet/HotWordsServlet",
                 type : "POST",
                 contentType : "json",
                 dataType : "json",
@@ -34,6 +43,7 @@
                     //console.log(jsonobj.xAxis);
                     //var option.series=jsonobj.series;
                     xAxis1 = jsonobj.xAxis;
+                    length1=jsonobj.xAxis.length;
                     name1 = jsonobj.series[0].name;
                     name2 = jsonobj.series[1].name;
                     name3 = jsonobj.series[2].name;
@@ -59,13 +69,14 @@
 
                 var option = {
                     grid : {
-                        x : 20,
+                        x : 30,
                         y : 150,
                         x2 : 5,
                         y2 : 30
                     },
                     title : {
-                        text : '各个网站的评测',
+                        text : '南华大学舆论情况分布',
+                        subtext:'各媒体对南华大学新闻报道中，报导言论的褒贬情况'
                     },
                     tooltip : {
                         trigger : 'axis'
@@ -74,9 +85,12 @@
                         data : (function() {
                             //var now = new Date();
                             var res = [];
-                            for (var i = 0; i < 3; i++) {
+                            res[0]=name1;
+                            res[1]=name2;
+                            res[2]=name3;
+                            /*for (var i = 0; i < 3; i++) {
                                 res[i] = jsonobj.series[i].name;
-                            }
+                            }*/
                             return res;
                         })()
                     },
@@ -109,11 +123,12 @@
                     xAxis : [ {
                         type : 'category',
                         data : (function() {
-                            var length1 = jsonobj.xAxis.length;
+                            //var length1 = xAxis1.length;
                             //var now = new Date();
                             var res = [];
                             for (var i = 0; i < length1; i++) {
                                 res[i] = xAxis1[i];
+                                console.log(res[i]);
                             }
                             return res;
                         })()
@@ -123,7 +138,7 @@
                         name : name1,
                         type : 'bar',
                         data : (function() {
-                            var length1 = jsonobj.xAxis.length;
+                            //var length1 = jsonobj.xAxis.length;
                             //var now = new Date();
                             var res = [];
                             for (var i = 0; i < length1; i++) {
@@ -136,7 +151,7 @@
                         name : name2,
                         type : 'bar',
                         data : (function() {
-                            var length1 = jsonobj.xAxis.length;
+                            //var length1 = jsonobj.xAxis.length;
                             //var now = new Date();
                             var res = [];
                             for (var i = 0; i < length1; i++) {
@@ -148,7 +163,7 @@
                         name : name3,
                         type : 'bar',
                         data : (function() {
-                            var length1 = jsonobj.xAxis.length;
+                           // var length1 = jsonobj.xAxis.length;
                             //var now = new Date();
                             var res = [];
                             for (var i = 0; i < length1; i++) {
