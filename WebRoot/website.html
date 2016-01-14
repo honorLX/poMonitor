@@ -7,161 +7,28 @@
     href="./css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="./css/index.css">
 <script type="text/javascript" src="./js/lib/jquery-1.11.3.js"></script>
+<style type="text/css">
+body{
+	    margin:1%;
+	    padding:1%;
+    }
+ #main1{
+ padding:1%;
+ }
+</style>
 </head>
 <body>
-    Start_Date:
-    <input type="date" id="date1" name="user_date" /> End_Date:
-    <input type="date" id="date2" name="user_date" />
-    <button type="button">提交</button>
+    起止时间:&nbsp&nbsp
+    <input type="date" id="date1" name="user_date" /> &nbsp&nbsp至&nbsp&nbsp
+    <input type="date" id="date2" name="user_date" /> &nbsp&nbsp
+    <button type="button">确定</button>
     <div id="main1" name="news"></div>
     <script type="text/javascript"
         src="./js/lib/echarts.js"></script>
     <script type="text/javascript"
         src="./js/lib/esl.js"></script>
-    <script type="text/javascript">
-        var jsonobj, xAxis1, name1, name2, name3;
-
-        $("button").click(function() {
-            $.ajax({
-                url : "./testwebsite.json",
-                type : "POST",
-                contentType : "json",
-                dataType : "json",
-                success : function(data) {
-                    alert('success');
-                    jsonobj = data.results;
-                    //console.log(jsonobj);
-                    //console.log(jsonobj.xAxis);
-                    //var option.series=jsonobj.series;
-                    xAxis1 = jsonobj.xAxis;
-                    name1 = jsonobj.series[0].name;
-                    name2 = jsonobj.series[1].name;
-                    name3 = jsonobj.series[2].name;
-                    console.log(name1);
-
-                },
-                error : function() {
-                    alert('没有进入');
-                }
-            });
-
-            // 路径配置
-            require.config({
-                paths : {
-                    echarts : './lib/echarts-2.2.7/build/dist'
-                }
-            });
-            require(//少一个
-            [ 'echarts', 'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
-            ], function(ec) {//少一个
-                // 基于准备好的dom，初始化echarts图表
-                var myChart = ec.init(document.getElementById('main1'));
-
-                var option = {
-                    grid : {
-                        x : 20,
-                        y : 150,
-                        x2 : 5,
-                        y2 : 30
-                    },
-                    title : {
-                        text : '各个网站的评测',
-                    },
-                    tooltip : {
-                        trigger : 'axis'
-                    },
-                    legend : {
-                        data : (function() {
-                            //var now = new Date();
-                            var res = [];
-                            for (var i = 0; i < 3; i++) {
-                                res[i] = jsonobj.series[i].name;
-                            }
-                            return res;
-                        })()
-                    },
-                    toolbox : {
-                        show : true,
-                        feature : {
-                            mark : {
-                                show : true
-                            },
-                            dataView : {
-                                show : true,
-                                readOnly : false
-                            },
-                            magicType : {
-                                show : true,
-                                type : [ 'line', 'bar' ]
-                            },
-                            restore : {
-                                show : true
-                            },
-                            saveAsImage : {
-                                show : true
-                            }
-                        }
-                    },
-                    calculable : true,
-                    yAxis : [ {
-                        type : 'value'
-                    } ],
-                    xAxis : [ {
-                        type : 'category',
-                        data : (function() {
-                            var length1 = jsonobj.xAxis.length;
-                            //var now = new Date();
-                            var res = [];
-                            for (var i = 0; i < length1; i++) {
-                                res[i] = xAxis1[i];
-                            }
-                            return res;
-                        })()
-                    } ],
-
-                    series : [ {
-                        name : name1,
-                        type : 'bar',
-                        data : (function() {
-                            var length1 = jsonobj.xAxis.length;
-                            //var now = new Date();
-                            var res = [];
-                            for (var i = 0; i < length1; i++) {
-                                res[i] = jsonobj.series[0].data[i];
-                                //console.log(res[i]);
-                            }
-                            return res;
-                        })()
-                    }, {
-                        name : name2,
-                        type : 'bar',
-                        data : (function() {
-                            var length1 = jsonobj.xAxis.length;
-                            //var now = new Date();
-                            var res = [];
-                            for (var i = 0; i < length1; i++) {
-                                res[i] = jsonobj.series[1].data[i];
-                            }
-                            return res;
-                        })()
-                    }, {
-                        name : name3,
-                        type : 'bar',
-                        data : (function() {
-                            var length1 = jsonobj.xAxis.length;
-                            //var now = new Date();
-                            var res = [];
-                            for (var i = 0; i < length1; i++) {
-                                res[i] = jsonobj.series[2].data[i];
-                            }
-                            return res;
-                        })()
-                    } ]
-                };
-                // 为echarts对象加载数据 
-                myChart.setOption(option);
-            });
-        });
+    <script type="text/javascript" src="./js/lib/website.js">
+       
     </script>
 </body>
 </html>
