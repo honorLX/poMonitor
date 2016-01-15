@@ -121,7 +121,7 @@ public class DistanceMatrix {
 
 		for (int i = 0; i < len; i++) {
 			for (int j = 0; j < len; j++) {
-				mat[i][j] = (mat[i][j] - avgVal) / (maxVal - minVal);
+				mat[i][j] =(mat[i][j] - avgVal) / (maxVal - minVal)+1.0;
 			}
 		}
 		return mat;
