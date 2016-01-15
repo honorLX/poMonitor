@@ -48,7 +48,7 @@ public class HotWordsServlet extends HttpServlet {
 			break;
 		case "getNewsByTopic":
 			// 根据热词编号返回新闻列表
-			resultJson = getNewsByTopic();
+			resultJson = getNewsByHotWord();
 			break;
 		default:
 			break;
@@ -86,7 +86,7 @@ public class HotWordsServlet extends HttpServlet {
 	 * 
 	 * @return
 	 */
-	private String getNewsByTopic() {
+	private String getNewsByHotWord() {
 		String resJSON = "";
 		return resJSON;
 	}
