@@ -23,15 +23,14 @@ $("#btn_hotword")
 										// "startTime":date_start,
 										// "endTime":date_end,
 										"startTime":'2008-09-10',
-										"endTime":'2009-08-10',
+										"endTime":'2009-01-10',
 										// 默认先给1，后期需要自动获得
 										"userId":'1',
 										"method":'getHotWords'
 									},
-									contentType : "json",
 									dataType : "json",
 									success : function(data) {
-										console.log(data);
+										console.log(JSON.stringify(data));
 										status = data.status;
 										message = data.message;
 										if(status == 0){

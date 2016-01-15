@@ -1,9 +1,9 @@
 package pomonitor.analyse.hotworddiscovery;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import pomonitor.analyse.entity.ArticleDegree;
 import pomonitor.analyse.entity.ArticleShow;
 import pomonitor.analyse.entity.Attitude;
 import pomonitor.analyse.entity.HotWord;
@@ -11,7 +11,6 @@ import pomonitor.analyse.entity.TDArticle;
 import pomonitor.analyse.entity.TDCentroid;
 import pomonitor.entity.Emotionalword;
 import pomonitor.entity.EmotionalwordDAO;
-import pomonitor.entity.NewsTend;
 import pomonitor.entity.NewsTendDAO;
 import pomonitor.entity.Sensword;
 import pomonitor.util.PropertiesReader;
@@ -25,6 +24,7 @@ public class HotWordDiscovery {
 	private List<String> mBaseStrings;
 	private final int k;
 	private final double sensWeight;// 敏感词加权系数
+	private final double filterPercentageByWeight;// 从类中抽取热词的时候，按照权值进行过滤热词，过滤百分比
 	private double[][] globalTDCentroidDist;
 	private List<HotWord> sumHotWords;
 	private double[][] relevanceMat;
@@ -35,8 +35,11 @@ public class HotWordDiscovery {
 	public HotWordDiscovery() {
 		PropertiesReader propertiesReader = new PropertiesReader();
 		k = Integer.parseInt(propertiesReader.getPropertyByName("k"));
-		sensWeight = Integer.parseInt(propertiesReader
+		sensWeight = Double.parseDouble(propertiesReader
 				.getPropertyByName("sensWeight"));
+		filterPercentageByWeight = Double.parseDouble(propertiesReader
+				.getPropertyByName("FilterPercentageByWeight"));
+		sumHotWords = new ArrayList<HotWord>();
 	}
 
 	/**
@@ -110,48 +113,49 @@ public class HotWordDiscovery {
 			as.setUrl(tdc.GroupedArticle.get(i).getUrl());
 
 			// 查询newstend表，获取新闻的倾向性相关信息
-			NewsTend nt;
-			try {
-				nt = newsTendDAO
-						.findByNewsId(tdc.GroupedArticle.get(i).getId()).get(0);
-				switch (nt.getTendclass()) {
-				case 0:
-					as.setAttitude(Attitude.NEUTRAL);
-					as.setDegree(ArticleDegree.O);
-					break;
-				case 1:
-					as.setAttitude(Attitude.PRAISE);
-					as.setDegree(ArticleDegree.A);
-					break;
-				case -1:
-					as.setAttitude(Attitude.DEROGATORY);
-					as.setDegree(ArticleDegree.A);
-				case 2:
-					as.setAttitude(Attitude.PRAISE);
-					as.setDegree(ArticleDegree.B);
-					break;
-				case -2:
-					as.setAttitude(Attitude.DEROGATORY);
-					as.setDegree(ArticleDegree.B);
-					break;
-				case 3:
-					as.setAttitude(Attitude.PRAISE);
-					as.setDegree(ArticleDegree.C);
-					break;
-				case -3:
-					as.setAttitude(Attitude.DEROGATORY);
-					as.setDegree(ArticleDegree.C);
-					break;
-				default:
-					as.setAttitude(Attitude.NEUTRAL);
-					as.setDegree(ArticleDegree.O);
-					break;
-				}
-			} catch (Exception e) {
-				as.setAttitude(Attitude.NEUTRAL);
-				as.setDegree(ArticleDegree.O);
-			}
-
+			/*
+			 * NewsTend nt;
+			 * try {
+			 * nt = newsTendDAO
+			 * .findByNewsId(tdc.GroupedArticle.get(i).getId()).get(0);
+			 * switch (nt.getTendclass()) {
+			 * case 0:
+			 * as.setAttitude(Attitude.NEUTRAL);
+			 * as.setDegree(ArticleDegree.O);
+			 * break;
+			 * case 1:
+			 * as.setAttitude(Attitude.PRAISE);
+			 * as.setDegree(ArticleDegree.A);
+			 * break;
+			 * case -1:
+			 * as.setAttitude(Attitude.DEROGATORY);
+			 * as.setDegree(ArticleDegree.A);
+			 * case 2:
+			 * as.setAttitude(Attitude.PRAISE);
+			 * as.setDegree(ArticleDegree.B);
+			 * break;
+			 * case -2:
+			 * as.setAttitude(Attitude.DEROGATORY);
+			 * as.setDegree(ArticleDegree.B);
+			 * break;
+			 * case 3:
+			 * as.setAttitude(Attitude.PRAISE);
+			 * as.setDegree(ArticleDegree.C);
+			 * break;
+			 * case -3:
+			 * as.setAttitude(Attitude.DEROGATORY);
+			 * as.setDegree(ArticleDegree.C);
+			 * break;
+			 * default:
+			 * as.setAttitude(Attitude.NEUTRAL);
+			 * as.setDegree(ArticleDegree.O);
+			 * break;
+			 * }
+			 * } catch (Exception e) {
+			 * as.setAttitude(Attitude.NEUTRAL);
+			 * as.setDegree(ArticleDegree.O);
+			 * }
+			 */
 			/*****************************************************************/
 			for (int j = 0; j < base.length; j++) {
 				if (tdc.GroupedArticle.get(i).vectorSpace[j] > base[j])
@@ -174,7 +178,8 @@ public class HotWordDiscovery {
 				word.weight = word.weight * sensWeight;
 			}
 			// 褒贬含义
-			List<Emotionalword> emoWords = emotionalwordDAO.findByWord(word);
+			List<Emotionalword> emoWords = emotionalwordDAO.findByWord(word
+					.getContent());
 			if (!(emoWords.size() > 0))
 				word.setAttitude(Attitude.NEUTRAL);
 			else {
@@ -194,7 +199,21 @@ public class HotWordDiscovery {
 				}
 			}
 		}
+		// 按照权值进行过滤，只获取前百分之n的热词
+		hotWordsList = filterByWeight(hotWordsList, filterPercentageByWeight);
 		return hotWordsList;
+	}
+
+	private List<HotWord> filterByWeight(List<HotWord> hotWordsList,
+			double filterPercentageByWeight) {
+		List<HotWord> words = hotWordsList;
+		List<HotWord> retHotWords = new ArrayList<HotWord>();
+		Collections.sort(words, HotWord.getCompByWeight());
+		for (int i = 0; i < words.size() * filterPercentageByWeight; i++) {
+			if (words.get(i).getContent() != "")
+				retHotWords.add(words.get(i));
+		}
+		return retHotWords;
 	}
 
 	public static double getMax(double[] arr) {

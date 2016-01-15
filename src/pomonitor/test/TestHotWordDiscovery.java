@@ -5,6 +5,7 @@ import java.util.List;
 import pomonitor.analyse.HotWordDiscoveryAnalyse;
 import pomonitor.analyse.entity.TDArticle;
 import pomonitor.analyse.entity.TDCentroid;
+import pomonitor.analyse.hotworddiscovery.HotWordDiscovery;
 import pomonitor.analyse.hotworddiscovery.KmeansCluster;
 import pomonitor.analyse.hotworddiscovery.TextVectorBuilder;
 import pomonitor.util.ConsoleLog;
@@ -36,38 +37,8 @@ public class TestHotWordDiscovery {
 		// TopicDiscovery td = new TopicDiscovery();
 		System.out
 				.println("全局的特征项集合大小是:" + tvb.globalFeatureCollections.size());
-		/*
-		 * // 输出文本向量
-		 * for (TDArticle _tda : lists) {
-		 * System.out.println(vectorToString(_tda.vectorSpace));
-		 * }
-		 */
-		// 输出聚类文本
-		/*
-		 * for (TDCentroid tdCentroid : resCluster) {
-		 * for (TDArticle _tda : tdCentroid.GroupedArticle) {
-		 * System.out.println(_tda.getTitle() + "###"
-		 * + _tda.getDescription());
-		 * }
-		 * System.out
-		 * .println("#####################类间分隔符##########################");
-		 * System.out.println();
-		 * System.out.println();
-		 * }
-		 */
 
-		// 输出热词结果
-		for (TDCentroid tdCentroid : resCluster) {
-			double[] _vec = tdCentroid.GroupedArticle.get(0).vectorSpace;
-			double _maxVar = getMax(_vec);
-			for (int i = 0; i < _vec.length; i++) {
-				if (_vec[i] > 0.3 * _maxVar) {
-					System.out.println(baseStr.get(i) + "-->" + _vec[i] * 100);
-				}
-			}
-			System.out.println("**********************");
-		}
-
+		HotWordDiscovery hotWordDiscovery = new HotWordDiscovery();
 	}
 
 	/**

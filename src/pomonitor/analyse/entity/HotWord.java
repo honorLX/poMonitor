@@ -1,5 +1,6 @@
 package pomonitor.analyse.entity;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -55,6 +56,21 @@ public class HotWord {
 
 	public void setBelongto(Integer belongto) {
 		this.belongto = belongto;
+	}
+
+	public static Comparator<HotWord> getCompByWeight() {
+		Comparator<HotWord> comp = new Comparator<HotWord>() {
+			@Override
+			public int compare(HotWord h1, HotWord h2) {
+				if (h1.weight < h2.weight)
+					return 1;
+				if (h1.weight > h2.weight)
+					return -1;
+				else
+					return 0;
+			}
+		};
+		return comp;
 	}
 
 }

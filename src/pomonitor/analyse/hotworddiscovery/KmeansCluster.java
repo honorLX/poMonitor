@@ -80,7 +80,7 @@ public class KmeansCluster {
 
 		// ∑÷≈‰±‡∫≈
 		for (int i = 0; i < resultSet.size(); i++) {
-			resultSet.get(i).CentroidNumber = i + 1;
+			resultSet.get(i).CentroidNumber = i;
 		}
 		return resultSet;
 	}
