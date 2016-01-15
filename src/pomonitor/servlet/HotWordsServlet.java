@@ -89,7 +89,7 @@ public class HotWordsServlet extends HttpServlet {
 	 * 
 	 * @return
 	 */
-	private String getNewsByTopic() {
+	private String getNewsByHotWord() {
 		String resJSON = "";
 		return resJSON;
 	}
@@ -115,9 +115,9 @@ public class HotWordsServlet extends HttpServlet {
 				int userId = Integer.parseInt(request.getParameter("userId"));
 				resultJson = getHotWords(startDateStr, endDateStr, userId);
 				break;
-			case "getNewsByTopic":
+			case "getNewsByHotWord":
 				// 根据热词编号返回新闻列表
-				resultJson = getNewsByTopic();
+				resultJson = getNewsByHotWord();
 				break;
 			default:
 				break;
