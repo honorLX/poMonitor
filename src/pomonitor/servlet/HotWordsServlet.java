@@ -1,6 +1,7 @@
 package pomonitor.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,6 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import pomonitor.analyse.HotWordDiscoveryAnalyse;
 import pomonitor.analyse.entity.HotWord;
+import pomonitor.analyse.entity.HotWordResponse;
+import pomonitor.analyse.entity.HotWordResult;
+import pomonitor.analyse.entity.RetHotWord;
+import pomonitor.analyse.entity.RetLink;
 
 /**
  * 每一个servlet对应于前端的一个逻辑页面，前端可见的只是和当前页面相关的若干个请求接口， 每一个servlet不需要和后台的功能模块一一对应，特此说明
@@ -76,7 +81,23 @@ public class HotWordsServlet extends HttpServlet {
 				endDateStr, userId);
 		String resJSON = "";
 		/******************* 将话题列表处理为JSON格式 *****************************/
-
+		ArrayList<RetHotWord> retNodes = tdDiscovery.getRetHotWords();
+		double[][] relevanceMat = tdDiscovery.getRelevanceMat();
+		ArrayList<RetLink> retLinks = new ArrayList<RetLink>();
+		for (int i = 0; i < relevanceMat.length; i++) {
+			for (int j = 0; j < relevanceMat.length; j++) {
+				RetLink _link = new RetLink();
+				_link.setSource(i);
+				_link.setTarget(j);
+				_link.setWeight(relevanceMat[i][j]);
+				retLinks.add(_link);
+			}
+		}
+		HotWordResult results = new HotWordResult();
+		results.setLinks(retLinks);
+		results.setNodes(retNodes);
+		HotWordResponse hotWordResponse = new HotWordResponse();
+		hotWordResponse.setResults(results);
 		/***********************************************************************/
 		return resJSON;
 	}
