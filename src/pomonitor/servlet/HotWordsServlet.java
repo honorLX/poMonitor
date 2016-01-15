@@ -58,7 +58,7 @@ public class HotWordsServlet extends HttpServlet {
 			int userId) {
 		HotWordDiscoveryAnalyse tdDiscovery = new HotWordDiscoveryAnalyse();
 		tdDiscovery.discoverHotWords(startDateStr, endDateStr, userId);
-		/******************* 将话题列表处理为JSON格式 *****************************/
+		/******************* 将热词列表处理为JSON格式 *****************************/
 		ArrayList<RetHotWord> retNodes = tdDiscovery.getRetHotWords();
 		double[][] relevanceMat = tdDiscovery.getRelevanceMat();
 		ArrayList<RetLink> retLinks = new ArrayList<RetLink>();
@@ -67,7 +67,7 @@ public class HotWordsServlet extends HttpServlet {
 				RetLink _link = new RetLink();
 				_link.setSource(i);
 				_link.setTarget(j);
-				_link.setWeight(relevanceMat[i][j]);
+				_link.setWeight(relevanceMat[i][j] * 1000);
 				retLinks.add(_link);
 			}
 		}

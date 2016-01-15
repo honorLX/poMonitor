@@ -101,7 +101,7 @@ public class DistanceMatrix {
 	}
 
 	/**
-	 * 矩阵归一化
+	 * 矩阵归一化 [0,1]
 	 * 
 	 * @param mat
 	 * @param len
@@ -109,19 +109,16 @@ public class DistanceMatrix {
 	 */
 	private double[][] normalizeMat(double[][] mat, int len) {
 
-		double sum = 0, maxVal = mat[0][0], minVal = mat[0][0];
+		double maxVal = mat[0][0], minVal = mat[0][0];
 		for (int i = 0; i < len; i++) {
 			for (int j = 0; j < len; j++) {
-				sum += mat[i][j];
 				maxVal = Math.max(maxVal, mat[i][j]);
 				minVal = Math.min(minVal, mat[i][j]);
 			}
 		}
-		double avgVal = sum / (len * len);
-
 		for (int i = 0; i < len; i++) {
 			for (int j = 0; j < len; j++) {
-				mat[i][j] =(mat[i][j] - avgVal) / (maxVal - minVal)+1.0;
+				mat[i][j] = (mat[i][j] - minVal) / (maxVal - minVal);
 			}
 		}
 		return mat;
