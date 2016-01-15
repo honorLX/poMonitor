@@ -1,10 +1,6 @@
 package pomonitor.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,9 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import pomonitor.analyse.ArticleTendAnalyse;
-import pomonitor.analyse.articletend.ArticleTendAnalyseRealize;
-
-import com.alibaba.fastjson.JSON;
 
 /**
  * ÍøÕ¾×ÛºÏÆÀ²âÒ³Ãæ
