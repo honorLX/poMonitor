@@ -15,15 +15,17 @@ $("#btn_hotword")
 					if(date_start != undefined && date_end != undefined &&
 							date_start != "" && date_end != ""  )
 					{
+						
 						$
 								.ajax({
 									url : "./servlet/HotWordsServlet",
+									//url:"data.json",
 									type : "POST",
 									data : {
-										// "startTime":date_start,
-										// "endTime":date_end,
-										"startTime":'2008-09-10',
-										"endTime":'2009-01-10',
+										 "startTime":date_start,
+										 "endTime":date_end,
+										//"startTime":'2008-09-10',
+										//"endTime":'2009-01-10',
 										// 默认先给1，后期需要自动获得
 										"userId":'1',
 										"method":'getHotWords'
@@ -56,6 +58,8 @@ $("#btn_hotword")
 					}
 			
 				});
+						
+
 
 // 填充数据，加载force图
 function loadEchartForce(jsonobj){
@@ -123,7 +127,8 @@ function loadEchartForce(jsonobj){
 									borderWidth : 1
 								},
 								linkStyle : {
-									type : 'curve'
+									type : 'line'
+									//color:'#5182ab'
 								}
 							},
 							emphasis : {

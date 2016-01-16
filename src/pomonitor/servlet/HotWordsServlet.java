@@ -63,7 +63,7 @@ public class HotWordsServlet extends HttpServlet {
 		double[][] relevanceMat = tdDiscovery.getRelevanceMat();
 		ArrayList<RetLink> retLinks = new ArrayList<RetLink>();
 		for (int i = 0; i < relevanceMat.length; i++) {
-			for (int j = 0; j < relevanceMat.length; j++) {
+			for (int j = i+1; j < relevanceMat.length; j++) {
 				RetLink _link = new RetLink();
 				_link.setSource(i);
 				_link.setTarget(j);
