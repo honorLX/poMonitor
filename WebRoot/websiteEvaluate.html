@@ -18,17 +18,23 @@ body{
 </style>
 </head>
 <body>
+ 	<script type="text/javascript">
+ 		var mydate=Date();
+ 		console.log(mydate);
+ 	</script>
     起止时间:&nbsp&nbsp
-    <input type="date" id="date1" name="user_date" /> &nbsp&nbsp至&nbsp&nbsp
+    <input type="date" id="date1" name="user_date" value="2015-08-01" /> &nbsp&nbsp至&nbsp&nbsp
     <input type="date" id="date2" name="user_date" /> &nbsp&nbsp
-    <button type="button">确定</button>
+    <button type="button" id="btn_websiteEvaluate">确定</button>
+    <script type="text/javascript">
+    document.getElementById("date2").valueAsDate = new Date();
+    </script>
     <div id="main1" name="news"></div>
     <script type="text/javascript"
         src="./js/lib/echarts.js"></script>
     <script type="text/javascript"
         src="./js/lib/esl.js"></script>
-    <script type="text/javascript" src="./js/lib/website.js">
-       
-    </script>
+    <script type="text/javascript" src="./js/websiteEvaluate-default.js"></script>
+    <script type="text/javascript" src="./js/websiteEvaluate.js"></script>
 </body>
 </html>

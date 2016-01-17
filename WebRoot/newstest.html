@@ -1,27 +1,18 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>新闻列表</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>�����б�</title>
 <link rel="stylesheet" type="text/css" href="./css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="./css/default.css">
-<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+<link href="./css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="./css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
 <link href="./css/site.css" rel="stylesheet" type="text/css" />
-<style type="text/css">
-body{
-	    margin:1%;
-	    padding:1%;
-    }
-</style>
 </head>
+
 <body>
-	  起止时间:&nbsp&nbsp
-    <input type="date" id="date1" name="user_date" /> &nbsp&nbsp至&nbsp&nbsp
-    <input type="date" id="date2" name="user_date" /> &nbsp&nbsp
-    <button type="button">确定</button>
-	<!--<div style="width:1350px;height:670px">-->
-	<!--新闻列表显示start-->
+<!--<div style="width:1350px;height:670px">-->
+	<!--�����б���ʾstart-->
 	<!--<div id="news_left" style="width:100%;height:100%;background:#4EA9E9;float:left;>-->
 		<!--<div class="htmleaf-container" style="background:#993333">-->
 	  <div class="container mp30" style="margin-top:5px;margin-left:5px;width:93%">
@@ -29,20 +20,93 @@ body{
       <div class="col-md-4" style="width:100%;">
         <div id="panel panel-default" class="panel panel-default" >
           <div class="panel-heading" style="float:right;background-color:#F4F4F4"> <span class="glyphicon glyphicon-list-alt"></span><b>News</b>
-		  <div style="height:50px;padding-top:20px;">
-		  新闻倾向
-		   <div style="width:10px;height:10px;border-radius: 50%;background:#EC5A4C;float:right;"></div>
+		  
+		  <ul>
+		  	<li>
+			 <div style="height:50px;padding-top:20px;">
+		  ��
+		   <div style="width:20px;height:20px;border-radius: 50%;background:#39FA03;float:right;"></div>
+		     </div>
+			
+			<ul>
+				<li><div style="height:25px;padding-top:5px;text-align:center;font-size:9px">
+		  һ��
+		   <div style="width:15px;height:15px;border-radius: 50%;background:#C4F550;float:right;"></div>
+		     </div>
+			 </li>
+				<li><div style="height:25px;padding-top:5px;text-align:center;font-size:9px">
+		  ����
+		   <div style="width:15px;height:15px;border-radius: 50%;background:#73DC1D;float:right;"></div>
+		     </div>
+			 </li>
+				<li><li><div style="height:25px;padding-top:5px;text-align:center;font-size:9px">
+		  ����
+		   <div style="width:15px;height:15px;border-radius: 50%;background:#628D3F;float:right;"></div>
+		     </div></li>
+			</ul>
+			</li>
+			
+			<li>
+			<div style="height:50px;padding-top:20px;">
+		  ��
+		  <div style="width:20px;height:20px;border-radius: 50%;background:#FAE303;float:right;"></div>
+		  </div>
+		  	<ul>
+				<li><div style="height:25px;padding-top:5px;text-align:center;font-size:9px">
+		  һ��
+		   <div style="width:15px;height:15px;border-radius: 50%;background:#F1F95B;float:right;"></div>
+		     </div>
+			 </li>
+				<li><div style="height:25px;padding-top:5px;text-align:center;font-size:9px">
+		  ����
+		   <div style="width:15px;height:15px;border-radius: 50%;background:#F5F01B;float:right;"></div>
+		     </div>
+			 </li>
+				<li><li><div style="height:25px;padding-top:5px;text-align:center;font-size:9px">
+		  ����
+		   <div style="width:15px;height:15px;border-radius: 50%;background:#C2C70C;float:right;"></div>
+		     </div></li>
+			</ul>
+			</li>
+			
+			<li>
+			<div style="height:50px;padding-top:20px;">
+		  ��
+		  <div style="width:20px;height:20px;border-radius: 50%;background:#FA0D03;float:right;"></div>
+		  </div>
+				<ul>
+				<li><div style="height:25px;padding-top:5px;text-align:center;font-size:9px">
+		  һ��
+		   <div style="width:15px;height:15px;border-radius: 50%;background:#FFADA4;float:right;"></div>
+		     </div>
+			 </li>
+				<li><div style="height:25px;padding-top:5px;text-align:center;font-size:9px">
+		  ����
+		   <div style="width:15px;height:15px;border-radius: 50%;background:#FF0066;float:right;"></div>
+		     </div>
+			 </li>
+				<li><li><div style="height:25px;padding-top:5px;text-align:center;font-size:9px">
+		  ����
+		   <div style="width:15px;height:15px;border-radius: 50%;background:#D22F06;float:right;"></div>
+		     </div></li>
+			</ul>
+			</li>
+		  </ul>
+		  
+		  
+		 <!-- <div style="height:50px;padding-top:20px;">
+		  ��/һ��
+		   <div style="width:20px;height:20px;border-radius: 50%;background:#39FA03;float:right;"></div>
 		  </div>
 		  <div style="height:50px;padding-top:20px;">
-		  倾向性分级
-		  <div style="width:10px;height:10px;border-radius: 50%;background:#4EA9E9;float:right;"></div>
+		  ��/����
+		  <div style="width:20px;height:20px;border-radius: 50%;background:#FAE303;float:right;"></div>
 		  </div>
 		  <div style="height:50px;padding-top:20px;">
-		  新闻热度
-		  <div style="width:10px;height:10px;border-radius: 50%;background:#61B320;float:right;"></div>
-		  </div>
-		  <div style="height:50px;padding-top:202px;">
-		  </div>
+		  ��/����
+		  <div style="width:20px;height:20px;border-radius: 50%;background:#FA0D03;float:right;"></div>
+		  </div>-->
+
 		 
 		  
 		  </div>
@@ -54,81 +118,27 @@ body{
                     <table cellpadding="4">
                       <tr>
                         <td><img src="./resources/1.png" width="40" class="img-circle" /></td>
-                        <td colspan="3">衡阳南华大学食堂起火 <a href="url">Read more...</a></td>
+                        <td>�����ϻ���ѧʳ����� <a href="url">Read more...</a></td>
+						<!--��������-->
+					  	<td><div style="width:100px;height:15px;float:left;text-align:center;">��������:</div><div id="xwqx" style="width:100px;height:15px;background:#FA0D03;float:left;"></div></td>
+						<td><div style="width:100px;height:15px;float:left;text-align:center;">�����Էּ�:</div><div id="qxxfj" style="width:100px;height:15px;background:#D22F06;float:left;"></div></td>
+		
                       </tr>
 					  <tr>
-					    <!--新闻倾向-->
-					  	<td style="background-color:#61B320;width:33%;height:10px;"></td>
-						<!--倾向性分级-->
-						<td style="background-color:#4EA9E9;width:40%;height:10px;"></td>
-						<!--访问新闻热度-->
-						<td style="background-color:#EC5A4C"></td>
-					  </tr>
-					  <tr>
 					  	<td colspan="4">
-						<h4><b>简述</b>：衡阳市南华大学北校一食堂着火。
+						<h4><b>����</b>���������ϻ���ѧ��Уһʳ���Ż�
 
-　　红网衡阳12月21日讯（时刻新闻记者 王敏）今天中午12点半，学生午餐时间，衡阳市南华大学北校一食堂着火。三楼一房间内出现明火，窗外浓烟滚滚。目前，大火已灭，无人员伤亡。在现场的南华大学学生介绍，当时，有食堂阿姨仍在顶楼工作，不知已着火。随后，在同学们的提示下避开火源，并在消防员的救援下顺利脱险。</h4>
+������������12��21��Ѷ��ʱ�����ż��� ��������������12��룬ѧ�����ʱ�䣬�������ϻ���ѧ��Уһʳ���Ż���¥һ�����ڳ������𣬴���Ũ�̹�����Ŀǰ�������������Ա���������ֳ����ϻ���ѧѧ�����ܣ���ʱ����ʳ�ð������ڶ�¥��������֪���Ż������ͬѧ�ǵ���ʾ�±ܿ���Դ����������Ա�ľ�Ԯ��˳�����ա�</h4>
 						</td>
 					  </tr>
 					  <tr>
 					  	<td>2015/12/21</td>
-						<td colspan="3">来源网站：新浪网</td>
+						<td colspan="2"><div style="width:300px;height:15px;text-align:center;">��Դ��վ��������</td>
+						<!--���������ȶ�-->
+						<td>���������ȶȣ�2</td>
 					  </tr>
                     </table>
                   </li>
-				  <li id="news-item" class="news-item">
-                    <table cellpadding="4">
-                      <tr>
-                        <td><img src="./resources/1.png" width="40" class="img-circle" /></td>
-                        <td colspan="3">南华大学附属第一医院2016年学科管理 <a href="url">Read more...</a></td>
-                      </tr>
-					  <tr>
-					    <!--新闻倾向-->
-					  	<td style="background-color:#61B320;width:20%;height:10px;"></td>
-						<!--倾向性分级-->
-						<td style="background-color:#4EA9E9;width:33%;height:10px;"></td>
-						<!--访问新闻热度-->
-						<td style="background-color:#EC5A4C"></td>
-					  </tr>
-					  <tr>
-					  	<td colspan="4">
-						<h4>简述：南华大学附属第一医院创建于1943年，前身为湖南省省立中正医院，是一所集医疗、教学、科研、预防、康复于一体的省级综合型三级甲等医院。根据医院发展及学科建设需要，现面向社会公开招聘以下岗位学科管理人才</h4>
-						</td>
-					  </tr>
-					  <tr>
-					  	<td>2015/1/6</td>
-						<td colspan="3">来源网站：网易新闻</td>
-					  </tr>
-                    </table>
-                  </li>
-				  <li id="news-item" class="news-item">
-                    <table cellpadding="4">
-                      <tr>
-                        <td><img src="./resources/1.png" width="40" class="img-circle" /></td>
-                        <td colspan="3">南华大学大学生普法再添“加油站” <a href="url">Read more...</a></td>
-                      </tr>
-					  <tr>
-					    <!--新闻倾向-->
-					  	<td style="background-color:#61B320;width:40%;height:10px;"></td>
-						<!--倾向性分级-->
-						<td style="background-color:#4EA9E9;width:33%;height:10px;"></td>
-						<!--访问新闻热度-->
-						<td style="background-color:#EC5A4C"></td>
-					  </tr>
-					  <tr>
-					  	<td colspan="4">
-						<h4><b>简述</b>：湖南日报12月20日讯（记者 徐德荣 通讯员 袁梓梁 朱毅强）“公交车上遇到小偷偷钱包，我们该怎么办呢？”最近，南华大学“法制护蕾”校园法律宣传暨义务法律援助联络站授牌活动在衡阳市蒸湘区振兴小学举行。来自南华大学的学生志愿者赵春晓在法制宣传小课堂上的提问，吸引了孩子们争先恐后举手回答。</h4>
-						</td>
-					  </tr>
-					  <tr>
-					  	<td>时间2015/12/21</td>
-						<td colspan="3">来源网站：中国网</td>
-					  </tr>
-                    </table>
-                  </li>
-				  
-				  
                 </ul>
               </div>
             </div>
@@ -144,7 +154,7 @@ body{
 <script type="text/javascript">
     $(function () {
         $(".demo1").bootstrapNews({
-            newsPerPage: 2,//这里是可以改变布局中一次显示的新闻条数
+            newsPerPage: 2,//�����ǿ��Ըı䲼����һ����ʾ����������
             autoplay: true,
 			pauseOnHover:true,
             direction: 'up',
@@ -156,7 +166,7 @@ body{
     });
 </script>
 	<!--</div>-->
-	<!--新闻列表显示end-->
+	<!--�����б���ʾend-->
 <!--</div>-->
 </body>
 </html>

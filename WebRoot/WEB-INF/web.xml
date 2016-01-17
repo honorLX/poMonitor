@@ -49,10 +49,6 @@
     <servlet-class>pomonitor.controller.AnalyseServlet</servlet-class>
   </servlet>
 
-  <servlet-mapping>
-    <servlet-name>AnalyseServlet</servlet-name>
-    <url-pattern>/servlet/AnalyseServlet</url-pattern>
-  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
