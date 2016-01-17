@@ -1,9 +1,15 @@
 package pomonitor.analyse.hotworddiscovery;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import pomonitor.analyse.entity.ArticleShow;
 import pomonitor.analyse.entity.HotWord;
+import pomonitor.util.ConsoleLog;
 import pomonitor.util.PropertiesReader;
 
 /**
@@ -43,6 +49,67 @@ public class DistanceMatrix {
 				relevanceMat[i][j] = classDistMat[i][j] * classDistWeight
 						+ overlapMat[i][j] * overlapDistWeight;
 			}
+		/******************* 输出新闻同现率距离和类别距离矩阵 **********************/
+		int alignWidth = 20;
+		PrintWriter writer = null;
+		try {
+			writer = new PrintWriter("E:\\RelevanceMat.txt", "UTF-8");
+			writer.println("新闻同现率矩阵：");
+			writer.println(ConsoleLog.StringMulti(
+					ConsoleLog.AlignStrWithPlaceholder("*", "*", alignWidth),
+					len));
+			writer.print(ConsoleLog.AlignStrWithPlaceholder(" ", " ",
+					alignWidth));
+			for (int i = 0; i < len; i++) {
+				writer.print(ConsoleLog.AlignHanZiWithPlaceholder(
+						hotWords.get(i).getContent(), " ", alignWidth));
+			}
+			writer.println();
+			for (int i = 0; i < len; i++) {
+				writer.print(ConsoleLog.AlignHanZiWithPlaceholder(
+						hotWords.get(i).getContent(), " ", alignWidth));
+				for (int j = 0; j < len; j++) {
+					writer.print(ConsoleLog.AlignStrWithPlaceholder(
+							overlapMat[i][j] + "", " ", alignWidth));
+				}
+				writer.println();
+			}
+			writer.println(ConsoleLog.StringMulti(
+					ConsoleLog.AlignStrWithPlaceholder("*", "*", alignWidth),
+					len));
+
+			writer.println("类别距离矩阵：");
+			writer.println(ConsoleLog.StringMulti(
+					ConsoleLog.AlignStrWithPlaceholder("*", "*", alignWidth),
+					len));
+			writer.print(ConsoleLog.AlignStrWithPlaceholder(" ", " ",
+					alignWidth));
+			for (int i = 0; i < len; i++) {
+				writer.print(ConsoleLog.AlignHanZiWithPlaceholder(
+						hotWords.get(i).getContent(), " ", alignWidth));
+			}
+			writer.println();
+			for (int i = 0; i < len; i++) {
+				writer.print(ConsoleLog.AlignHanZiWithPlaceholder(
+						hotWords.get(i).getContent(), " ", alignWidth));
+				for (int j = 0; j < len; j++) {
+					writer.print(ConsoleLog.AlignStrWithPlaceholder(
+							classDistMat[i][j] + "", " ", alignWidth));
+				}
+				writer.println();
+			}
+			writer.println(ConsoleLog.StringMulti(
+					ConsoleLog.AlignStrWithPlaceholder("*", "*", alignWidth),
+					len));
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} finally {
+			writer.close();
+		}
+		/*********************************************************************/
 		return relevanceMat;
 	}
 
@@ -119,9 +186,18 @@ public class DistanceMatrix {
 		for (int i = 0; i < len; i++) {
 			for (int j = 0; j < len; j++) {
 				mat[i][j] = (mat[i][j] - minVal) / (maxVal - minVal);
+				mat[i][j] = round(mat[i][j], 3);
 			}
 		}
 		return mat;
+	}
+
+	public static double round(double value, int places) {
+		if (places < 0)
+			return 0;
+		BigDecimal bd = new BigDecimal(value);
+		bd = bd.setScale(places, RoundingMode.HALF_UP);
+		return bd.doubleValue();
 	}
 
 }

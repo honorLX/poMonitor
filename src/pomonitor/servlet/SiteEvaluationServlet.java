@@ -33,10 +33,12 @@ public class SiteEvaluationServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		String start_time = request.getParameter("start_time");
 		String end_time = request.getParameter("end_time");
 		String method = request.getParameter("method");
 		String userID = request.getParameter("userID");
+
 		String resJson = "";
 		switch (method) {
 		case "getWebTend":

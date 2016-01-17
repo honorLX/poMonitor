@@ -86,6 +86,15 @@ public class TendDiscoveryAnalyse {
 	 * 传入时间参数，返回当前的newsTend列表，并返回前台需要的数据形式，形式有待商定,方法有待完成
 	 */
 
+	/**
+	 * 对级别的计算
+	 */
+	private int tendClassGet(float score) {
+
+		int tendClass = 0;
+		return tendClass;
+	}
+
 	@Test
 	public void test() {
 		startTendAnalyse();
