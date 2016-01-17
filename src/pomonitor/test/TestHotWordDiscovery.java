@@ -40,11 +40,12 @@ public class TestHotWordDiscovery {
 				.println("全局的特征项集合大小是:" + tvb.globalFeatureCollections.size());
 
 		HotWordDiscovery hotWordDiscovery = new HotWordDiscovery();
-		
+		HotWordDiscoveryAnalyse hwAnalyse=new HotWordDiscoveryAnalyse();
 		//测试向量
 		for(String s:tvb.globalFeatureCollections)
 			System.out.print(s+" ");
 		System.out.println("");
+		
 //		for(TDArticle t:tvb.globalArticleList){
 //			for(Map.Entry<String, Double> m:t.getTermsWeights().entrySet())
 //				System.out.print(m.getKey()+" "+m.getValue()+"  ");

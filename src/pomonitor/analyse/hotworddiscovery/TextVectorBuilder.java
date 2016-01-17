@@ -33,7 +33,9 @@ public class TextVectorBuilder {
 	private final double META_WEIGHT;
 	// 总的特征集合
 	public List<String> globalFeatureCollections = new ArrayList<String>();
-
+	
+	//加快速度，设置全局idf
+	private Map<String, Double> globalIdf;
 	/**
 	 * 初始化参数信息
 	 */
@@ -58,6 +60,8 @@ public class TextVectorBuilder {
 	 */
 	public List<TDArticle> buildVectors(List<TDArticle> topicDisArticleList) {
 		globalArticleList = topicDisArticleList;
+		//初始化所有的idf值
+		findInverseDocumentFrequency();
 		// 生成每篇文章所有词项的权重信息
 		for (TDArticle article : globalArticleList) {
 			Map<String, Double> map = new HashMap<String, Double>();
@@ -117,6 +121,7 @@ public class TextVectorBuilder {
 	 * @return
 	 */
 	private double getWeight(TDArticle article, TDArticleTerm term) {
+		
 		if (term.getposition() == TDPosition.BODY)
 			return findTFIDF(article, term) * BODY_WEIGHT;
 		else if (term.getposition() == TDPosition.META)
@@ -134,7 +139,7 @@ public class TextVectorBuilder {
 	 */
 	private double findTFIDF(TDArticle article, TDArticleTerm term) {
 		double tf = findTermFrequency(article, term.getvalue());
-		double idf = findInverseDocumentFrequency(term.getvalue());
+		double idf = globalIdf.get(term.getvalue());
 		return  tf * idf;
 	}
 
@@ -161,16 +166,24 @@ public class TextVectorBuilder {
 	 * @param term
 	 * @return
 	 */
-	private double findInverseDocumentFrequency(String term) {
-		double count = 0;
+	private void findInverseDocumentFrequency() {
+		this.globalIdf=new HashMap<String, Double>();
 		for (TDArticle article : globalArticleList) {
+			Map<String, Double> tempIdf=new HashMap<String, Double>();
 			for(TDArticleTerm td:article.getArticleAllTerms())
-				if (td.getvalue().equals(term)){
-					count++;
-					break;
+				if(tempIdf.containsKey(td.getvalue())==false){
+					double count=0.0;
+					if(this.globalIdf.get(td.getvalue())!=null)
+						count=this.globalIdf.get(td.getvalue());
+					this.globalIdf.put(td.getvalue(), count+1);
+					tempIdf.put(td.getvalue(), 1.0);
 				}
 		}
-		return Math.log((globalArticleList.size()) / (count + 0.001));
+		for(Map.Entry<String, Double> m:globalIdf.entrySet()){
+			this.globalIdf.put(m.getKey(),Math.log((globalArticleList.size()) 
+					/ (m.getValue() + 0.001)));
+		}
+		return ;
 	}
 
 	/**
