@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.pdfbox.util.operator.EndText;
+
 import pomonitor.analyse.ArticleTendAnalyse;
 
 /**
@@ -33,6 +35,7 @@ public class SiteEvaluationServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		String start_time = request.getParameter("start_time");
 		String end_time = request.getParameter("end_time");
 		String method = request.getParameter("method");

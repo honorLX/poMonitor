@@ -18,12 +18,12 @@
                 url : "./servlet/SiteEvaluationServlet",
                 type : "POST",
                 data:{
-                	 "startTime":date_start,
-					 "endTime":date_end,
+                	 "start_time":date_start,
+					 "end_time":date_end,
 					 "userId":'1',
 					 "method":'getWebTend'
                 	},
-                contentType : "json",
+//                contentType : "json",
                 dataType : "json",
                 success : function(data) {
                     //console.log("dsfjsjf"),
