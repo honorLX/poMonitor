@@ -117,8 +117,12 @@ public class TextVectorBuilder {
 	 * @return
 	 */
 	private double getWeight(TDArticle article, TDArticleTerm term) {
-
-		return findTFIDF(article, term);
+		if (term.getposition() == TDPosition.BODY)
+			return findTFIDF(article, term) * BODY_WEIGHT;
+		else if (term.getposition() == TDPosition.META)
+			return findTFIDF(article, term) * META_WEIGHT;
+		else
+			return findTFIDF(article, term) * TITLE_WEIGHT;
 	}
 
 	/**
@@ -145,13 +149,7 @@ public class TextVectorBuilder {
 		double termCount = 0;
 		for (TDArticleTerm _term : article.getArticleAllTerms()) {
 			if (term.equals(_term.getvalue())) {
-				if (_term.getposition() == TDPosition.BODY)
-					termCount += BODY_WEIGHT;
-				else if (_term.getposition() == TDPosition.META)
-					termCount += META_WEIGHT;
-				else if (_term.getposition() == TDPosition.TITLE) {
-					termCount += TITLE_WEIGHT;
-				}
+				termCount += 1;
 			}
 		}
 		return termCount / article.getArticleAllTerms().size();
