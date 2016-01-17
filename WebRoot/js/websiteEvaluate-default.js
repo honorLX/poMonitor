@@ -1,4 +1,4 @@
-﻿var jsonobj, xAxis1, name1, name2, name3,length1;
+var jsonobj, xAxis1, name1, name2, name3,length1;
 var date_start = document.getElementById('date1').value;
 var date_end = document.getElementById('date2').value;
         //$("button").click(function() {
@@ -32,20 +32,20 @@ var date_end = document.getElementById('date2').value;
 
                 },
                 error : function() {
-                    alert('没有进入');
+                    alert('û�н���');
                 }
             });
 
-            // 路径配置
+            // ·������
             require.config({
                 paths : {
                     echarts : './lib/echarts-2.2.7/build/dist'
                 }
             });
-            require(//少一个
-            [ 'echarts', 'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
-            ], function(ec) {//少一个
-                // 基于准备好的dom，初始化echarts图表
+            require(//��һ��
+            [ 'echarts', 'echarts/chart/bar' // ʹ����״ͼ�ͼ���barģ�飬�������
+            ], function(ec) {//��һ��
+                // ����׼���õ�dom����ʼ��echartsͼ��
                 var myChart = ec.init(document.getElementById('main1'));
 
                 var option = {
@@ -56,8 +56,8 @@ var date_end = document.getElementById('date2').value;
                         y2 : 30
                     },
                     title : {
-                        text : '南华大学舆论情况分布',
-                        subtext:'各媒体对南华大学新闻报道中，报导言论的褒贬情况'
+                        text : '�ϻ���ѧ��������ֲ�',
+                        subtext:'��ý����ϻ���ѧ���ű����У��������۵İ�����'
                     },
                     tooltip : {
                         trigger : 'axis'
@@ -154,7 +154,7 @@ var date_end = document.getElementById('date2').value;
                         })()
                     } ]
                 };
-                // 为echarts对象加载数据 
+                // Ϊecharts���������� 
                 myChart.setOption(option);
             });
-      //  });
+

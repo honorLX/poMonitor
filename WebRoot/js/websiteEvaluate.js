@@ -1,5 +1,5 @@
-ï»¿var jsonobj, xAxis1, name1, name2, name3, length1;
-// åŠ è½½echart
+var jsonobj, xAxis1, name1, name2, name3, length1;
+// ¼ÓÔØechart
 require.config({
     paths: {
         echarts: './lib/echarts-2.2.7/build/dist'
@@ -10,7 +10,7 @@ $("#btn_websiteEvaluate").click(
     function () {
         var date_start = document.getElementById('date1').value;
         var date_end = document.getElementById('date2').value;
-        /** **************** éªŒè¯å‚æ•°å®Œæ•´æ€§ ************************ */
+        /** **************** ÑéÖ¤²ÎÊıÍêÕûĞÔ ************************ */
         if (date_start != undefined && date_end != undefined
             && date_start != "" && date_end != "") {
           if(date_start<=date_end){
@@ -29,44 +29,44 @@ $("#btn_websiteEvaluate").click(
                     status = data.status;
                     message = data.message;
                     if (status == 0) {
-                        // å¤„ç†æˆåŠŸï¼Œè§£ææ•°æ®
+                        // ´¦Àí³É¹¦£¬½âÎöÊı¾İ
                         jsonobj = data.results;
-                        // å¯¹è¿”å›æ•°æ®åšè¿›ä¸€æ­¥å¤„ç†
+                        // ¶Ô·µ»ØÊı¾İ×ö½øÒ»²½´¦Àí
                         xAxis1 = jsonobj.xAxis;
                         length1 = jsonobj.xAxis.length;
                         name1 = jsonobj.series[0].name;
                         name2 = jsonobj.series[1].name;
                         name3 = jsonobj.series[2].name;
                         console.log(name1);
-                        // è¯·æ±‚æˆåŠŸåŠ è½½çƒ­è¯å›¾
+                        // ÇëÇó³É¹¦¼ÓÔØÈÈ´ÊÍ¼
                         loadEchartBar(jsonobj)
                     } else {
-                        // æ‰“å°é”™è¯¯ä¿¡æ¯
+                        // ´òÓ¡´íÎóĞÅÏ¢
                         console.log(message);
                     }
                 },
         error : function() {
-          alert('è¯·æ±‚å¤„ç†ä¸æˆåŠŸï¼');
+          alert('ÇëÇó´¦Àí²»³É¹¦£¡');
         }
       });
       }else{
-        alert('å¼€å§‹æ—¥æœŸåº”å°äºç»“æŸæ—¥æœŸï¼');
+        alert('¿ªÊ¼ÈÕÆÚÓ¦Ğ¡ÓÚ½áÊøÈÕÆÚ£¡');
       }
     }else
     {
-      alert("è¯·æ­£ç¡®å¡«å†™æ—¥æœŸï¼")
+      alert("ÇëÕıÈ·ÌîĞ´ÈÕÆÚ£¡")
     }
     
     });
 /*
- * // è·¯å¾„é…ç½® require.config({ paths : { echarts :
+ * // Â·¾¶ÅäÖÃ require.config({ paths : { echarts :
  * './lib/echarts-2.2.7/build/dist' } });
  */
 function loadEchartBar(jsonobj) {
-    require(// å°‘ä¸€ä¸ª
-        ['echarts', 'echarts/chart/bar' // ä½¿ç”¨æŸ±çŠ¶å›¾å°±åŠ è½½baræ¨¡å—ï¼ŒæŒ‰éœ€åŠ è½½
-        ], function (ec) {// å°‘ä¸€ä¸ª
-            // åŸºäºå‡†å¤‡å¥½çš„domï¼Œåˆå§‹åŒ–echartså›¾è¡¨
+    require(// ÉÙÒ»¸ö
+        ['echarts', 'echarts/chart/bar' // Ê¹ÓÃÖù×´Í¼¾Í¼ÓÔØbarÄ£¿é£¬°´Ğè¼ÓÔØ
+        ], function (ec) {// ÉÙÒ»¸ö
+            // »ùÓÚ×¼±¸ºÃµÄdom£¬³õÊ¼»¯echartsÍ¼±í
             var myChart = ec.init(document.getElementById('main1'));
 
             var option = {
@@ -77,8 +77,8 @@ function loadEchartBar(jsonobj) {
                     y2: 30
                 },
                 title: {
-                    text: 'å—åå¤§å­¦èˆ†è®ºæƒ…å†µåˆ†å¸ƒ',
-                    subtext: 'å„åª’ä½“å¯¹å—åå¤§å­¦æ–°é—»æŠ¥é“ä¸­ï¼ŒæŠ¥å¯¼è¨€è®ºçš„è¤’è´¬æƒ…å†µ'
+                    text: 'ÄÏ»ª´óÑ§ÓßÂÛÇé¿ö·Ö²¼',
+                    subtext: '¸÷Ã½Ìå¶ÔÄÏ»ª´óÑ§ĞÂÎÅ±¨µÀÖĞ£¬±¨µ¼ÑÔÂÛµÄ°ı±áÇé¿ö'
                 },
                 tooltip: {
                     trigger: 'axis'
@@ -176,8 +176,9 @@ function loadEchartBar(jsonobj) {
                     })()
                 }]
             };
-            // ä¸ºechartså¯¹è±¡åŠ è½½æ•°æ®
+            // Îªecharts¶ÔÏó¼ÓÔØÊı¾İ
             myChart.setOption(option);
             // });
         });
 }
+

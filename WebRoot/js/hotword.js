@@ -1,197 +1,198 @@
-ï»¿var jsonobj, status, message;
-// åŠ è½½echart
+var jsonobj, status, message;
+// ¼ÓÔØechart
 require.config({
-	paths : {
-		echarts : './lib/echarts-2.2.7/build/dist'
-	}
+    paths : {
+        echarts : './lib/echarts-2.2.7/build/dist'
+    }
 });
 
 $("#btn_hotword").click(
-		function() {
-			var date_start = document.getElementById('date1').value;
-			var date_end = document.getElementById('date2').value;
-			/** **************** éªŒè¯å‚æ•°å®Œæ•´æ€§ ************************ */
-			if (date_start != undefined && date_end != undefined
-					&& date_start != "" && date_end != "") {
-				if (date_start<=date_end){
-				$.ajax({
-					url : "./servlet/HotWordsServlet",
-					//url : "./testword.json",
-					type : "POST",
-					data : {
-						// "startTime":date_start,
-						// "endTime":date_end,
-						"startTime" : '2012-09-10',
-						"endTime" : '2013-01-10',
-						// é»˜è®¤å…ˆç»™1ï¼ŒåæœŸéœ€è¦è‡ªåŠ¨è·å¾—
-						"userId" : '1',
-						"method" : 'getHotWords'
-					},
-					dataType : "json",
-					success : function(data) {
-						console.log(JSON.stringify(data));
-						status = data.status;
-						message = data.message;
-						if (status == 0) {
-							// å¤„ç†æˆåŠŸï¼Œè§£ææ•°æ®
-							jsonobj = data.results;
-							// å¯¹è¿”å›æ•°æ®åšè¿›ä¸€æ­¥å¤„ç†
+        function() {
+            var date_start = document.getElementById('date1').value;
+            var date_end = document.getElementById('date2').value;
+            /** **************** ÑéÖ¤²ÎÊıÍêÕûĞÔ ************************ */
+            if (date_start != undefined && date_end != undefined
+                    && date_start != "" && date_end != "") {
+                if (date_start<=date_end){
+                $.ajax({
+                    //url : "./servlet/HotWordsServlet",
+                    url : "./testword.json",
+                    type : "POST",
+                    data : {
+                        // "startTime":date_start,
+                        // "endTime":date_end,
+                        "startTime" : '2012-09-10',
+                        "endTime" : '2013-01-10',
+                        // Ä¬ÈÏÏÈ¸ø1£¬ºóÆÚĞèÒª×Ô¶¯»ñµÃ
+                        "userId" : '1',
+                        "method" : 'getHotWords'
+                    },
+                    dataType : "json",
+                    success : function(data) {
+                        console.log(JSON.stringify(data));
+                        status = data.status;
+                        message = data.message;
+                        if (status == 0) {
+                            // ´¦Àí³É¹¦£¬½âÎöÊı¾İ
+                            jsonobj = data.results;
+                            // ¶Ô·µ»ØÊı¾İ×ö½øÒ»²½´¦Àí
 
-							// è¯·æ±‚æˆåŠŸåŠ è½½çƒ­è¯å›¾
-							loadEchartForce(jsonobj)
-						} else {
-							// æ‰“å°é”™è¯¯ä¿¡æ¯
-							console.log(message);
-						}
+                            // ÇëÇó³É¹¦¼ÓÔØÈÈ´ÊÍ¼
+                            loadEchartForce(jsonobj)
+                        } else {
+                            // ´òÓ¡´íÎóĞÅÏ¢
+                            console.log(message);
+                        }
 
-					},
-					error : function() {
-						alert('è¯·æ±‚å¤„ç†ä¸æˆåŠŸï¼');
-					}
-				});
-			}else{
-				alert('å¼€å§‹æ—¶é—´åº”å°äºç»“æŸæ—¶é—´ï¼');
-			}
-			} else {
-				alert("è¯·æ­£ç¡®å¡«å†™æ—¥æœŸï¼")
-			}
+                    },
+                    error : function() {
+                        alert('ÇëÇó´¦Àí²»³É¹¦£¡');
+                    }
+                });
+            }else{
+                alert('¿ªÊ¼Ê±¼äÓ¦Ğ¡ÓÚ½áÊøÊ±¼ä£¡');
+            }
+            } else {
+                alert("ÇëÕıÈ·ÌîĞ´ÈÕÆÚ£¡")
+            }
 
-		});
+        });
 
-// å¡«å……æ•°æ®ï¼ŒåŠ è½½forceå›¾
+// Ìî³äÊı¾İ£¬¼ÓÔØforceÍ¼
 function loadEchartForce(jsonobj) {
-	require(
-	// å°‘ä¸€ä¸ª
-	[ 'echarts', 'echarts/chart/force' // ä½¿ç”¨æŸ±çŠ¶å›¾å°±åŠ è½½baræ¨¡å—ï¼ŒæŒ‰éœ€åŠ è½½
-	],
+    require(
+    // ÉÙÒ»¸ö
+    [ 'echarts', 'echarts/chart/force' // Ê¹ÓÃÖù×´Í¼¾Í¼ÓÔØbarÄ£¿é£¬°´Ğè¼ÓÔØ
+    ],
 
-			function(ec) {// å°‘ä¸€ä¸ª
-				// åŸºäºå‡†å¤‡å¥½çš„domï¼Œåˆå§‹åŒ–echartså›¾è¡¨
-				var myChart = ec.init(document.getElementById('main'));
-				var option = {// å°‘ä¸€ä¸ª
-					title : {
-						text : 'çƒ­è¯ç»Ÿè®¡',
-						x : 'right',
-						y : 'bottom'
-					},
-					tooltip : {
-						trigger : 'item',
-						formatter : '{a} : {b}'
-					},
-					toolbox : {
-						show : true,
-						feature : {
-							restore : {
-								show : true
-							},
-							magicType : {
-								show : true,
-								type : [ 'force', 'chord' ]
-							},
-							saveAsImage : {
-								show : true
-							}
-						}
-					},
-					legend : {
-						x : 'left',
-						data : [ 'è¤’', 'ä¸­', 'è´¬' ]
-					},
-					series : [ {
-						type : 'force',
-						name : "çƒ­è¯ç»Ÿè®¡",
-						ribbonType : false,
-						categories : [ {
-							name : 'è¤’'
-						}, {
-							name : 'ä¸­'
-						}, {
-							name : 'è´¬'
-						} ],
-						itemStyle : {
-							normal : {
-								label : {
-									show : true,
-									textStyle : {
-										color : '#333'
-									}
-								},
-								nodeStyle : {
-									brushType : 'both',
-									borderColor : 'rgba(255,215,0,0.4)',
-									borderWidth : 1
-								},
-								linkStyle : {
-									type : 'line'
-								//color:'#5182ab'
-								}
-							},
-							emphasis : {
-								label : {
-									show : false
-								// textStyle: null // é»˜è®¤ä½¿ç”¨å…¨å±€æ–‡æœ¬æ ·å¼ï¼Œè¯¦è§TEXTSTYLE
-								},
-								nodeStyle : {
-								// r: 30
-								},
-								linkStyle : {}
-							}
-						},
-						useWorker : false,
-						minRadius : 15,
-						maxRadius : 25,
-						gravity : 1.1,
-						scaling : 1.1,
-						roam : 'move',
+            function(ec) {// ÉÙÒ»¸ö
+                // »ùÓÚ×¼±¸ºÃµÄdom£¬³õÊ¼»¯echartsÍ¼±í
+                var myChart = ec.init(document.getElementById('main'));
+                var option = {// ÉÙÒ»¸ö
+                    title : {
+                        text : 'ÈÈ´ÊÍ³¼Æ',
+                        x : 'right',
+                        y : 'bottom'
+                    },
+                    tooltip : {
+                        trigger : 'item',
+                        formatter : '{a} : {b}'
+                    },
+                    toolbox : {
+                        show : true,
+                        feature : {
+                            restore : {
+                                show : true
+                            },
+                            magicType : {
+                                show : true,
+                                type : [ 'force', 'chord' ]
+                            },
+                            saveAsImage : {
+                                show : true
+                            }
+                        }
+                    },
+                    legend : {
+                        x : 'left',
+                        data : [ '°ı', 'ÖĞ', '±á' ]
+                    },
+                    series : [ {
+                        type : 'force',
+                        name : "ÈÈ´ÊÍ³¼Æ",
+                        ribbonType : false,
+                        categories : [ {
+                            name : '°ı'
+                        }, {
+                            name : 'ÖĞ'
+                        }, {
+                            name : '±á'
+                        } ],
+                        itemStyle : {
+                            normal : {
+                                label : {
+                                    show : true,
+                                    textStyle : {
+                                        color : '#333'
+                                    }
+                                },
+                                nodeStyle : {
+                                    brushType : 'both',
+                                    borderColor : 'rgba(255,215,0,0.4)',
+                                    borderWidth : 1
+                                },
+                                linkStyle : {
+                                    type : 'line'
+                                //color:'#5182ab'
+                                }
+                            },
+                            emphasis : {
+                                label : {
+                                    show : false
+                                // textStyle: null // Ä¬ÈÏÊ¹ÓÃÈ«¾ÖÎÄ±¾ÑùÊ½£¬Ïê¼ûTEXTSTYLE
+                                },
+                                nodeStyle : {
+                                // r: 30
+                                },
+                                linkStyle : {}
+                            }
+                        },
+                        useWorker : false,
+                        //minRadius : 15,
+                        //maxRadius : 25,
+                        gravity : 1.1,
+                        scaling : 1.1,
+                        roam : 'move',
 
-						nodes : (function() {
-							var length1 = jsonobj.nodes.length;
-							// var now = new Date();
-							function fun(category, name, value, label, index) {
-								this.category = category;
-								this.name = name;
-								this.value = value;
-								this.index = index;
-								if (label == 1)
-									this.label = this.name + "\n" + "æ•æ„Ÿè¯";
-							}
+                        nodes : (function() {
+                            var length1 = jsonobj.nodes.length;
+                            // var now = new Date();
+                            function fun(category, name, value, label, index) {
+                                this.category = category;
+                                this.name = name;
+                                this.value = value;
+                                this.index = index;
+                                if (label == 1)
+                                    this.label = this.name + "\n" + "Ãô¸Ğ´Ê";
+                            }
 
-							// var res = new Object();
-							var res = [];
-							for (var i = 0; i < length1; i++) {
-								// console.log(jsonobj.nodes[i].category);
-								res[i] = new fun(jsonobj.nodes[i].category,
-										jsonobj.nodes[i].name,
-										jsonobj.nodes[i].value,
-										jsonobj.nodes[i].label,
-										jsonobj.nodes[i].index);
+                            // var res = new Object();
+                            var res = [];
+                            for (var i = 0; i < length1; i++) {
+                                // console.log(jsonobj.nodes[i].category);
+                                res[i] = new fun(jsonobj.nodes[i].category,
+                                        jsonobj.nodes[i].name,
+                                        jsonobj.nodes[i].value,
+                                        jsonobj.nodes[i].label,
+                                        jsonobj.nodes[i].index);
 
-							}
-							return res;
-						})(),
-						links : (function() {
-							var length1 = jsonobj.links.length;
+                            }
+                            return res;
+                        })(),
+                        links : (function() {
+                            var length1 = jsonobj.links.length;
 
-							function fun(source, target, weight) {
-								this.source = source;
-								this.target = target;
-								this.weight = weight;
+                            function fun(source, target, weight) {
+                                this.source = source;
+                                this.target = target;
+                                this.weight = weight;
 
-							}
+                            }
 
-							// var res = new Object();
-							var res = [];
-							for (var i = 0; i < length1; i++) {
-								res[i] = new fun(jsonobj.links[i].source,
-										jsonobj.links[i].target,
-										jsonobj.links[i].weight);
-								// console.log(res[i]);
-							}
-							return res;
-						})()
-					} ]
-				};
-				// ä¸ºechartså¯¹è±¡åŠ è½½æ•°æ®
-				myChart.setOption(option);
-			});
+                            // var res = new Object();
+                            var res = [];
+                            for (var i = 0; i < length1; i++) {
+                                res[i] = new fun(jsonobj.links[i].source,
+                                        jsonobj.links[i].target,
+                                        jsonobj.links[i].weight);
+                                // console.log(res[i]);
+                            }
+                            return res;
+                        })()
+                    } ]
+                };
+                // Îªecharts¶ÔÏó¼ÓÔØÊı¾İ
+                myChart.setOption(option);
+            });
 }
+
