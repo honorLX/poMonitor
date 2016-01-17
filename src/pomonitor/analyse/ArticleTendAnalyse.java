@@ -62,9 +62,11 @@ public class ArticleTendAnalyse {
 	 */
 	public HashMap<String, WebScore> showWebTend(String start_time,
 			String end_time, String UserId) {
+		
 		NewsTendDAO newsTendDAO = new NewsTendDAO();
 		List<NewsTend> newsList = newsTendDAO.findBetweenDate(start_time,
 				end_time);
+		System.out.println(newsList.size());
 		HashMap<String, WebScore> hashMap = new HashMap<>();
 		for (NewsTend news : newsList) {
 			String webName = news.getWeb();
@@ -131,7 +133,7 @@ public class ArticleTendAnalyse {
 
 	public String GenerateJSon(String start_time, String end_time, String UserId) {
 		String resJson = "";
-		tendAnalyse(start_time, end_time, UserId);
+//		tendAnalyse(start_time, end_time, UserId);
 		HashMap<String, WebScore> hashMap = showWebTend(start_time, end_time,
 				UserId);
 		Result result = new Result();
