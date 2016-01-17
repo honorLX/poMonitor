@@ -22,7 +22,7 @@ import pomonitor.util.PropertiesReader;
 public class TextVectorBuilder {
 
 	// 新闻文本集合
-	private List<TDArticle> globalArticleList;
+	public List<TDArticle> globalArticleList;
 	// 提取百分比
 	private final double EXTRACT_PERCENT;
 	// body词的权重系数
@@ -131,7 +131,7 @@ public class TextVectorBuilder {
 	private double findTFIDF(TDArticle article, TDArticleTerm term) {
 		double tf = findTermFrequency(article, term.getvalue());
 		double idf = findInverseDocumentFrequency(term.getvalue());
-		return tf * idf;
+		return  tf * idf;
 	}
 
 	/**
@@ -166,8 +166,11 @@ public class TextVectorBuilder {
 	private double findInverseDocumentFrequency(String term) {
 		double count = 0;
 		for (TDArticle article : globalArticleList) {
-			if (article.getArticleAllTerms().contains(term))
-				count++;
+			for(TDArticleTerm td:article.getArticleAllTerms())
+				if (td.getvalue().equals(term)){
+					count++;
+					break;
+				}
 		}
 		return Math.log((globalArticleList.size()) / (count + 0.001));
 	}
