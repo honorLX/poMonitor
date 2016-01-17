@@ -1,10 +1,18 @@
 ﻿var jsonobj, xAxis1, name1, name2, name3,length1;
-
+var date_start = document.getElementById('date1').value;
+var date_end = document.getElementById('date2').value;
+console.log(date_start);
+console.log(date_end);
         //$("button").click(function() {
             $.ajax({
-                url : "./testwebsite.json",
+                url : "./servlet/SiteEvaluationServlet",
                 type : "POST",
-                data:{start_time:document.getElementById("date1").value,end_time:document.getElementById("date2").value},
+                data:{
+               	 "start_time":date_start,
+					 "end_time":date_end,
+					 "userId":'1',
+					 "method":'getWebTend'
+               	},
          
                 contentType : "json",
                 dataType : "json",

@@ -14,6 +14,7 @@
 			if(date_start != undefined && date_end != undefined &&
 					date_start != "" && date_end != ""  )
 			{
+				if(date_start<date_end){
             $.ajax({
                 url : "./servlet/SiteEvaluationServlet",
                 type : "POST",
@@ -56,6 +57,9 @@
 					alert('请求处理不成功！');
 				}
 			});
+			}else{
+				alert('开始日期应小于结束日期！');
+			}
 		}else
 		{
 			alert("请正确填写日期！")
