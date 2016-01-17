@@ -61,14 +61,20 @@ public class HotWordsServlet extends HttpServlet {
 		/******************* 将热词列表处理为JSON格式 *****************************/
 		ArrayList<RetHotWord> retNodes = tdDiscovery.getRetHotWords();
 		double[][] relevanceMat = tdDiscovery.getRelevanceMat();
+
 		ArrayList<RetLink> retLinks = new ArrayList<RetLink>();
 		for (int i = 0; i < relevanceMat.length; i++) {
-			for (int j = 0; j < relevanceMat.length; j++) {
-				RetLink _link = new RetLink();
-				_link.setSource(i);
-				_link.setTarget(j);
-				_link.setWeight(relevanceMat[i][j] * 1000);
-				retLinks.add(_link);
+			for (int j = i + 1; j < relevanceMat.length; j++) {
+
+				if (relevanceMat[i][j] < 0.3)
+					continue;
+				else {
+					RetLink _link = new RetLink();
+					_link.setSource(i);
+					_link.setTarget(j);
+					_link.setWeight(relevanceMat[i][j] * 1000);
+					retLinks.add(_link);
+				}
 			}
 		}
 		HotWordResult results = new HotWordResult();
