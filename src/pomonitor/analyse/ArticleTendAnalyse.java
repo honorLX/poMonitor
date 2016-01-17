@@ -20,13 +20,23 @@ import pomonitor.entity.News;
 import pomonitor.entity.NewsDAO;
 import pomonitor.entity.NewsTend;
 import pomonitor.entity.NewsTendDAO;
+import pomonitor.util.PropertiesReader;
 
 /**
  * 
  * @author xiaoyulun 2016年1月5日 上午11:44:52
  */
 public class ArticleTendAnalyse {
-
+	private static int positiveScore;
+	private static int negativeScore;
+	
+	static{
+		PropertiesReader propertiesReader = new PropertiesReader();
+		positiveScore = Integer.parseInt(propertiesReader
+				.getPropertyByName("PositiveScore"));
+		negativeScore = Integer.parseInt(propertiesReader
+				.getPropertyByName("NegativeScore"));
+	}
 	public static void tendAnalyse(String start_time, String end_time,
 			String UserId) {
 		NewsDAO newsDAO = new NewsDAO();
@@ -62,9 +72,11 @@ public class ArticleTendAnalyse {
 	 */
 	public HashMap<String, WebScore> showWebTend(String start_time,
 			String end_time, String UserId) {
+		
 		NewsTendDAO newsTendDAO = new NewsTendDAO();
 		List<NewsTend> newsList = newsTendDAO.findBetweenDate(start_time,
 				end_time);
+		System.out.println(newsList.size());
 		HashMap<String, WebScore> hashMap = new HashMap<>();
 		for (NewsTend news : newsList) {
 			String webName = news.getWeb();
@@ -131,7 +143,7 @@ public class ArticleTendAnalyse {
 
 	public String GenerateJSon(String start_time, String end_time, String UserId) {
 		String resJson = "";
-		tendAnalyse(start_time, end_time, UserId);
+//		tendAnalyse(start_time, end_time, UserId);
 		HashMap<String, WebScore> hashMap = showWebTend(start_time, end_time,
 				UserId);
 		Result result = new Result();
@@ -239,9 +251,9 @@ public class ArticleTendAnalyse {
 		public int neg; // 负面情感新闻数量
 
 		public void setScore(float score) {
-			if (score > 1) {
+			if (score > positiveScore) {
 				pos++;
-			} else if (score < -1) {
+			} else if (score < negativeScore) {
 				neg++;
 			} else {
 				obj++;
