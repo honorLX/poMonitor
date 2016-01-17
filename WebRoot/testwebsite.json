@@ -1,4 +1,14 @@
 ﻿{
+<<<<<<< HEAD
+"messag":"Query Success",
+"results":{
+"series":[
+{"data":[0],"name":"褒"},
+{"data":[1],"name":"中"},
+{"data":[0],"name":"贬"}],
+"xAxis":["光明网"]},
+"status":0}
+=======
     "results": {
         "series": [
             {
@@ -41,3 +51,4 @@
         ]
     }
 }
+>>>>>>> branch 'develop' of https://github.com/herozhao/poMonitor.git

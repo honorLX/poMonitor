@@ -1,3 +1,39 @@
+<<<<<<< HEAD
+﻿var jsonobj, xAxis1, name1, name2, name3,length1;
+var date_start = document.getElementById('date1').value;
+var date_end = document.getElementById('date2').value;
+console.log(date_start);
+console.log(date_end);
+        //$("button").click(function() {
+            $.ajax({
+                url : "./servlet/SiteEvaluationServlet",
+                type : "POST",
+                data:{
+               	 "start_time":date_start,
+					 "end_time":date_end,
+					 "userId":'1',
+					 "method":'getWebTend'
+               	},
+         
+                contentType : "json",
+                dataType : "json",
+                success : function(data) {
+                    /*var start_time=document.getElementById("date1").value;
+                    var end_time=document.getElementById("date2").value;
+                    console.log(start_time);
+                    console.log(end_time);*/
+                    //alert('success');
+                    jsonobj = data.results;
+                    //console.log(jsonobj);
+                    //console.log(jsonobj.xAxis);
+                    //var option.series=jsonobj.series;
+                    xAxis1 = jsonobj.xAxis;
+                    length1=jsonobj.xAxis.length;
+                    name1 = jsonobj.series[0].name;
+                    name2 = jsonobj.series[1].name;
+                    name3 = jsonobj.series[2].name;
+                    //console.log(name1);
+=======
 ﻿var jsonobj, xAxis1, name1, name2, name3, length1;
 
 //$("button").click(function() {
@@ -8,6 +44,7 @@ $.ajax({
         start_time: document.getElementById("date1").value,
         end_time: document.getElementById("date2").value
     },
+>>>>>>> branch 'develop' of https://github.com/herozhao/poMonitor.git
 
     contentType: "json",
     dataType: "json",

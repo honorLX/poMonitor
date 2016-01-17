@@ -6,6 +6,17 @@ require.config({
     }
 });
 
+<<<<<<< HEAD
+ 
+        $("#btn_websiteEvaluate").click(function() {
+        	var date_start = document.getElementById('date1').value;
+			var date_end = document.getElementById('date2').value;
+			/** **************** 验证参数完整性 ************************ */
+			if(date_start != undefined && date_end != undefined &&
+					date_start != "" && date_end != ""  )
+			{
+				if(date_start<date_end){
+=======
 $("#btn_websiteEvaluate").click(
     function () {
         var date_start = document.getElementById('date1').value;
@@ -13,6 +24,7 @@ $("#btn_websiteEvaluate").click(
         /** **************** 验证参数完整性 ************************ */
         if (date_start != undefined && date_end != undefined
             && date_start != "" && date_end != "") {
+>>>>>>> branch 'develop' of https://github.com/herozhao/poMonitor.git
             $.ajax({
 
                 url : "./servlet/SiteEvaluationServlet",
@@ -51,6 +63,21 @@ $("#btn_websiteEvaluate").click(
                     // console.log(jsonobj.xAxis);
                     // var option.series=jsonobj.series;
                 },
+<<<<<<< HEAD
+				error : function() {
+					alert('请求处理不成功！');
+				}
+			});
+			}else{
+				alert('开始日期应小于结束日期！');
+			}
+		}else
+		{
+			alert("请正确填写日期！")
+		}
+		
+		});
+=======
                 error: function () {
                     alert('请求处理不成功！');
                 }
@@ -58,6 +85,7 @@ $("#btn_websiteEvaluate").click(
         } else {
             alert("请正确填写日期！")
         }
+>>>>>>> branch 'develop' of https://github.com/herozhao/poMonitor.git
 
     });
 
