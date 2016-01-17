@@ -131,7 +131,7 @@ public class ArticleTendAnalyse {
 
 	public String GenerateJSon(String start_time, String end_time, String UserId) {
 		String resJson = "";
-		// tendAnalyse(start_time, end_time, UserId);
+		tendAnalyse(start_time, end_time, UserId);
 		HashMap<String, WebScore> hashMap = showWebTend(start_time, end_time,
 				UserId);
 		Result result = new Result();
@@ -146,9 +146,9 @@ public class ArticleTendAnalyse {
 			result.series[1].data.add(webScore.obj * 1.0 / all);
 			result.series[2].data.add(webScore.neg * 1.0 / all);
 		}
-		test.messag = "Query Success";
+		test.message = "Query Success";
 		test.status = 0;
-		test.result = result;
+		test.results = result;
 		resJson = JSON.toJSONString(test);
 		return resJson;
 	}
@@ -280,9 +280,9 @@ public class ArticleTendAnalyse {
 	}
 
 	class Test {
-		public String messag;
+		public String message;
 		public int status;
-		public Result result;
+		public Result results;
 
 //		public Test(String message, String status, Result result) {
 //			this.messag = message;
