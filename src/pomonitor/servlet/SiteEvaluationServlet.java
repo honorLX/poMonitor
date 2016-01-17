@@ -1,14 +1,11 @@
 package pomonitor.servlet;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.pdfbox.util.operator.EndText;
 
 import pomonitor.analyse.ArticleTendAnalyse;
 
@@ -41,28 +38,10 @@ public class SiteEvaluationServlet extends HttpServlet {
 		String end_time = request.getParameter("end_time");
 		String method = request.getParameter("method");
 		String userID = request.getParameter("userID");
-		// String resJson = "";
-		// switch (method) {
-		// case "getWebTend":
-		// resJson = getWebTend(start_time, end_time, userID);
-		// break;
-		// default:
-		// break;
-		// }
-		// InputStreamReader reader = new InputStreamReader(
-		// request.getInputStream());
-		// reader.read();
-		BufferedReader r = request.getReader();
-		// while(r.read()!=-1){
 		//
-		// }
-		String[] params = r.readLine().split("=");
-		start_time = params[0];
-		end_time = params[1];
-		System.out.println(r.readLine());
-		System.out.println(request.getParameter("data"));
 		System.out.println(start_time);
 		System.out.println(end_time);
+
 		String resJson = getWebTend(start_time, end_time, userID);
 		System.out.println(resJson);
 		response.setContentType("application/json");
