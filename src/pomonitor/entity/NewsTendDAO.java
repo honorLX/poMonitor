@@ -212,6 +212,7 @@ public class NewsTendDAO implements INewsTendDAO {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
+			System.out.println();
 			query.setParameter(1, startDate, TemporalType.DATE);
 			query.setParameter(2, endDate, TemporalType.DATE);
 			return query.getResultList();
@@ -235,10 +236,12 @@ public class NewsTendDAO implements INewsTendDAO {
 			final String queryString = "select model from NewsTend model";
 			Query query = getEntityManager().createQuery(queryString);
 			return query.getResultList();
+			
 		} catch (RuntimeException re) {
 			EntityManagerHelper.log("find all failed", Level.SEVERE, re);
 			throw re;
-		}
+ 		}
+		 
 	}
 
 }
