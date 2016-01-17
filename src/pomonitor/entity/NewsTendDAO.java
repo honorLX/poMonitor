@@ -2,11 +2,15 @@ package pomonitor.entity;
 
 // default package
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 
 /**
  * A data access object (DAO) providing persistence and search support for
@@ -194,11 +198,22 @@ public class NewsTendDAO implements INewsTendDAO {
 	@SuppressWarnings("unchecked")
 	public List<NewsTend> findBetweenDate(String startDateStr, String endDateStr) {
 		try {
-			final String queryString = "select model from NewsTend model where (model.date between "
-					+ "'" + startDateStr + "' and '" + endDateStr + "')";
+			// final String queryString =
+			// "select model from NewsTend model where (model.date between "
+			// + "'" + startDateStr + "' and '" + endDateStr + "')";
+			final String queryString = "select model from NewsTend model where (model.date between ?1 and ?2)";
 			Query query = getEntityManager().createQuery(queryString);
-			// query.setParameter("startDateStr", startDateStr);
-			// query.setParameter("endDateStr", endDateStr);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date startDate = null;
+			Date endDate = null;
+			try {
+				startDate = sdf.parse(startDateStr);
+				endDate = sdf.parse(endDateStr);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			query.setParameter(1, startDate, TemporalType.DATE);
+			query.setParameter(2, endDate, TemporalType.DATE);
 			return query.getResultList();
 		} catch (RuntimeException re) {
 			EntityManagerHelper.log("find by property name failed",

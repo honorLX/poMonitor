@@ -24,7 +24,7 @@
 				value="jdbc:mysql://localhost:3306/pomonitor" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password"
-				value="" />
+				value="1014187702abc" />
 		</properties>
 	</persistence-unit>
 </persistence>
