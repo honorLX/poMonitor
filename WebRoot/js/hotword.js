@@ -15,8 +15,8 @@ $("#btn_hotword").click(
 					&& date_start != "" && date_end != "") {
 				if (date_start<=date_end){
 				$.ajax({
-					//url : "./servlet/HotWordsServlet",
-					url : "./testword.json",
+					url : "./servlet/HotWordsServlet",
+					//url : "./testword.json",
 					type : "POST",
 					data : {
 						// "startTime":date_start,
