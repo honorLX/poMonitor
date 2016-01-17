@@ -6,6 +6,7 @@ require.config({
     }
 });
 
+<<<<<<< HEAD
 $("#btn_hotword").click(
     function () {
         var date_start = document.getElementById('date1').value;
@@ -34,7 +35,50 @@ $("#btn_hotword").click(
                         // 处理成功，解析数据
                         jsonobj = data.results;
                         // 对返回数据做进一步处理
+=======
+$("#btn_hotword")
+		.click(
+				function() {
+					var date_start = document.getElementById('date1').value;
+					var date_end = document.getElementById('date2').value;
+					/** **************** 验证参数完整性 ************************ */
+					if(date_start != undefined && date_end != undefined &&
+							date_start != "" && date_end != ""  )
+					{
+						
+						$
+								.ajax({
+									url : "./servlet/HotWordsServlet",
+									//url:"data.json",
+									type : "POST",
+									data : {
+										 "startTime":date_start,
+										 "endTime":date_end,
+										//"startTime":'2008-09-10',
+										//"endTime":'2009-01-10',
+										// 默认先给1，后期需要自动获得
+										"userId":'1',
+										"method":'getHotWords'
+									},
+									dataType : "json",
+									success : function(data) {
+										console.log(JSON.stringify(data));
+										status = data.status;
+										message = data.message;
+										if(status == 0){
+											// 处理成功，解析数据
+											jsonobj = data.results;
+											// 对返回数据做进一步处理
+											
+											// 请求成功加载热词图
+											loadEchartForce(jsonobj)
+										}else{
+											// 打印错误信息
+											console.log(message);
+										}
+>>>>>>> branch 'develop' of https://github.com/herozhao/poMonitor.git
 
+<<<<<<< HEAD
                         // 请求成功加载热词图
                         loadEchartForce(jsonobj)
                     } else {
@@ -52,6 +96,21 @@ $("#btn_hotword").click(
         }
 
     });
+=======
+									},
+									error : function() {
+										alert('请求处理不成功！');
+									}
+								});
+					}else
+					{
+						alert("请正确填写日期！")
+					}
+			
+				});
+						
+
+>>>>>>> branch 'develop' of https://github.com/herozhao/poMonitor.git
 
 // 填充数据，加载force图
 function loadEchartForce(jsonobj) {
@@ -64,6 +123,7 @@ function loadEchartForce(jsonobj) {
             // 基于准备好的dom，初始化echarts图表
             var myChart = ec.init(document.getElementById('main'));
 
+<<<<<<< HEAD
             var option = {// 少一个
                 title: {
                     text: '热词统计',
@@ -138,6 +198,83 @@ function loadEchartForce(jsonobj) {
                     gravity: 1.1,
                     scaling: 1.1,
                     roam: 'move',
+=======
+				var option = {// 少一个
+					title : {
+						text : '热词统计',
+						x : 'right',
+						y : 'bottom'
+					},
+					tooltip : {
+						trigger : 'item',
+						formatter : '{a} : {b}'
+					},
+					toolbox : {
+						show : true,
+						feature : {
+							restore : {
+								show : true
+							},
+							magicType : {
+								show : true,
+								type : [ 'force', 'chord' ]
+							},
+							saveAsImage : {
+								show : true
+							}
+						}
+					},
+					legend : {
+						x : 'left',
+						data : [ '主要', '次要', '一般' ]
+					},
+					series : [ {
+						type : 'force',
+						name : "热词统计",
+						ribbonType : false,
+						categories : [ {
+							name : '主要'
+						}, {
+							name : '次要'
+						}, {
+							name : '一般'
+						} ],
+						itemStyle : {
+							normal : {
+								label : {
+									show : true,
+									textStyle : {
+										color : '#333'
+									}
+								},
+								nodeStyle : {
+									brushType : 'both',
+									borderColor : 'rgba(255,215,0,0.4)',
+									borderWidth : 1
+								},
+								linkStyle : {
+									type : 'line'
+									//color:'#5182ab'
+								}
+							},
+							emphasis : {
+								label : {
+									show : false
+								// textStyle: null // 默认使用全局文本样式，详见TEXTSTYLE
+								},
+								nodeStyle : {
+								// r: 30
+								},
+								linkStyle : {}
+							}
+						},
+						useWorker : false,
+						minRadius : 15,
+						maxRadius : 25,
+						gravity : 1.1,
+						scaling : 1.1,
+						roam : 'move',
+>>>>>>> branch 'develop' of https://github.com/herozhao/poMonitor.git
 
                     nodes: (function () {
                         var length1 = jsonobj.nodes.length;

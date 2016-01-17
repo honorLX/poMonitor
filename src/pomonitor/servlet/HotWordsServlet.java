@@ -75,6 +75,7 @@ public class HotWordsServlet extends HttpServlet {
 					_link.setWeight(relevanceMat[i][j] * 1000);
 					retLinks.add(_link);
 				}
+
 			}
 		}
 		HotWordResult results = new HotWordResult();
