@@ -1,4 +1,4 @@
-ï»¿var jsonobj, xAxis1, name1, name2, name3,length1;
+var jsonobj, xAxis1, name1, name2, name3,length1;
 var date_start = document.getElementById('date1').value;
 var date_end = document.getElementById('date2').value;
         //$("button").click(function() {
@@ -32,20 +32,20 @@ var date_end = document.getElementById('date2').value;
 
                 },
                 error : function() {
-                    alert('æ²¡æœ‰è¿›å…¥');
+                    alert('Ã»ÓĞ½øÈë');
                 }
             });
 
-            // è·¯å¾„é…ç½®
+            // Â·¾¶ÅäÖÃ
             require.config({
                 paths : {
                     echarts : './lib/echarts-2.2.7/build/dist'
                 }
             });
-            require(//å°‘ä¸€ä¸ª
-            [ 'echarts', 'echarts/chart/bar' // ä½¿ç”¨æŸ±çŠ¶å›¾å°±åŠ è½½baræ¨¡å—ï¼ŒæŒ‰éœ€åŠ è½½
-            ], function(ec) {//å°‘ä¸€ä¸ª
-                // åŸºäºå‡†å¤‡å¥½çš„domï¼Œåˆå§‹åŒ–echartså›¾è¡¨
+            require(//ÉÙÒ»¸ö
+            [ 'echarts', 'echarts/chart/bar' // Ê¹ÓÃÖù×´Í¼¾Í¼ÓÔØbarÄ£¿é£¬°´Ğè¼ÓÔØ
+            ], function(ec) {//ÉÙÒ»¸ö
+                // »ùÓÚ×¼±¸ºÃµÄdom£¬³õÊ¼»¯echartsÍ¼±í
                 var myChart = ec.init(document.getElementById('main1'));
 
                 var option = {
@@ -56,8 +56,8 @@ var date_end = document.getElementById('date2').value;
                         y2 : 30
                     },
                     title : {
-                        text : 'å—åå¤§å­¦èˆ†è®ºæƒ…å†µåˆ†å¸ƒ',
-                        subtext:'å„åª’ä½“å¯¹å—åå¤§å­¦æ–°é—»æŠ¥é“ä¸­ï¼ŒæŠ¥å¯¼è¨€è®ºçš„è¤’è´¬æƒ…å†µ'
+                        text : 'ÄÏ»ª´óÑ§ÓßÂÛÇé¿ö·Ö²¼',
+                        subtext:'¸÷Ã½Ìå¶ÔÄÏ»ª´óÑ§ĞÂÎÅ±¨µÀÖĞ£¬±¨µ¼ÑÔÂÛµÄ°ı±áÇé¿ö'
                     },
                     tooltip : {
                         trigger : 'axis'
@@ -154,7 +154,7 @@ var date_end = document.getElementById('date2').value;
                         })()
                     } ]
                 };
-                // ä¸ºechartså¯¹è±¡åŠ è½½æ•°æ® 
+                // Îªecharts¶ÔÏó¼ÓÔØÊı¾İ 
                 myChart.setOption(option);
             });
       //  });
