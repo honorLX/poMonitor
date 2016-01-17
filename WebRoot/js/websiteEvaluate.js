@@ -6,17 +6,6 @@ require.config({
     }
 });
 
-<<<<<<< HEAD
- 
-        $("#btn_websiteEvaluate").click(function() {
-        	var date_start = document.getElementById('date1').value;
-			var date_end = document.getElementById('date2').value;
-			/** **************** 验证参数完整性 ************************ */
-			if(date_start != undefined && date_end != undefined &&
-					date_start != "" && date_end != ""  )
-			{
-				if(date_start<date_end){
-=======
 $("#btn_websiteEvaluate").click(
     function () {
         var date_start = document.getElementById('date1').value;
@@ -24,71 +13,51 @@ $("#btn_websiteEvaluate").click(
         /** **************** 验证参数完整性 ************************ */
         if (date_start != undefined && date_end != undefined
             && date_start != "" && date_end != "") {
->>>>>>> branch 'develop' of https://github.com/herozhao/poMonitor.git
+          if(date_start<=date_end){
             $.ajax({
-
-                url : "./servlet/SiteEvaluationServlet",
-                type : "POST",
-                data:{
-                	 "start_time":date_start,
-					 "end_time":date_end,
-					 "userId":'1',
-					 "method":'getWebTend'
-                	},
-                dataType : "json",
-                success : function(data) {
-                    //console.log("dsfjsjf"),
-                	console.log(data);
-					status = data.status;
-					message = data.message;
-					if(status == 0){
-						// 处理成功，解析数据
-						jsonobj = data.results;
-						// 对返回数据做进一步处理
-						xAxis1 = jsonobj.xAxis;
-	                    length1=jsonobj.xAxis.length;
-	                    name1 = jsonobj.series[0].name;
-	                    name2 = jsonobj.series[1].name;
-	                    name3 = jsonobj.series[2].name;
-	                    console.log(name1);
-						// 请求成功加载热词图
-						loadEchartBar(jsonobj)
-					}else{
-						// 打印错误信息
-						console.log(message);
-					}
-                	// alert('success');
-                    // jsonobj = data.results;
-                    // console.log(jsonobj);
-                    // console.log(jsonobj.xAxis);
-                    // var option.series=jsonobj.series;
+                url: "./websiteEvaluate.json",
+                type: "POST",
+                data: {
+                    "startTime": date_start,
+                    "endTime": date_end,
+                    "userId": '1',
+                    "method": 'getWebTend'
                 },
-<<<<<<< HEAD
-				error : function() {
-					alert('请求处理不成功！');
-				}
-			});
-			}else{
-				alert('开始日期应小于结束日期！');
-			}
-		}else
-		{
-			alert("请正确填写日期！")
-		}
-		
-		});
-=======
-                error: function () {
-                    alert('请求处理不成功！');
-                }
-            });
-        } else {
-            alert("请正确填写日期！")
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    status = data.status;
+                    message = data.message;
+                    if (status == 0) {
+                        // 处理成功，解析数据
+                        jsonobj = data.results;
+                        // 对返回数据做进一步处理
+                        xAxis1 = jsonobj.xAxis;
+                        length1 = jsonobj.xAxis.length;
+                        name1 = jsonobj.series[0].name;
+                        name2 = jsonobj.series[1].name;
+                        name3 = jsonobj.series[2].name;
+                        console.log(name1);
+                        // 请求成功加载热词图
+                        loadEchartBar(jsonobj)
+                    } else {
+                        // 打印错误信息
+                        console.log(message);
+                    }
+                },
+        error : function() {
+          alert('请求处理不成功！');
         }
->>>>>>> branch 'develop' of https://github.com/herozhao/poMonitor.git
-
+      });
+      }else{
+        alert('开始日期应小于结束日期！');
+      }
+    }else
+    {
+      alert("请正确填写日期！")
+    }
+    
     });
-
 /*
  * // 路径配置 require.config({ paths : { echarts :
  * './lib/echarts-2.2.7/build/dist' } });
