@@ -14,38 +14,7 @@ $("#btn_websiteEvaluate").click(
         if (date_start != undefined && date_end != undefined
             && date_start != "" && date_end != "") {
             $.ajax({
-<<<<<<< HEAD
-                url: "./servlet/SiteEvaluationServlet",
-                type: "POST",
-                data: {
-                    "startTime": date_start,
-                    "endTime": date_end,
-                    "userId": '1',
-                    "method": 'getWebTend'
-                },
-                dataType: "json",
-                success: function (data) {
-                    console.log(data);
-                    status = data.status;
-                    message = data.message;
-                    if (status == 0) {
-                        // 处理成功，解析数据
-                        jsonobj = data.results;
-                        // 对返回数据做进一步处理
-                        xAxis1 = jsonobj.xAxis;
-                        length1 = jsonobj.xAxis.length;
-                        name1 = jsonobj.series[0].name;
-                        name2 = jsonobj.series[1].name;
-                        name3 = jsonobj.series[2].name;
-                        console.log(name1);
-                        // 请求成功加载热词图
-                        loadEchartBar(jsonobj)
-                    } else {
-                        // 打印错误信息
-                        console.log(message);
-                    }
-                    // alert('success');
-=======
+
                 url : "./servlet/SiteEvaluationServlet",
                 type : "POST",
                 data:{
@@ -54,7 +23,6 @@ $("#btn_websiteEvaluate").click(
 					 "userId":'1',
 					 "method":'getWebTend'
                 	},
-//                contentType : "json",
                 dataType : "json",
                 success : function(data) {
                     //console.log("dsfjsjf"),
@@ -78,7 +46,6 @@ $("#btn_websiteEvaluate").click(
 						console.log(message);
 					}
                 	// alert('success');
->>>>>>> branch 'develop' of https://github.com/herozhao/poMonitor.git
                     // jsonobj = data.results;
                     // console.log(jsonobj);
                     // console.log(jsonobj.xAxis);
