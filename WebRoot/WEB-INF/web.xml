@@ -22,7 +22,7 @@
   <context-param>
   	<!-- 倾向性分析的启动时间 整点种24小时制 -->
   	<param-name>tendStartTime</param-name>
-  	<param-value>22</param-value>
+  	<param-value>24</param-value>
   </context-param>
   
   <context-param>

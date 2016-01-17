@@ -10,6 +10,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import pomonitor.analyse.articletend.ArticleSplier;
 import pomonitor.analyse.articletend.SentenceSplier;
@@ -40,6 +41,14 @@ public class Test {
 		EntityManagerHelper.beginTransaction();
 		ntd.save(nt);
 		EntityManagerHelper.commit();
+	}
+
+	@org.junit.Test
+	public void test2() {
+		NewsTendDAO ntd = new NewsTendDAO();
+		List<NewsTend> list = ntd.findBetweenDate("2012-10-10", "2015-8-8");
+		System.out.println(list.size());
+
 	}
 
 	@org.junit.Test

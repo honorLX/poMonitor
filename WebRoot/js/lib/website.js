@@ -1,10 +1,12 @@
 ﻿ var jsonobj, xAxis1, name1, name2, name3,length1;
 
         $("button").click(function() {
+        	var date1=document.getElementById("date1").value;
+        	var date2=document.getElementById("date2").value;
             $.ajax({
                 url : "./servlet/SiteEvaluationServlet",
                 type : "POST",
-                data:"start_time=document.getElementById(date1)&end_time=document.getElementById(date2)",
+                data : ""+date1 + "=" + date2,
                 contentType : "json",
                 dataType : "json",
                 success : function(data) {
