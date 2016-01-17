@@ -38,11 +38,15 @@ public class SiteEvaluationServlet extends HttpServlet {
 		String end_time = request.getParameter("end_time");
 		String method = request.getParameter("method");
 		String userID = request.getParameter("userID");
-		//
-		System.out.println(start_time);
-		System.out.println(end_time);
 
-		String resJson = getWebTend(start_time, end_time, userID);
+		String resJson = "";
+		switch (method) {
+		case "getWebTend":
+			resJson = getWebTend(start_time, end_time, userID);
+			break;
+		default:
+			break;
+		}
 		System.out.println(resJson);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
