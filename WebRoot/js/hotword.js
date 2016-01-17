@@ -13,8 +13,10 @@ $("#btn_hotword").click(
 			/** **************** 验证参数完整性 ************************ */
 			if (date_start != undefined && date_end != undefined
 					&& date_start != "" && date_end != "") {
+				if (date_start<=date_end){
 				$.ajax({
-					url : "./servlet/HotWordsServlet",
+					//url : "./servlet/HotWordsServlet",
+					url : "./testword.json",
 					type : "POST",
 					data : {
 						// "startTime":date_start,
@@ -47,6 +49,9 @@ $("#btn_hotword").click(
 						alert('请求处理不成功！');
 					}
 				});
+			}else{
+				alert('开始时间应小于结束时间！');
+			}
 			} else {
 				alert("请正确填写日期！")
 			}
@@ -90,18 +95,18 @@ function loadEchartForce(jsonobj) {
 					},
 					legend : {
 						x : 'left',
-						data : [ '主要', '次要', '一般' ]
+						data : [ '褒', '中', '贬' ]
 					},
 					series : [ {
 						type : 'force',
 						name : "热词统计",
 						ribbonType : false,
 						categories : [ {
-							name : '主要'
+							name : '褒'
 						}, {
-							name : '次要'
+							name : '中'
 						}, {
-							name : '一般'
+							name : '贬'
 						} ],
 						itemStyle : {
 							normal : {
