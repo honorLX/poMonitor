@@ -1,6 +1,7 @@
 package pomonitor.test;
 
 import java.util.List;
+import java.util.Map;
 
 import pomonitor.analyse.HotWordDiscoveryAnalyse;
 import pomonitor.analyse.entity.TDArticle;
@@ -19,8 +20,8 @@ import pomonitor.util.ConsoleLog;
 public class TestHotWordDiscovery {
 	public static void main(String[] args) {
 		HotWordDiscoveryAnalyse tda = new HotWordDiscoveryAnalyse();
-		List<TDArticle> lists = tda.getArticlesBetweenDate("2008-09-10",
-				"2009-10-10");
+		List<TDArticle> lists = tda.getArticlesBetweenDate("2013-09-10",
+				"2014-7-10");
 		TextVectorBuilder tvb = new TextVectorBuilder();
 
 		long start = System.currentTimeMillis();
@@ -39,6 +40,24 @@ public class TestHotWordDiscovery {
 				.println("全局的特征项集合大小是:" + tvb.globalFeatureCollections.size());
 
 		HotWordDiscovery hotWordDiscovery = new HotWordDiscovery();
+		HotWordDiscoveryAnalyse hwAnalyse=new HotWordDiscoveryAnalyse();
+		//测试向量
+		for(String s:tvb.globalFeatureCollections)
+			System.out.print(s+" ");
+		System.out.println("");
+		
+//		for(TDArticle t:tvb.globalArticleList){
+//			for(Map.Entry<String, Double> m:t.getTermsWeights().entrySet())
+//				System.out.print(m.getKey()+" "+m.getValue()+"  ");
+//			System.out.println("");
+//			//for(int i=0;i<t.vectorSpace.length;i++){
+//				//System.out.print(t.vectorSpace[i]+" ");
+//			//}
+//			System.out.println("\n\n");
+//		}		
+		
+			
+				
 	}
 
 	/**
