@@ -1,17 +1,9 @@
 package pomonitor.analyse;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.json.Json;
-
-import org.eclipse.persistence.sessions.serializers.JSONSerializer;
-
-import com.alibaba.fastjson.JSON;
-import com.hankcs.hanlp.collection.trie.bintrie.BaseNode.Status;
 
 import pomonitor.analyse.articletend.ArticleTendAnalyseRealize;
 import pomonitor.analyse.entity.TendAnalyseArticle;
@@ -20,6 +12,8 @@ import pomonitor.entity.News;
 import pomonitor.entity.NewsDAO;
 import pomonitor.entity.NewsTend;
 import pomonitor.entity.NewsTendDAO;
+
+import com.alibaba.fastjson.JSON;
 
 /**
  * 
@@ -131,7 +125,7 @@ public class ArticleTendAnalyse {
 
 	public String GenerateJSon(String start_time, String end_time, String UserId) {
 		String resJson = "";
-		tendAnalyse(start_time, end_time, UserId);
+		// tendAnalyse(start_time, end_time, UserId);
 		HashMap<String, WebScore> hashMap = showWebTend(start_time, end_time,
 				UserId);
 		Result result = new Result();
@@ -284,11 +278,11 @@ public class ArticleTendAnalyse {
 		public int status;
 		public Result results;
 
-//		public Test(String message, String status, Result result) {
-//			this.messag = message;
-//			this.status = status;
-//			this.result = result;
-//		}
+		// public Test(String message, String status, Result result) {
+		// this.messag = message;
+		// this.status = status;
+		// this.result = result;
+		// }
 
 	}
 }
