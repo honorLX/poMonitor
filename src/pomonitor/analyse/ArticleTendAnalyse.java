@@ -1,17 +1,9 @@
 package pomonitor.analyse;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.json.Json;
-
-import org.eclipse.persistence.sessions.serializers.JSONSerializer;
-
-import com.alibaba.fastjson.JSON;
-import com.hankcs.hanlp.collection.trie.bintrie.BaseNode.Status;
 
 import pomonitor.analyse.articletend.ArticleTendAnalyseRealize;
 import pomonitor.analyse.entity.TendAnalyseArticle;
@@ -22,6 +14,8 @@ import pomonitor.entity.NewsTend;
 import pomonitor.entity.NewsTendDAO;
 import pomonitor.util.PropertiesReader;
 
+import com.alibaba.fastjson.JSON;
+
 /**
  * 
  * @author xiaoyulun 2016年1月5日 上午11:44:52
@@ -29,14 +23,15 @@ import pomonitor.util.PropertiesReader;
 public class ArticleTendAnalyse {
 	private static int positiveScore;
 	private static int negativeScore;
-	
-	static{
+
+	static {
 		PropertiesReader propertiesReader = new PropertiesReader();
 		positiveScore = Integer.parseInt(propertiesReader
 				.getPropertyByName("PositiveScore"));
 		negativeScore = Integer.parseInt(propertiesReader
 				.getPropertyByName("NegativeScore"));
 	}
+
 	public static void tendAnalyse(String start_time, String end_time,
 			String UserId) {
 		NewsDAO newsDAO = new NewsDAO();
@@ -72,7 +67,7 @@ public class ArticleTendAnalyse {
 	 */
 	public HashMap<String, WebScore> showWebTend(String start_time,
 			String end_time, String UserId) {
-		
+
 		NewsTendDAO newsTendDAO = new NewsTendDAO();
 		List<NewsTend> newsList = newsTendDAO.findBetweenDate(start_time,
 				end_time);
@@ -143,7 +138,8 @@ public class ArticleTendAnalyse {
 
 	public String GenerateJSon(String start_time, String end_time, String UserId) {
 		String resJson = "";
-//		tendAnalyse(start_time, end_time, UserId);
+
+		// tendAnalyse(start_time, end_time, UserId);
 		HashMap<String, WebScore> hashMap = showWebTend(start_time, end_time,
 				UserId);
 		Result result = new Result();
@@ -296,11 +292,11 @@ public class ArticleTendAnalyse {
 		public int status;
 		public Result results;
 
-//		public Test(String message, String status, Result result) {
-//			this.messag = message;
-//			this.status = status;
-//			this.result = result;
-//		}
+		// public Test(String message, String status, Result result) {
+		// this.messag = message;
+		// this.status = status;
+		// this.result = result;
+		// }
 
 	}
 }
