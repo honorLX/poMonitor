@@ -30,21 +30,21 @@ public class WangYi extends BaseAnalyse {
 
 	public WangYi(String webName, boolean isKeep) {
 		super(webName, isKeep);
-		// url
-
 		seedUrl = "http://news.sogou.com/news?";
 		// 参数
-		params = "mode=1&manual=true&sort=1&page=1&p=42230302&dp=1 ";
+		params = "mode=1&manual=true&sort=0&page=1&p=42230302&dp=1";
 	}
 
 	@Override
 	public int getPageCount(String key, boolean isLatest) {
-		key = URLencode.escape(key);
+		//key = URLencode.escape(key);
+		key=URLEncoder.encode(key);
 		int count = 0;
 		int pageCount = 0;
 		// 设置要搜索的关键字
-		String key1 = "site%3A163.com+";
-		String searchKeyStr = "&query=" + key1 + key;
+		String key1="site%3A163.com+";
+		String searchKeyStr = "&query=" + key1+key;
+
 
 		// String searchTimeStr = "&startTime=";
 		// String sarchTimeEnd="&endTime=";
@@ -70,12 +70,12 @@ public class WangYi extends BaseAnalyse {
 				url = new URL(seedUrl);
 				Document doc = null;
 				doc = Jsoup.parse(url, 1000);
-				Elements listEle = doc.getElementsByAttributeValue("class",
-						"mun");
-				String countStr = listEle.get(0).text().trim();
-				countStr = countStr.substring(3, 8);
-				countStr = countStr.replaceAll(",", "");
-				System.out.println(countStr);
+	            Elements listEle = doc.getElementsByAttributeValue("class","mun");						
+				String countStr = listEle.text();
+			//	System.out .println("新闻总数："+countStr);
+				countStr = countStr.substring(3, 6);
+				//countStr = countStr.replaceAll(",", "");		
+				System.out .println("新闻总数："+countStr);
 				count = Integer.parseInt(countStr);
 				pageCount = count / 10 + 1;
 			} catch (MalformedURLException e) {
@@ -93,30 +93,34 @@ public class WangYi extends BaseAnalyse {
 		try {
 			URL url = new URL(Strurl);
 			Document doc = Jsoup.parse(url, 3000);
-			Elements listEle = doc.getElementsByAttributeValue("class", "rb");
+			Elements listEle = doc.getElementsByAttributeValue("class", "news151102");
 
 			for (Element e : listEle) {
 
 				NewsEntity WangYiEntity = new NewsEntity();
 				// 解析url
-				Elements getUrl1 = e.getElementsByAttributeValueContaining(
-						"class", "pp");
-
-				String getUrl = getUrl1.attr("href");
+				Elements getUrl1 = e.getElementsByAttributeValueContaining("class", "vrTitle");
+				Elements getUrl2=getUrl1.select("a");
+				String getUrl = getUrl2.attr("href");
 				System.out.println(getUrl);
 				// 解析title
-				String title = getUrl1.text();
+				String title=getUrl1.text();
 				System.out.println(title);
 				// 得到time
-				Elements timE = e.getElementsByTag("h3");
-				String time = timE.text();
-				time = time.substring(time.length() - 16, time.length());
-				time = time.substring(0, 11);
-
+				Elements timE=e.getElementsByAttributeValue("class", "news-from");
+				String time=timE.text();
+				int len=time.length();
+				if(len==0){
+					break;
+				}
+				else{
+				time=time.substring(time.length()-16,time.length());
+				time=time.substring(0, 11);
 				System.out.println(time);
+				}
 				String web = "网易";
 				// 取得content
-				Elements contenT = e.getElementsByAttributeValue("class", "ft");
+				Elements contenT = e.getElementsByAttributeValue("class", "news-txt");
 				String content = contenT.text();
 				System.out.println(content);
 

@@ -80,31 +80,44 @@ public class TengXunAnalyse extends BaseAnalyse {
 		try {
 			URL url = new URL(Strurl);
 			Document doc = Jsoup.parse(url, 3000);
-			System.out.println(doc.html());
-			Elements listEle = doc.getElementsByAttributeValue("class", "rb");
+
+			Elements listEle = doc.getElementsByAttributeValue("class",
+					"news151102");
 
 			for (Element e : listEle) {
 
 				NewsEntity TengXunEntity = new NewsEntity();
 				// 解析url
 				Elements getUrl1 = e.getElementsByAttributeValueContaining(
-						"class", "pp");
-
-				String getUrl = getUrl1.attr("href");
+						"class", "vrTitle");
+				// System.out.println(getUrl1.html());
+				Elements getUrl2 = getUrl1.select("a");
+				String getUrl = getUrl2.attr("href");
 				System.out.println(getUrl);
 				// 解析title
 				String title = getUrl1.text();
 				System.out.println(title);
 				// 得到time
-				Elements timE = e.getElementsByTag("h3");
+				// Elements timE=e.getElementsByTag("h3");
+				Elements timE = e.getElementsByAttributeValue("class",
+						"news-from");
 				String time = timE.text();
-				time = time.substring(time.length() - 16, time.length());
-				time = time.substring(0, 10);
-				System.out.println(time);
+				int len = time.length();
+				System.out.println(len);
+				if (len == 0) {
+					break;
+				} else {
+					time = time.substring(time.length() - 16, time.length());
+					time = time.substring(0, 10);
+					System.out.println("time:" + time);
+				}
+
 				String web = "腾讯";
 				// 取得content
-				Elements contenT = e.getElementsByAttributeValue("class", "ft");
+				Elements contenT = e.getElementsByAttributeValue("class",
+						"news-txt");
 				String content = contenT.text();
+				System.out.println(content);
 				TengXunEntity.setUrl(getUrl);
 				TengXunEntity.setContent(content);
 				TengXunEntity.setTime(time);
