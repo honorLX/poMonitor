@@ -19,7 +19,7 @@ import pomonitor.clawer.newsanalyse.ZhongXinAnalyse;
 public class TestNewsCrawler {
 	@Test
 	public void testClawlerAll() {
-		NewsCrawler clawer = new NewsCrawler("F:/test/");
+		NewsCrawler clawer = new NewsCrawler("D:/test/");
 		SinaAnalyse analyse = new SinaAnalyse("新浪", true);
 		RedNetAnalyse redAnalyse = new RedNetAnalyse("红网", true);
 		RedNetAnalyseF redAnalysef = new RedNetAnalyseF("红网论坛", false);
@@ -32,21 +32,21 @@ public class TestNewsCrawler {
 		TengXunAnalyse tengXun = new TengXunAnalyse("腾讯", true);
 		FenghuangAnalyse fenghuang = new FenghuangAnalyse("凤凰", true);
 		SouHuAnalyse souhu = new SouHuAnalyse("搜狐", true);
-		// clawer.addAnalyse(analyse);
-		clawer.addAnalyse(redAnalysef);
-		clawer.addAnalyse(redAnalyse);
+		clawer.addAnalyse(analyse);
+		// clawer.addAnalyse(redAnalysef);
+		// clawer.addAnalyse(redAnalyse);
 		// clawer.addAnalyse(zxAnalyse);
-		clawer.addAnalyse(gmAnalyse);
-		clawer.addAnalyse(hsAnalyse);
+		// clawer.addAnalyse(gmAnalyse);
+		// clawer.addAnalyse(hsAnalyse);
 
 		// 有错误 clawer.addAnalyse(weixinAnalyse);
-		clawer.addAnalyse(xhAnalyse);
-		clawer.addAnalyse(wangyi);
-		clawer.addAnalyse(fenghuang);
-		clawer.addAnalyse(souhu);
+		// clawer.addAnalyse(xhAnalyse);
+		// clawer.addAnalyse(wangyi);
+		// clawer.addAnalyse(fenghuang);
+		// clawer.addAnalyse(souhu);
 		clawer.addAnalyse(tengXun);
 
-		clawer.clawerAll("南华大学", false);
+		clawer.clawerAll("南华大学", true);
 		clawer.start(10);
 
 	}

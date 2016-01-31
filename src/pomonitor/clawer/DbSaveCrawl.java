@@ -1,6 +1,5 @@
 package pomonitor.clawer;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -10,12 +9,12 @@ import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import pomonitor.util.NewsAndNewsEnriryTran;
-import pomonitor.util.TextFile;
 import pomonitor.entity.EntityManagerHelper;
 import pomonitor.entity.News;
 import pomonitor.entity.NewsDAO;
 import pomonitor.entity.NewsEntity;
+import pomonitor.util.NewsAndNewsEnriryTran;
+import pomonitor.util.TextFile;
 import de.l3s.boilerpipe.BoilerpipeProcessingException;
 import de.l3s.boilerpipe.extractors.ArticleExtractor;
 
@@ -60,6 +59,7 @@ public class DbSaveCrawl implements Runnable {
 
 	@Override
 	public void run() {
+		EntityManagerHelper.beginTransaction();
 
 		while (worksList.size() > 0) {
 			Iterator<NewsEntity> it = worksList.iterator();
@@ -113,6 +113,9 @@ public class DbSaveCrawl implements Runnable {
 						} catch (BoilerpipeProcessingException e) {
 							e.printStackTrace();
 							content = "解释失败";
+						} catch (Exception e) {
+							e.printStackTrace();
+							content = "解析失败";
 						}
 
 						entity.setFinish(true);
@@ -128,9 +131,9 @@ public class DbSaveCrawl implements Runnable {
 									.newsEntityToNews(entity);
 							// 持久化存储对象 news
 							try {
-								EntityManagerHelper.beginTransaction();
+								// EntityManagerHelper.beginTransaction();
 								newsDao.save(news);
-								EntityManagerHelper.commit();
+								// EntityManagerHelper.commit();
 							} catch (Exception e) {
 								System.out.println("持久化失败");
 								e.printStackTrace();
@@ -147,6 +150,6 @@ public class DbSaveCrawl implements Runnable {
 				}
 			}
 		}
+		EntityManagerHelper.commit();
 	}
-
 }

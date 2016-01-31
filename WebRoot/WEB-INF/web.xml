@@ -32,9 +32,9 @@
   </context-param>
   
   <!-- 用于启动爬虫服务的Listener -->	
-  <!--  <listener>
+  <listener>
   	<listener-class>pomonitor.listener.ClawerService</listener-class>
-  </listener>-->
+  </listener>
   
    <!-- 用于启动文章倾向性分析服务的Listener -->	
   <listener>
@@ -48,7 +48,6 @@
     <description>This is the description of my J2EE component</description>
     <servlet-class>pomonitor.controller.AnalyseServlet</servlet-class>
   </servlet>
->>>>>>> branch 'develop' of https://github.com/herozhao/poMonitor.git
 
     <context-param>
         <!-- 爬虫的启动时间 整点种24小时制 一般在半夜-->

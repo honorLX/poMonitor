@@ -1,19 +1,13 @@
 package pomonitor.clawer.newsanalyse;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-import org.apache.http.client.utils.URLEncodedUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 
 import pomonitor.entity.NewsEntity;
@@ -86,6 +80,7 @@ public class TengXunAnalyse extends BaseAnalyse {
 		try {
 			URL url = new URL(Strurl);
 			Document doc = Jsoup.parse(url, 3000);
+			System.out.println(doc.html());
 			Elements listEle = doc.getElementsByAttributeValue("class", "rb");
 
 			for (Element e : listEle) {
@@ -115,6 +110,7 @@ public class TengXunAnalyse extends BaseAnalyse {
 				TengXunEntity.setTime(time);
 				TengXunEntity.setWeb(webName);
 				TengXunEntity.setTitle(title);
+				System.out.println("title:" + title);
 				map.put(getUrl, TengXunEntity);
 			}
 		} catch (IOException e) {
