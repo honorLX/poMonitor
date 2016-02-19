@@ -14,6 +14,7 @@ import pomonitor.entity.News;
 import pomonitor.entity.NewsDAO;
 import pomonitor.entity.NewsTend;
 import pomonitor.entity.NewsTendDAO;
+import pomonitor.util.PropertiesReader;
 
 /**
  * 倾向性分析最终向外提供的接口
@@ -23,6 +24,28 @@ import pomonitor.entity.NewsTendDAO;
 public class TendDiscoveryAnalyse {
 	private NewsDAO newsDao;
 	private NewsTendDAO newsTendDao;
+	private static float POS_CLASS_1;
+	private static float POS_CLASS_2;
+	private static float POS_CLASS_3;
+	private static float NEG_CLASS_1;
+	private static float NEG_CLASS_2;
+	private static float NEG_CLASS_3;
+
+	static {
+		PropertiesReader propertiesReader = new PropertiesReader();
+		POS_CLASS_1 = Float.parseFloat(propertiesReader
+				.getPropertyByName("POS_CLASS_1"));
+		POS_CLASS_2 = Float.parseFloat(propertiesReader
+				.getPropertyByName("POS_CLASS_2"));
+		POS_CLASS_3 = Float.parseFloat(propertiesReader
+				.getPropertyByName("POS_CLASS_3"));
+		POS_CLASS_1 = Float.parseFloat(propertiesReader
+				.getPropertyByName("POS_CLASS_1"));
+		POS_CLASS_2 = Float.parseFloat(propertiesReader
+				.getPropertyByName("POS_CLASS_2"));
+		POS_CLASS_3 = Float.parseFloat(propertiesReader
+				.getPropertyByName("POS_CLASS_3"));
+	}
 
 	public TendDiscoveryAnalyse() {
 		newsDao = new NewsDAO();
@@ -53,8 +76,9 @@ public class TendDiscoveryAnalyse {
 				newsTend.setTendscore(article.getTendScore());
 				newsTend.setNewsId(news.getRelId());
 				newsTend.setWeb(news.getWeb());
-				// 此处的级别还需进一步处理
-				newsTend.setTendclass(1);
+				// 此处的为对级别的计算
+				int classValue = tendClassGet(newsTend.getTendscore());
+				newsTend.setTendclass(classValue);
 				// 持久化分析结果
 				EntityManagerHelper.beginTransaction();
 				newsTendDao.save(newsTend);
@@ -90,9 +114,20 @@ public class TendDiscoveryAnalyse {
 	 * 对级别的计算
 	 */
 	private int tendClassGet(float score) {
-
-		int tendClass = 0;
-		return tendClass;
+		int classValue = 0;
+		if (score >= POS_CLASS_1 && score < POS_CLASS_2)
+			classValue = 1;
+		if (score >= POS_CLASS_2 && score < POS_CLASS_3)
+			classValue = 2;
+		if (score >= POS_CLASS_3)
+			classValue = 3;
+		if (score <= NEG_CLASS_1 && score > NEG_CLASS_1)
+			classValue = -1;
+		if (score <= NEG_CLASS_1 && score > NEG_CLASS_1)
+			classValue = -2;
+		if (score <= NEG_CLASS_1)
+			classValue = -3;
+		return classValue;
 	}
 
 	@Test

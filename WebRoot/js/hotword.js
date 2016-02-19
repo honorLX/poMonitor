@@ -16,7 +16,6 @@ $("#btn_hotword").click(
                 if (date_start<=date_end){
                 $.ajax({
                     url : "./servlet/HotWordsServlet",
-                    //url : "./testword.json",
                     type : "POST",
                     data : {
                          "startTime":date_start,
@@ -46,7 +45,7 @@ $("#btn_hotword").click(
 
                     },
                     error : function() {
-                        alert('请求处理不成功！');
+                        alert("请求处理不成功！");
                     }
                 });
             }else{

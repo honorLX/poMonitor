@@ -44,7 +44,11 @@ public class NewsCrawler implements ICrawler {
 	@Override
 	public void clawerAll(String keyWords, boolean isLatest) {
 		for (Ianalyse analyse : analyseList) {
-			clawerOneWeb(analyse, keyWords, isLatest);
+			try {
+				clawerOneWeb(analyse, keyWords, isLatest);
+			} catch (Exception e) {
+				System.out.println(analyse.getAnalyseWebName() + "装载失败");
+			}
 		}
 
 	}
@@ -56,6 +60,7 @@ public class NewsCrawler implements ICrawler {
 		// this.controller= new CrawlController(urlPath);
 		System.out.println(analyse.getAnalyseWebName() + "  的url开始装载");
 		ArrayList<NewsEntity> list = change(map);
+		System.out.println("总共url数目是： " + map.size());
 		controller.addUrl(list);
 		System.out.println(analyse.getAnalyseWebName() + "  的url装载完毕");
 
@@ -79,7 +84,6 @@ public class NewsCrawler implements ICrawler {
 			String id = MD5Util.MD5(url);
 			NewsEntity news = (NewsEntity) map.get(url);
 			news.setId(id);
-			System.out.println(news.getContent() + "~~~~~~~~~~~~~");
 			list.add(news);
 
 		}
