@@ -76,7 +76,7 @@ public class HotWordDiscovery {
 
 		// 计算热词关联度
 		DistanceMatrix distMat = new DistanceMatrix(sumHotWords,
-				globalTDCentroidDist);
+				globalTDCentroidDist,tdArticlesWithVector,resTDCentroid);
 		relevanceMat = distMat.getRelevanceMat();
 		return sumHotWords;
 	}

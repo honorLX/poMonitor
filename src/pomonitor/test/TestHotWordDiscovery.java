@@ -42,10 +42,11 @@ public class TestHotWordDiscovery {
 		HotWordDiscovery hotWordDiscovery = new HotWordDiscovery();
 		HotWordDiscoveryAnalyse hwAnalyse=new HotWordDiscoveryAnalyse();
 		//≤‚ ‘œÚ¡ø
-		for(String s:tvb.globalFeatureCollections)
-			System.out.print(s+" ");
-		System.out.println("");
+//		for(String s:tvb.globalFeatureCollections)
+//			System.out.print(s+" ");
+//		System.out.println("");
 		
+		//≤‚ ‘tfidf
 //		for(TDArticle t:tvb.globalArticleList){
 //			for(Map.Entry<String, Double> m:t.getTermsWeights().entrySet())
 //				System.out.print(m.getKey()+" "+m.getValue()+"  ");
@@ -55,6 +56,7 @@ public class TestHotWordDiscovery {
 //			//}
 //			System.out.println("\n\n");
 //		}		
+		//≤‚ ‘æÿ’Û
 		
 			
 				

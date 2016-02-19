@@ -208,7 +208,7 @@ public class TextVectorBuilder {
 		// ШЅжи
 		globalFeatureCollections = new ArrayList<String>(new HashSet<String>(
 				tmpGlobalFeatureCollections));
-
+		
 		return globalFeatureCollections;
 	}
 

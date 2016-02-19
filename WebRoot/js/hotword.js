@@ -1,5 +1,5 @@
 var jsonobj, status, message;
-// ¼ÓÔØechart
+// åŠ è½½echart
 require.config({
     paths : {
         echarts : './lib/echarts-2.2.7/build/dist'
@@ -10,20 +10,20 @@ $("#btn_hotword").click(
         function() {
             var date_start = document.getElementById('date1').value;
             var date_end = document.getElementById('date2').value;
-            /** **************** ÑéÖ¤²ÎÊıÍêÕûĞÔ ************************ */
+            /** **************** éªŒè¯å‚æ•°å®Œæ•´æ€§ ************************ */
             if (date_start != undefined && date_end != undefined
                     && date_start != "" && date_end != "") {
                 if (date_start<=date_end){
                 $.ajax({
-                    //url : "./servlet/HotWordsServlet",
-                    url : "./testword.json",
+                    url : "./servlet/HotWordsServlet",
+                    //url : "./testword.json",
                     type : "POST",
                     data : {
-                        // "startTime":date_start,
-                        // "endTime":date_end,
-                        "startTime" : '2012-09-10',
-                        "endTime" : '2013-01-10',
-                        // Ä¬ÈÏÏÈ¸ø1£¬ºóÆÚĞèÒª×Ô¶¯»ñµÃ
+                         "startTime":date_start,
+                         "endTime":date_end,
+                        //"startTime" : '2012-09-10',
+                        //"endTime" : '2013-01-10',
+                        // é»˜è®¤å…ˆç»™1ï¼ŒåæœŸéœ€è¦è‡ªåŠ¨è·å¾—
                         "userId" : '1',
                         "method" : 'getHotWords'
                     },
@@ -33,44 +33,44 @@ $("#btn_hotword").click(
                         status = data.status;
                         message = data.message;
                         if (status == 0) {
-                            // ´¦Àí³É¹¦£¬½âÎöÊı¾İ
+                            // å¤„ç†æˆåŠŸï¼Œè§£ææ•°æ®
                             jsonobj = data.results;
-                            // ¶Ô·µ»ØÊı¾İ×ö½øÒ»²½´¦Àí
+                            // å¯¹è¿”å›æ•°æ®åšè¿›ä¸€æ­¥å¤„ç†
 
-                            // ÇëÇó³É¹¦¼ÓÔØÈÈ´ÊÍ¼
+                            // è¯·æ±‚æˆåŠŸåŠ è½½çƒ­è¯å›¾
                             loadEchartForce(jsonobj)
                         } else {
-                            // ´òÓ¡´íÎóĞÅÏ¢
+                            // æ‰“å°é”™è¯¯ä¿¡æ¯
                             console.log(message);
                         }
 
                     },
                     error : function() {
-                        alert('ÇëÇó´¦Àí²»³É¹¦£¡');
+                        alert('è¯·æ±‚å¤„ç†ä¸æˆåŠŸï¼');
                     }
                 });
             }else{
-                alert('¿ªÊ¼Ê±¼äÓ¦Ğ¡ÓÚ½áÊøÊ±¼ä£¡');
+                alert('å¼€å§‹æ—¶é—´åº”å°äºç»“æŸæ—¶é—´ï¼');
             }
             } else {
-                alert("ÇëÕıÈ·ÌîĞ´ÈÕÆÚ£¡")
+                alert("è¯·æ­£ç¡®å¡«å†™æ—¥æœŸï¼")
             }
 
         });
 
-// Ìî³äÊı¾İ£¬¼ÓÔØforceÍ¼
+// å¡«å……æ•°æ®ï¼ŒåŠ è½½forceå›¾
 function loadEchartForce(jsonobj) {
     require(
-    // ÉÙÒ»¸ö
-    [ 'echarts', 'echarts/chart/force' // Ê¹ÓÃÖù×´Í¼¾Í¼ÓÔØbarÄ£¿é£¬°´Ğè¼ÓÔØ
+    // å°‘ä¸€ä¸ª
+    [ 'echarts', 'echarts/chart/force' // ä½¿ç”¨æŸ±çŠ¶å›¾å°±åŠ è½½baræ¨¡å—ï¼ŒæŒ‰éœ€åŠ è½½
     ],
 
-            function(ec) {// ÉÙÒ»¸ö
-                // »ùÓÚ×¼±¸ºÃµÄdom£¬³õÊ¼»¯echartsÍ¼±í
+            function(ec) {// å°‘ä¸€ä¸ª
+                // åŸºäºå‡†å¤‡å¥½çš„domï¼Œåˆå§‹åŒ–echartså›¾è¡¨
                 var myChart = ec.init(document.getElementById('main'));
-                var option = {// ÉÙÒ»¸ö
+                var option = {// å°‘ä¸€ä¸ª
                     title : {
-                        text : 'ÈÈ´ÊÍ³¼Æ',
+                        text : 'çƒ­è¯ç»Ÿè®¡',
                         x : 'right',
                         y : 'bottom'
                     },
@@ -95,18 +95,18 @@ function loadEchartForce(jsonobj) {
                     },
                     legend : {
                         x : 'left',
-                        data : [ '°ı', 'ÖĞ', '±á' ]
+                        data : [ 'è¤’', 'ä¸­', 'è´¬' ]
                     },
                     series : [ {
                         type : 'force',
-                        name : "ÈÈ´ÊÍ³¼Æ",
+                        name : "çƒ­è¯ç»Ÿè®¡",
                         ribbonType : false,
                         categories : [ {
-                            name : '°ı'
+                            name : 'è¤’'
                         }, {
-                            name : 'ÖĞ'
+                            name : 'ä¸­'
                         }, {
-                            name : '±á'
+                            name : 'è´¬'
                         } ],
                         itemStyle : {
                             normal : {
@@ -129,7 +129,7 @@ function loadEchartForce(jsonobj) {
                             emphasis : {
                                 label : {
                                     show : false
-                                // textStyle: null // Ä¬ÈÏÊ¹ÓÃÈ«¾ÖÎÄ±¾ÑùÊ½£¬Ïê¼ûTEXTSTYLE
+                                // textStyle: null // é»˜è®¤ä½¿ç”¨å…¨å±€æ–‡æœ¬æ ·å¼ï¼Œè¯¦è§TEXTSTYLE
                                 },
                                 nodeStyle : {
                                 // r: 30
@@ -153,7 +153,7 @@ function loadEchartForce(jsonobj) {
                                 this.value = value;
                                 this.index = index;
                                 if (label == 1)
-                                    this.label = this.name + "\n" + "Ãô¸Ğ´Ê";
+                                    this.label = this.name + "\n" + "æ•æ„Ÿè¯";
                             }
 
                             // var res = new Object();
@@ -191,7 +191,7 @@ function loadEchartForce(jsonobj) {
                         })()
                     } ]
                 };
-                // Îªecharts¶ÔÏó¼ÓÔØÊı¾İ
+                // ä¸ºechartså¯¹è±¡åŠ è½½æ•°æ®
                 myChart.setOption(option);
             });
 }
