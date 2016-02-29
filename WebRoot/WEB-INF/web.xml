@@ -30,17 +30,19 @@
   	<param-name>tendInterval</param-name>
   	<param-value>24</param-value>
   </context-param>
-  
+
   <!-- 用于启动爬虫服务的Listener -->	
+<!--  临时注释
   <listener>
   	<listener-class>pomonitor.listener.ClawerService</listener-class>
   </listener>
-  
+--> 
    <!-- 用于启动文章倾向性分析服务的Listener -->	
+<!--  
   <listener>
   	<listener-class>pomonitor.listener.ArticleTendService</listener-class>
   </listener>
-  
+-->  
 	
   <servlet>
     <servlet-name>AnalyseServlet</servlet-name>
@@ -73,11 +75,11 @@
     </listener>-->
 
     <!-- 用于启动文章倾向性分析服务的Listener -->
+<!--      
     <listener>
         <listener-class>pomonitor.listener.ArticleTendService</listener-class>
     </listener>
-
-
+-->
     <servlet>
         <servlet-name>AnalyseServlet</servlet-name>
         <display-name>This is the display name of my J2EE component</display-name>

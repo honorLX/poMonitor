@@ -104,7 +104,8 @@ public class TextVectorBuilder {
 		maxVal = HotWordDiscovery.getMax(vec);
 		minVal = HotWordDiscovery.getMin(vec);
 		for (int i = 0; i < vec.length; i++) {
-			vec[i] = (vec[i] - avgVal) / (maxVal - minVal);
+			if(maxVal - minVal>=0.0000000001)
+				vec[i] = (vec[i] - avgVal) / (maxVal - minVal);
 		}
 		resTdArticle.vectorSpace = vec;
 		return resTdArticle;

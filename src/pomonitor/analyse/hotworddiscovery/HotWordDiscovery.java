@@ -61,17 +61,18 @@ public class HotWordDiscovery {
 		// 得到两两TDCentroid之间的相似度
 		int num = resTDCentroid.size();
 		globalTDCentroidDist = new double[num][num];
-		for (TDCentroid tdc1 : resTDCentroid) {
-			for (TDCentroid tdc2 : resTDCentroid) {
-				int i = tdc1.CentroidNumber, j = tdc2.CentroidNumber;
-				globalTDCentroidDist[i][j] = calTDCentroidDist(tdc1, tdc2);
-			}
-		}
+//		for (TDCentroid tdc1 : resTDCentroid) {
+//			for (TDCentroid tdc2 : resTDCentroid) {
+//				int i = tdc1.CentroidNumber, j = tdc2.CentroidNumber;
+//				globalTDCentroidDist[i][j] = calTDCentroidDist(tdc1, tdc2);
+//			}
+//		}
 
 		// 对聚类结果进行处理得到全部的HotWord
 		for (TDCentroid tdCentroid : resTDCentroid) {
 			List<HotWord> t = getHotWordsFromCentroid(tdCentroid, sensitiveDict);
-			sumHotWords.addAll(t);
+			if(t!=null)
+				sumHotWords.addAll(t);
 		}
 
 		// 计算热词关联度
@@ -102,6 +103,8 @@ public class HotWordDiscovery {
 			t.setSensitiveWords(false);
 			hotWordsList.add(t);
 		}
+		if(tdc.GroupedArticle.size()==0)
+			return null;
 		double[] base = tdc.GroupedArticle.get(0).vectorSpace;
 		for (int i = 1; i < tdc.GroupedArticle.size(); i++) {
 			ArticleShow as = new ArticleShow();

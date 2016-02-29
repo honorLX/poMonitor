@@ -1,5 +1,7 @@
 package pomonitor.analyse.hotworddiscovery;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -39,21 +41,21 @@ public class KmeansCluster {
 		/******************* 随机初始化 k 个类别 ***********************/
 		// 方法一 随机K个中心
 
-		List<TDCentroid> centroidCollection = new ArrayList<TDCentroid>();
-		TDCentroid c;
-		HashSet<Integer> uniqRand = GenerateRandomNumber(k,
-				articleCollection.size());
-		for (int i : uniqRand) {
-			c = new TDCentroid();
-			c.GroupedArticle = new ArrayList<TDArticle>();
-			c.GroupedArticle.add(articleCollection.get(i));
-			centroidCollection.add(c);
-		}
+//		List<TDCentroid> centroidCollection = new ArrayList<TDCentroid>();
+//		TDCentroid c;
+//		HashSet<Integer> uniqRand = GenerateRandomNumber(k,
+//				articleCollection.size());
+//		for (int i : uniqRand) {
+//			c = new TDCentroid();
+//			c.GroupedArticle = new ArrayList<TDArticle>();
+//			c.GroupedArticle.add(articleCollection.get(i));
+//			centroidCollection.add(c);
+//		}
 
 		/***********************************************************/
 		// 方法二 选择批次距离尽可能远的K个点
-		// List<TDCentroid>
-		// centroidCollection=getInitKCentroid(k,articleCollection);
+		 List<TDCentroid>
+		 centroidCollection=getInitKCentroid(k,articleCollection);
 
 		boolean stoppingCriteria = false;
 		List<TDCentroid> resultSet;
@@ -67,7 +69,8 @@ public class KmeansCluster {
 						tdArticle);
 				resultSet.get(index).GroupedArticle.add(tdArticle);
 			}
-
+			
+			
 			centroidCollection = InitializeClusterCentroid(centroidCollection
 					.size());
 			centroidCollection = CalculateMeanPoints(resultSet);
@@ -244,11 +247,17 @@ public class KmeansCluster {
 		for (int i = 0; i < _clusterCenter.size(); i++) {
 			if (_clusterCenter.get(i).GroupedArticle.size() > 0) {
 				for (int j = 0; j < _clusterCenter.get(i).GroupedArticle.get(0).vectorSpace.length; j++) {
-					double total = 0;
-					for (TDArticle vSpace : _clusterCenter.get(i).GroupedArticle)
-						total += vSpace.vectorSpace[j];
+					BigDecimal total = BigDecimal.ZERO;
+					for (TDArticle vSpace : _clusterCenter.get(i).GroupedArticle){
+						if(!Double.isNaN(vSpace.vectorSpace[j])){
+							 BigDecimal bd = new BigDecimal(vSpace.vectorSpace[j]);  
+							 total = total.add(bd);
+						}
+						
+					}
+					total = total.setScale(8, RoundingMode.HALF_UP); 
 					/*************************** 以均值代替 *******************************/
-					_clusterCenter.get(i).GroupedArticle.get(0).vectorSpace[j] = total
+					_clusterCenter.get(i).GroupedArticle.get(0).vectorSpace[j] = total.doubleValue()
 							/ _clusterCenter.get(i).GroupedArticle.size();
 
 				}
@@ -269,9 +278,11 @@ public class KmeansCluster {
 			List<TDCentroid> clusterCenters, TDArticle article) {
 		double[] similarityMeasure = new double[clusterCenters.size()];
 		for (int i = 0; i < clusterCenters.size(); i++) {
+			if(clusterCenters.get(i).GroupedArticle.size()!=0){
 			similarityMeasure[i] = SimilarityMatrics.FindCosineSimilarity(
 					clusterCenters.get(i).GroupedArticle.get(0).vectorSpace,
 					article.vectorSpace);
+		}
 		}
 		int index = 0;
 		double maxValue = similarityMeasure[0];

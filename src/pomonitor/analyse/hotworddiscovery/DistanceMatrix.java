@@ -175,6 +175,8 @@ public class DistanceMatrix {
 //			}
 //		}
 		for (TDCentroid tdc : resTDCentroid) {
+			if(tdc.GroupedArticle.size()==0)
+				break;
 			double[] tdcWeight=tdc.GroupedArticle.get(0).vectorSpace;
 			double sum = 0, maxVal = tdcWeight[0], minVal = tdcWeight[0];
 			double maxWordWeight=tdcWeight[0];
@@ -246,6 +248,7 @@ public class DistanceMatrix {
 		overlapMat = new double[len][len];
 		for (int i = 0; i < len; i++)
 			for (int j = 0; j < len; j++) {
+				overlapMat[i][j]=0;
 				double overlap = 0;
 				// 两个热词代表的新闻集合，求交集
 				List<ArticleShow> articlesi = hotWords.get(i).articleViews;
@@ -259,7 +262,8 @@ public class DistanceMatrix {
 						}
 					}
 				}
-				overlapMat[i][j] = overlap / sum;
+				if(sum!=0)
+					overlapMat[i][j] = overlap / sum;
 			}
 		// 归一化
 		overlapMat = normalizeMat(overlapMat, len);
@@ -274,7 +278,6 @@ public class DistanceMatrix {
 	 * @return
 	 */
 	private double[][] normalizeMat(double[][] mat, int len) {
-
 		double maxVal = mat[0][0], minVal = mat[0][0];
 		for (int i = 0; i < len; i++) {
 			for (int j = 0; j < len; j++) {
@@ -284,9 +287,9 @@ public class DistanceMatrix {
 		}
 		for (int i = 0; i < len; i++) {
 			for (int j = 0; j < len; j++) {
-				if(mat[i][j]!=0){
-				mat[i][j] = (mat[i][j] - minVal) / (maxVal - minVal);
-				mat[i][j] = round(mat[i][j], 3);
+				if(mat[i][j]!=0&&maxVal != minVal){
+					mat[i][j] = (mat[i][j] - minVal) / (maxVal - minVal);
+					mat[i][j] = round(mat[i][j], 3);
 				}
 			}
 		}

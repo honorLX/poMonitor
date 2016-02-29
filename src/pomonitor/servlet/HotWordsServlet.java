@@ -66,7 +66,7 @@ public class HotWordsServlet extends HttpServlet {
 		for (int i = 0; i < relevanceMat.length; i++) {
 			for (int j = i + 1; j < relevanceMat.length; j++) {
 
-				if (relevanceMat[i][j] < 0.3)
+				if (relevanceMat[i][j] < 0.25)
 					continue;
 				else {
 					RetLink _link = new RetLink();
