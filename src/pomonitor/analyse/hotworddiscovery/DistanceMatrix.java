@@ -88,67 +88,67 @@ public class DistanceMatrix {
 //				}
 //			}
 		
-		/******************* 输出新闻同现率距离和类别距离矩阵 **********************/
-		
-		int alignWidth = 20;
-		PrintWriter writer = null;
-		try {
-			writer = new PrintWriter("D:\\RelevanceMat.txt", "UTF-8");
-			writer.println("新闻同现率矩阵：");
-			writer.println(ConsoleLog.StringMulti(
-					ConsoleLog.AlignStrWithPlaceholder("*", "*", alignWidth),
-					len));
-			writer.print(ConsoleLog.AlignStrWithPlaceholder(" ", " ",
-					alignWidth));
-			for (int i = 0; i < len; i++) {
-				writer.print(ConsoleLog.AlignHanZiWithPlaceholder(
-						hotWords.get(i).getContent(), " ", alignWidth));
-			}
-			writer.println();
-			for (int i = 0; i < len; i++) {
-				writer.print(ConsoleLog.AlignHanZiWithPlaceholder(
-						hotWords.get(i).getContent(), " ", alignWidth));
-				for (int j = 0; j < len; j++) {
-					writer.print(ConsoleLog.AlignStrWithPlaceholder(
-							overlapMat[i][j] + "", " ", alignWidth));
-				}
-				writer.println();
-			}
-			writer.println(ConsoleLog.StringMulti(
-					ConsoleLog.AlignStrWithPlaceholder("*", "*", alignWidth),
-					len));
-
-			writer.println("类别距离矩阵：");
-			writer.println(ConsoleLog.StringMulti(
-					ConsoleLog.AlignStrWithPlaceholder("*", "*", alignWidth),
-					len));
-			writer.print(ConsoleLog.AlignStrWithPlaceholder(" ", " ",
-					alignWidth));
-			for (int i = 0; i < len; i++) {
-				writer.print(ConsoleLog.AlignHanZiWithPlaceholder(
-						hotWords.get(i).getContent(), " ", alignWidth));
-			}
-			writer.println();
-			for (int i = 0; i < len; i++) {
-				writer.print(ConsoleLog.AlignHanZiWithPlaceholder(
-						hotWords.get(i).getContent(), " ", alignWidth));
-				for (int j = 0; j < len; j++) {
-					writer.print(ConsoleLog.AlignStrWithPlaceholder(
-							classDistMat[i][j] + "", " ", alignWidth));
-				}
-				writer.println();
-			}
-			writer.println(ConsoleLog.StringMulti(
-					ConsoleLog.AlignStrWithPlaceholder("*", "*", alignWidth),
-					len));
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} finally {
-			writer.close();
-		}
+//		/******************* 输出新闻同现率距离和类别距离矩阵 **********************/
+//		
+//		int alignWidth = 20;
+//		PrintWriter writer = null;
+//		try {
+//			writer = new PrintWriter("D:\\RelevanceMat.txt", "UTF-8");
+//			writer.println("新闻同现率矩阵：");
+//			writer.println(ConsoleLog.StringMulti(
+//					ConsoleLog.AlignStrWithPlaceholder("*", "*", alignWidth),
+//					len));
+//			writer.print(ConsoleLog.AlignStrWithPlaceholder(" ", " ",
+//					alignWidth));
+//			for (int i = 0; i < len; i++) {
+//				writer.print(ConsoleLog.AlignHanZiWithPlaceholder(
+//						hotWords.get(i).getContent(), " ", alignWidth));
+//			}
+//			writer.println();
+//			for (int i = 0; i < len; i++) {
+//				writer.print(ConsoleLog.AlignHanZiWithPlaceholder(
+//						hotWords.get(i).getContent(), " ", alignWidth));
+//				for (int j = 0; j < len; j++) {
+//					writer.print(ConsoleLog.AlignStrWithPlaceholder(
+//							overlapMat[i][j] + "", " ", alignWidth));
+//				}
+//				writer.println();
+//			}
+//			writer.println(ConsoleLog.StringMulti(
+//					ConsoleLog.AlignStrWithPlaceholder("*", "*", alignWidth),
+//					len));
+//
+//			writer.println("类别距离矩阵：");
+//			writer.println(ConsoleLog.StringMulti(
+//					ConsoleLog.AlignStrWithPlaceholder("*", "*", alignWidth),
+//					len));
+//			writer.print(ConsoleLog.AlignStrWithPlaceholder(" ", " ",
+//					alignWidth));
+//			for (int i = 0; i < len; i++) {
+//				writer.print(ConsoleLog.AlignHanZiWithPlaceholder(
+//						hotWords.get(i).getContent(), " ", alignWidth));
+//			}
+//			writer.println();
+//			for (int i = 0; i < len; i++) {
+//				writer.print(ConsoleLog.AlignHanZiWithPlaceholder(
+//						hotWords.get(i).getContent(), " ", alignWidth));
+//				for (int j = 0; j < len; j++) {
+//					writer.print(ConsoleLog.AlignStrWithPlaceholder(
+//							classDistMat[i][j] + "", " ", alignWidth));
+//				}
+//				writer.println();
+//			}
+//			writer.println(ConsoleLog.StringMulti(
+//					ConsoleLog.AlignStrWithPlaceholder("*", "*", alignWidth),
+//					len));
+//
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		} finally {
+//			writer.close();
+//		}
 		
 		/*********************************************************************/
 		

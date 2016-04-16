@@ -26,6 +26,14 @@ import com.hankcs.hanlp.seg.common.Term;
 public class HotWordDiscoveryAnalyse {
 	private double[][] relevanceMat;
 	private ArrayList<RetHotWord> retHotWords;
+	private List<HotWord> hotwords;
+	public List<HotWord> getHotwords() {
+		return hotwords;
+	}
+
+	public void setHotwords(List<HotWord> hotwords) {
+		this.hotwords = hotwords;
+	}
 
 	/**
 	 * 根据特定用户的敏感词库，获取一段时间内新闻文本的热词集合(以及其关联的新闻集合)
@@ -40,7 +48,7 @@ public class HotWordDiscoveryAnalyse {
 		// 调用话题发现功能模块，返回话题集合
 		HotWordDiscovery td = new HotWordDiscovery();
 		SenswordDAO sd = new SenswordDAO();
-		List<HotWord> hotwords = td.getHotWords(
+		this.hotwords = td.getHotWords(
 				getArticlesBetweenDate(startDateStr, endDateStr),
 				sd.findByProperty("userid", userId));
 		this.relevanceMat = td.getRelevanceMat();
