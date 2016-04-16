@@ -185,7 +185,7 @@ public class HotWordDiscovery {
 			// °ý±áº¬Òå
 			List<Emotionalword> emoWords = emotionalwordDAO.findByWord(word
 					.getContent());
-			if (!(emoWords.size() > 0))
+			if (emoWords.size() <=0)
 				word.setAttitude(Attitude.NEUTRAL);
 			else {
 				switch (emoWords.get(0).getPolarity()) {

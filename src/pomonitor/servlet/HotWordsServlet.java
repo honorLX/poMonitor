@@ -107,6 +107,8 @@ public class HotWordsServlet extends HttpServlet {
 		hotWordsListResponse.setMessage("处理成功!");
 		hotWordsListResponse.setStatus(0);
 		String resJSON = JSON.toJSONString(hotWordsListResponse);
+		
+		ConsoleLog.PrintInfo(getClass(), resJSON);
 		return resJSON;
 	}
 	
@@ -117,7 +119,8 @@ public class HotWordsServlet extends HttpServlet {
 	 */
 	private String getNewsByHotWord(int hotwordid) {
 		List<HotWord> hotwords=tdDiscovery.getHotwords();
-		HotWord res=hotwords.get(hotwordid);
+		HotWord res = null;
+		res=hotwords.get(hotwordid);
 		HotWordNewsResponse hotWordNewsResponse=new HotWordNewsResponse();
 		String resJSON="";
 		if(res!=null){
@@ -133,14 +136,12 @@ public class HotWordsServlet extends HttpServlet {
 			hotWordNewsResponse.setResults(null);
 			resJSON = JSON.toJSONString(hotWordNewsResponse);
 		}
+		ConsoleLog.PrintInfo(getClass(), resJSON);
 		return resJSON;
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		HttpSession session=request.getSession(true);
-		
 		String methodName = request.getParameter("method");
 		String resultJson = "";
 		if (methodName == null) {
@@ -153,9 +154,13 @@ public class HotWordsServlet extends HttpServlet {
 			String startDateStr = request.getParameter("startTime");
 			String endDateStr = request.getParameter("endTime");
 			int userId = Integer.parseInt(request.getParameter("userId"));
-			this.tdDiscovery = new HotWordDiscoveryAnalyse();
-			tdDiscovery.discoverHotWords(startDateStr, endDateStr, userId);
-			
+			HttpSession session=request.getSession(true);
+			this.tdDiscovery=(HotWordDiscoveryAnalyse)session.getAttribute(startDateStr+endDateStr+userId);
+			if(this.tdDiscovery==null){
+				this.tdDiscovery = new HotWordDiscoveryAnalyse();
+				tdDiscovery.discoverHotWords(startDateStr, endDateStr, userId);
+				session.setAttribute(startDateStr+endDateStr+userId,this.tdDiscovery);
+			}
 			// 根据请求的方法，返回对应信息 resultJson
 			switch (methodName) {
 			case "getHotWords":

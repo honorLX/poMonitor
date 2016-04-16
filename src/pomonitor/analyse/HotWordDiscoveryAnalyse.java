@@ -27,13 +27,6 @@ public class HotWordDiscoveryAnalyse {
 	private double[][] relevanceMat;
 	private ArrayList<RetHotWord> retHotWords;
 	private List<HotWord> hotwords;
-	public List<HotWord> getHotwords() {
-		return hotwords;
-	}
-
-	public void setHotwords(List<HotWord> hotwords) {
-		this.hotwords = hotwords;
-	}
 
 	/**
 	 * 根据特定用户的敏感词库，获取一段时间内新闻文本的热词集合(以及其关联的新闻集合)
@@ -142,6 +135,14 @@ public class HotWordDiscoveryAnalyse {
 
 	public void setRetHotWords(ArrayList<RetHotWord> retHotWords) {
 		this.retHotWords = retHotWords;
+	}
+
+	public List<HotWord> getHotwords() {
+		return hotwords;
+	}
+
+	public void setHotwords(List<HotWord> hotwords) {
+		this.hotwords = hotwords;
 	}
 
 }

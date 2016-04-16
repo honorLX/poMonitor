@@ -89,19 +89,11 @@
         <welcome-file>default.jsp</welcome-file>
     </welcome-file-list>
     <servlet>
-        <servlet-name>TopicDiscoveryServlet</servlet-name>
-        <servlet-class>pomonitor.controller.TopicDiscoveryController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>HotWordsServlet</servlet-name>
-        <display-name>This is the display name of my J2EE component</display-name>
-        <description>This is the description of my J2EE component</description>
         <servlet-class>pomonitor.servlet.HotWordsServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SiteEvaluationServlet</servlet-name>
-        <display-name>This is the display name of my J2EE component</display-name>
-        <description>This is the description of my J2EE component</description>
         <servlet-class>pomonitor.servlet.SiteEvaluationServlet</servlet-class>
     </servlet>
 
