@@ -5,12 +5,70 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>南华大学舆情系统</title>
     <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
     <script src="./js/lib/jquery.min.js"></script>
     <script src="./js/lib/bootstrap.min.js"></script>
-	
 </head>
 <body>  
-
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                type:"GET",
+                url:"../JSON/getAlarm.json",
+                dataType:"json",
+                success: function(data){
+                    $.each(data, function(i,item){
+                        var content = "";
+                        
+                        content += '<div class="col-sm-8">';
+                        content += item.title;
+                        content += '</div>';
+                        
+                        content += '<div class="col-sm-2">';
+                        content += item.date;
+                        content += '</div>';
+                        
+                        content += '<div class="col-sm-2">';
+                        content += item.source;
+                        content += '</div>';
+                        
+                        $("#alarm").append(content);
+                    })
+                }
+            })
+        });
+    
+                $(document).ready(function(){
+            $.ajax({
+                type:"GET",
+                url:"../JSON/getLatestMessage.json",
+                dataType:"json",
+                success: function(data){
+                    $.each(data, function(i,item){
+                        var content = "";
+                        
+                        content += '<div class="col-sm-8">';
+                        content += item.title;
+                        content += '</div>';
+                        
+                        content += '<div class="col-sm-1">';
+                        content += item.date;
+                        content += '</div>';
+                        
+                        content += '<div class="col-sm-1">';
+                        content += item.time;
+                        content += '</div>';
+                        
+                        content += '<div class="col-sm-2">';
+                        content += item.source;
+                        content += '</div>';
+                        
+                        $("#latest").append(content);
+                    })
+                }
+            })
+        });
+    </script>
 
      <div class="container">
           <div class="row">
@@ -96,14 +154,7 @@
 	                <div class="panel-heading">
 	                    <h1 class="panel-title">舆情预警</h1>
 	                </div>
-	                <div class="panel-body">
-	                <br>
-	                <br>
-	                <br>
-	                <br>
-	                <br>
-	                <br>
-	                <br> 
+	                <div class="panel-body" id="alarm">
 	                </div>	           	
 	           </div>
 
@@ -137,17 +188,12 @@
 	                <div class="panel-heading">
 	                    <h1 class="panel-title">最新舆情</h1>
 	                </div>
-	                <div class="panel-body">
-	                <br>
-	                <br>
-	                <br>
-	                <br>
-	                <br>
-	                <br>
-	                <br>    	
+	                <div class="panel-body" id = "latest">   
+                        
 	                </div>	           	
 	           </div>	
 	             
 	 </div>
+
 </body>
 </html>
