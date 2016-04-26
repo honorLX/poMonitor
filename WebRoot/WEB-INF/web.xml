@@ -44,13 +44,6 @@
   </listener>
 -->  
 	
-  <servlet>
-    <servlet-name>AnalyseServlet</servlet-name>
-    <display-name>This is the display name of my J2EE component</display-name>
-    <description>This is the description of my J2EE component</description>
-    <servlet-class>pomonitor.controller.AnalyseServlet</servlet-class>
-  </servlet>
-
     <context-param>
         <!-- 爬虫的启动时间 整点种24小时制 一般在半夜-->
         <param-name>clawerStartTime</param-name>
@@ -96,19 +89,11 @@
         <welcome-file>default.jsp</welcome-file>
     </welcome-file-list>
     <servlet>
-        <servlet-name>TopicDiscoveryServlet</servlet-name>
-        <servlet-class>pomonitor.controller.TopicDiscoveryController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>HotWordsServlet</servlet-name>
-        <display-name>This is the display name of my J2EE component</display-name>
-        <description>This is the description of my J2EE component</description>
         <servlet-class>pomonitor.servlet.HotWordsServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SiteEvaluationServlet</servlet-name>
-        <display-name>This is the display name of my J2EE component</display-name>
-        <description>This is the description of my J2EE component</description>
         <servlet-class>pomonitor.servlet.SiteEvaluationServlet</servlet-class>
     </servlet>
   <servlet>
@@ -119,11 +104,6 @@
   </servlet>
 
 
-
-    <servlet-mapping>
-        <servlet-name>TopicDiscoveryServlet</servlet-name>
-        <url-pattern>/TD.do</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HotWordsServlet</servlet-name>
         <url-pattern>/servlet/HotWordsServlet</url-pattern>

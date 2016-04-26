@@ -10,12 +10,12 @@ import java.util.List;
  */
 public class HotWord {
 
-	private String content;// 话题内容
+	private String content;// 热词内容
 
-	public double weight;// 话题权重
-	private boolean isSensitiveWords;// 该话题是否是敏感词（或其近义词）
-	public List<ArticleShow> articleViews;// 包含该话题的文章集合
-	private Attitude attitude;// 该话题的褒贬态度信息
+	public double weight;// 热词权重
+	private boolean isSensitiveWords;// 该热词是否是敏感词（或其近义词）
+	public List<ArticleShow> articleViews;// 包含该热词的文章集合
+	private Attitude attitude;// 该热词的褒贬态度信息
 	private Integer belongto;// 所属的类别编号
 
 	public String getContent() {

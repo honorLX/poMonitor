@@ -2,20 +2,27 @@ package pomonitor.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import pomonitor.analyse.HotWordDiscoveryAnalyse;
+import pomonitor.analyse.entity.HotWord;
+import pomonitor.analyse.entity.HotWordNewsResponse;
 import pomonitor.analyse.entity.HotWordResponse;
 import pomonitor.analyse.entity.HotWordResult;
+import pomonitor.analyse.entity.HotWordsListResponse;
 import pomonitor.analyse.entity.RetHotWord;
 import pomonitor.analyse.entity.RetLink;
 import pomonitor.util.ConsoleLog;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 
 /**
  * 每一个servlet对应于前端的一个逻辑页面，前端可见的只是和当前页面相关的若干个请求接口， 每一个servlet不需要和后台的功能模块一一对应，特此说明
@@ -26,7 +33,8 @@ import com.alibaba.fastjson.JSON;
  * 
  */
 public class HotWordsServlet extends HttpServlet {
-
+	HotWordDiscoveryAnalyse tdDiscovery;
+	
 	public HotWordsServlet() {
 		super();
 	}
@@ -56,12 +64,10 @@ public class HotWordsServlet extends HttpServlet {
 	 */
 	private String getHotWords(String startDateStr, String endDateStr,
 			int userId) {
-		HotWordDiscoveryAnalyse tdDiscovery = new HotWordDiscoveryAnalyse();
-		tdDiscovery.discoverHotWords(startDateStr, endDateStr, userId);
 		/******************* 将热词列表处理为JSON格式 *****************************/
 		ArrayList<RetHotWord> retNodes = tdDiscovery.getRetHotWords();
 		double[][] relevanceMat = tdDiscovery.getRelevanceMat();
-
+		
 		ArrayList<RetLink> retLinks = new ArrayList<RetLink>();
 		for (int i = 0; i < relevanceMat.length; i++) {
 			for (int j = i + 1; j < relevanceMat.length; j++) {
@@ -75,7 +81,6 @@ public class HotWordsServlet extends HttpServlet {
 					_link.setWeight(relevanceMat[i][j] * 1000);
 					retLinks.add(_link);
 				}
-
 			}
 		}
 		HotWordResult results = new HotWordResult();
@@ -90,20 +95,53 @@ public class HotWordsServlet extends HttpServlet {
 		ConsoleLog.PrintInfo(getClass(), retJSON);
 		return retJSON;
 	}
-
+	/**
+	 * 返回所有热词信息
+	 * @return
+	 */
+	private String getHotWordsList(String startDateStr, String endDateStr,
+			int userId) {
+		List<RetHotWord> hotwords=tdDiscovery.getRetHotWords();
+		HotWordsListResponse hotWordsListResponse = new HotWordsListResponse();
+		hotWordsListResponse.setResults(hotwords);
+		hotWordsListResponse.setMessage("处理成功!");
+		hotWordsListResponse.setStatus(0);
+		String resJSON = JSON.toJSONString(hotWordsListResponse);
+		
+		ConsoleLog.PrintInfo(getClass(), resJSON);
+		return resJSON;
+	}
+	
 	/**
 	 * 根据指定话题返回相关的新闻列表
 	 * 
 	 * @return
 	 */
-	private String getNewsByHotWord() {
-		String resJSON = "";
+	private String getNewsByHotWord(int hotwordid) {
+		List<HotWord> hotwords=tdDiscovery.getHotwords();
+		HotWord res = null;
+		res=hotwords.get(hotwordid);
+		HotWordNewsResponse hotWordNewsResponse=new HotWordNewsResponse();
+		String resJSON="";
+		if(res!=null){
+			hotWordNewsResponse.setResults(res);
+			hotWordNewsResponse.setMessage("处理成功!");
+			hotWordNewsResponse.setStatus(0);
+			resJSON = JSON.toJSONString(hotWordNewsResponse);
+
+		}
+		else{
+			hotWordNewsResponse.setMessage("未找到此热词！");
+			hotWordNewsResponse.setStatus(1);
+			hotWordNewsResponse.setResults(null);
+			resJSON = JSON.toJSONString(hotWordNewsResponse);
+		}
+		ConsoleLog.PrintInfo(getClass(), resJSON);
 		return resJSON;
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		String methodName = request.getParameter("method");
 		String resultJson = "";
 		if (methodName == null) {
@@ -113,18 +151,29 @@ public class HotWordsServlet extends HttpServlet {
 			res.setResults(null);
 			resultJson = JSON.toJSONString(res);
 		} else {
+			String startDateStr = request.getParameter("startTime");
+			String endDateStr = request.getParameter("endTime");
+			int userId = Integer.parseInt(request.getParameter("userId"));
+			HttpSession session=request.getSession(true);
+			this.tdDiscovery=(HotWordDiscoveryAnalyse)session.getAttribute(startDateStr+endDateStr+userId);
+			if(this.tdDiscovery==null){
+				this.tdDiscovery = new HotWordDiscoveryAnalyse();
+				tdDiscovery.discoverHotWords(startDateStr, endDateStr, userId);
+				session.setAttribute(startDateStr+endDateStr+userId,this.tdDiscovery);
+			}
 			// 根据请求的方法，返回对应信息 resultJson
 			switch (methodName) {
 			case "getHotWords":
 				// 返回热词集合
-				String startDateStr = request.getParameter("startTime");
-				String endDateStr = request.getParameter("endTime");
-				int userId = Integer.parseInt(request.getParameter("userId"));
 				resultJson = getHotWords(startDateStr, endDateStr, userId);
 				break;
 			case "getNewsByHotWord":
-				// 根据热词编号返回新闻列表
-				resultJson = getNewsByHotWord();
+				// 根据热词List的id返回新闻列表
+				int hotwordid = Integer.parseInt(request.getParameter("hotwordid"));
+				resultJson = getNewsByHotWord(hotwordid);
+				break;
+			case "getHotWordsList":
+				resultJson =getHotWordsList(startDateStr, endDateStr, userId);
 				break;
 			default:
 				break;
@@ -133,7 +182,6 @@ public class HotWordsServlet extends HttpServlet {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(resultJson);
-
 	}
 
 	public void init() throws ServletException {
