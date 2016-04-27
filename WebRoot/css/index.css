@@ -1,5 +1,5 @@
 
-/*  导航栏     */
+/*  导航栏 周志锋  */
 #index {
     width: 100%;
     background-color: #2A83D3;
@@ -47,7 +47,11 @@ li>a {
 #nav>li:target a:hover {
     color: #DDD;
 }
-
+#RightCorner
+{
+    padding-top: 2%;
+    padding-bottom: 1%;
+}
 /*童凌*/
 div {
     line-height: 2em;
