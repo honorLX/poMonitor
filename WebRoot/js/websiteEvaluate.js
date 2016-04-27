@@ -15,11 +15,11 @@ $("#btn_websiteEvaluate").click(
 					&& date_start != "" && date_end != "") {
 				if (date_start <= date_end) {
 					$.ajax({
-						url : "./JSON/websiteEvaluate.json",
+						url : "./servlet/SiteEvaluationServlet",
 						type : "POST",
 						data : {
-							"startTime" : date_start,
-							"endTime" : date_end,
+							"start_time" : date_start,
+							"end_time" : date_end,
 							"userId" : '1',
 							"method" : 'getWebTend'
 						},
