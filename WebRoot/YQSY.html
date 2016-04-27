@@ -4,13 +4,126 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>南华大学舆情系统</title>
-    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="./css/index.css">
-    <script src="./js/lib/jquery.min.js"></script>
-    <script src="./js/lib/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/index.css">
+	<script src="./js/lib/jquery.min.js"></script>
+	<script src="./js/lib/bootstrap.min.js"></script>
+	<script src="./js/lib/echarts/echarts.js"></script>
 </head>
-<body>  
-    <script>
+<body>
+	<div class="container" id="profile">
+		<div  class="col-md-6">
+			<img src="Image/Title.png" alt=""></div>
+		<div  class="col-md-6 " id="shiying" >
+			<div  class="col-md-3">帮助</div>
+			<div  class="col-md-3">系统消息</div>
+			<div  class="col-md-3">联系客服</div>
+			<div  class="col-md-3">安全退出</div>
+		</div>
+	</div>
+
+	<div id="index">
+		<div class="container">
+			<ul id="nav" >
+				<li id ="page1">
+					<a href ="#page1">首页</a>
+				</li>
+				<li id ="page2">
+					<a href ="#page2">跳转A</a>
+				</li>
+				<li id ="page3">
+					<a href ="#page3">跳转B</a>
+				</li>
+				<li id ="page4">
+					<a href ="#page4">跳转C</a>
+				</li>
+				<li id ="page5">
+					<a href ="#page5">跳转D</a>
+				</li>
+				<li id ="page6">
+					<a href ="#page6">跳转E</a>
+				</li>
+				<li id ="page7">
+					<a href ="#page7">首页</a>
+				</li>
+				<li id ="page8">
+					<a href ="#page8">跳转A</a>
+				</li>
+				<li id ="page9">
+					<a href ="#page9">跳转B</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="container ">
+		<div class="row">
+			<div class="col-md-8">
+				<div>
+					<br></div>
+				<div class="panel panel-default">
+					<div class="panel-heading">一周走势图</div>
+					<div class="panel-body">
+						<br>
+						<br>
+						<br>
+						<br>
+						<br>
+						<br></div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">舆情预警</div>
+					<div class="panel-body" id="alarm"></div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">最新舆情</div>
+					<div class="panel-body" id = "latest"></div>
+				</div>
+
+			</div>
+			<div class="col-md-4">
+				<div>
+					<br></div>
+				<div class="panel panel-default category-bar">
+					<div class="panel-heading">今日舆情</div>
+					<div class="panel-body">
+						<span class="blue">
+							<span class="glyphicon glyphicon-stop"></span>
+							正面
+						</span>
+						<span class="red">
+							<span class="glyphicon glyphicon-stop"></span>
+							负面
+						</span>
+
+						<div class="clearfix"></div>
+
+						<div class="categorys">
+							<div class="col-md-4 category">
+								<div class="content"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">微博</div>
+					<div class="panel-body">
+						<br>
+						<br>
+						<br>
+						<br>
+						<br>
+						<br></div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<script>
+
+		// 舆情预警
         $(document).ready(function(){
             $.ajax({
                 type:"GET",
@@ -21,9 +134,7 @@
                         var content = "";
                         
                         content += '<div class="col-sm-8">';
-                        content += '<a href = '+item.url+'>';
                         content += item.title;
-                        content += '</a>'
                         content += '</div>';
                         
                         content += '<div class="col-sm-2">';
@@ -38,6 +149,10 @@
                     })
                 }
             })
+        });
+    
+    	// 最新舆情
+        $(document).ready(function(){
             $.ajax({
                 type:"GET",
                 url:"./JSON/getLatestMessage.json",
@@ -46,11 +161,8 @@
                     $.each(data, function(i,item){
                         var content = "";
                         
-                        
                         content += '<div class="col-sm-8">';
-                        content += '<a href = '+item.url+'>';
                         content += item.title;
-                        content += '</a>';
                         content += '</div>';
                         
                         content += '<div class="col-sm-1">';
@@ -71,113 +183,100 @@
             })
         });
 
-    
+       	// 今日舆情
+       	$(document).ready(function(){
+	        function showCategory(data) {
+				var $cats = $('.category-bar .categorys');
+				var $demo = $cats.find('.category').clone();
+				$cats.find('.category').remove();
+
+				for (var i = 0; i < data.websiteName.length; i++) {
+					var $div = $demo.clone();
+					//$div.find('.content').html(data.websiteName[i])
+					$cats.append($div);
+					$div.find('.content').css('height', $div.find('.content').width() + 'px');
+
+					(function(div, data, idx){
+						require.config({
+				            paths: {
+				                echarts: '/poMonitor/js/lib/echarts'
+				            }
+				        });
+
+						require(
+						    [ 
+						        'echarts', 
+						        'echarts/chart/pie',
+						        'echarts/chart/bar'
+						    ],
+
+							function (ec) {
+				                // 基于准备好的dom，初始化echarts图表
+				                //console.log(div);
+				                
+				                var myChart = ec.init(div); 
+				                
+				                var option = {
+				                	title:{
+				                		text: data.websiteName[idx],
+				                		x:'center',
+				                		y:'center',
+				                		zlevel:-99,
+				                		show: true
+				                	},
+				                	// tooltip : {
+			                	 //        trigger: 'item',
+			                	 //        formatter: "{a} <br/>{b} : {c} ({d}%)"
+			                	 //    },
+			                	    calculable : false,
+			                	    series : [
+			                	        {
+			                	            name:'访问来源',
+			                	            type:'pie',
+			                	            radius : ['50%', '70%'],
+			                	            itemStyle : {
+			                	                normal : {
+			                	                    label : {
+			                	                        show : false
+			                	                    },
+			                	                    labelLine : {
+			                	                        show : false
+			                	                    }
+			                	                },
+			                	                emphasis : {
+			                	                    label : {
+			                	                        show : true,
+			                	                        position : 'center',
+			                	                        textStyle : {
+			                	                            fontSize : '30',
+			                	                            fontWeight : 'bold'
+			                	                        }
+			                	                    }
+			                	                }
+			                	            },
+			                	            data:[
+			                	                {value:data.totalNum[idx] - data.negativeNum[idx], name:data.totalNum[idx] - data.negativeNum[idx]},
+			                	                {value:data.negativeNum[idx], name:data.totalNum[idx]},
+			                	            ]
+			                	        }
+			                	    ]
+				                };
+							                    
+		    					myChart.setOption(option);
+				    		}
+					    );
+					}( $div.find('.content').get(0), data, i ));
+				}
+			}
+
+			$.get(
+				"./JSON/testJinRiYuQin.json", 
+				function(data) {
+					showCategory(data)
+			});
+       	});
+        
+
     </script>
-
-     <div class="container">
-          <div class="row">
-               <img src="Image/Title.png" class="img-responsive col-md-5" alt="Title">
-                <br>
-                <br>
-               <div class="col-md-offset-1 col-md-1" style="width: 120px;">
-               	<img src="Image/BZ.png" alt="BZ">
-               	 帮助
-               </div>
-               <div class="col-md-1" style="width: 120px; ">
-                 <img src="Image/XTXX.png" alt="XTXX">
-               	 系统消息
-                </div>
-                <div class="col-md-1" style="width: 120px; ">
-                 <img src="Image/LXKF.png" alt="LXKF">
-               	 联系客服
-                </div>
-                <div class="col-md-1" style="width: 120px;">
-                 <img src="Image/AQTC.png" alt="AQTC">
-               	 安全退出
-               </div>
-
-          </div>
-	</div>
-	 <div class="container center-block" style="width:100%;background-color: #2A83D3">	    
-	     <ul class="nav nav-tabs col-md-5 " style="width:55%;left: 20%" >
-           <li  class="active"><a href="YQSY.php" title="" style="color:#6D86B5;">首页</a></li>
-           <li ><a href="YQLL.php" title="" style="color:#fff; ">舆情浏览</a></li>
-           <li ><a href="#" title="" style="color:#fff; ">舆情预警</a></li>
-           <li ><a href="#" title="" style="color:#fff; ">统计分析</a></li>
-           <li ><a href="#" title="" style="color:#fff; ">网络情报</a></li>
-           <li ><a href="#" title="" style="color:#fff; ">舆情简报</a></li>
-           <li ><a href="#" title="" style="color:#fff; ">云搜索</a></li>
-           <li ><a href="#" title="" style="color:#fff; ">话题挖掘</a></li>
-           <li ><a href="#" title="" style="color:#fff; ">网参</a></li>
-           <li class="pull-right" id="XTSZ"><a href="#" title="" style="color:#fff; "> <img src="Image/XTSZ.png" alt="">系统设置</a></li>
-	 	</ul>
-	 </div>
-
-
-
-	 <div class="container">	 
-	           <div class="panel panel-default" style="width:70%;float: left;">
-	                <div class="panel-heading">
-	                    <h1 class="panel-title">一周走势图</h1>
-	                </div>
-	                <div class="panel-body">
-	                <br>
-	                <br>
-	                <br>
-	                <br>
-	                <br>
-	                <br>
-	                <br>
-	                <br>
-	                <br>
-	                <br>   
-	                </div>	           	
-	           </div>
-                 <div class="panel panel-default" style="width:30%;float: left;">
-	                <div class="panel-heading">
-	                    <h1 class="panel-title">今日舆情</h1>
-	                </div>
-	                <div class="panel-body">
-	                <br>
-	                <br>
-	                <br>
-	                <br>
-	                <br> 	
-	                </div>	           	
-	           </div>	
-	 </div>
-
-	 	 <div class="container">	 
-	           
-	           <div class="panel panel-default" style="width:70%;float: left;">
-	                <div class="panel-heading">
-	                    <h1 class="panel-title">舆情预警</h1>
-	                </div>
-	                <div class="panel-body" id="alarm">
-	                </div>	           	
-	           </div>
-
-               <div class="panel panel-default" style="width:30%;float:right;">
-	                <div class="panel-heading">
-	                    <h1 class="panel-title">微博</h1>
-	                </div>
-	                <div class="panel-body">
-	   
-	                <br>
-	                <br> 
-	                <br>    	
-	                </div>	           	
-	           </div>	
-                 <div class="panel panel-default" style="width:70%;float: left;">
-	                <div class="panel-heading">
-	                    <h1 class="panel-title">最新舆情</h1>
-	                </div>
-	                <div class="panel-body" id = "latest">   
-                        
-	                </div>	           	
-	           </div>	
-	             
-	 </div>
-
 </body>
 </html>

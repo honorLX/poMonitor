@@ -90,5 +90,4 @@ public class IndexServlet extends HttpServlet {
 		Summarize summarize = new Summarize();
 		return summarize.getTendency(startTime, endTime);
 	}
-
 }
