@@ -1,3 +1,12 @@
+/****** common *****/
+.panel-heading{
+    /*background: #ccc !important;*/
+}
+.panel-body{
+    /*background: #eee;*/
+}
+
+
 div{
     line-height: 2em;
 }
@@ -69,4 +78,22 @@ div{
 #main1 {
     height: 450px;
     width: 95%;
+}
+
+/*fenleiquyu*/
+
+.category-bar .blue{
+	color: #87CEFA;
+}
+
+.category-bar .red{
+	color: #FF7F50;
+}
+.category-bar .category{
+    padding: 3px;
+}
+.category-bar .category .content{
+    /*border-radius: 50%;*/
+    /*background: #eee;   */
+    /*outline: 1px solid gray;*/
 }
