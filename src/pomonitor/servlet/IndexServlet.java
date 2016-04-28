@@ -2,11 +2,14 @@ package pomonitor.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import pomonitor.statistics.Summarize;
 
 public class IndexServlet extends HttpServlet {
 
@@ -58,11 +61,27 @@ public class IndexServlet extends HttpServlet {
 		String resJSON = "";
 		switch (method) {
 		case "getTendency":
-			
+			try {
+				resJSON = getTendency(startTime, endTime);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
+		case "checkStatus":
+			try {
+				resJSON = checkStatus();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		case "getLatestMessage":
+			
 		default:
 			break;
 		}
+		System.out.println(resJSON);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(resJSON);
@@ -77,8 +96,12 @@ public class IndexServlet extends HttpServlet {
 		// Put your code here
 	}
 	
-	private String getTendency(String startTime,String endTime){
-		return "";
+	private String getTendency(String startTime,String endTime) throws ParseException{
+		Summarize summarize = new Summarize();
+		return summarize.getTendency(startTime, endTime);
 	}
-
+	private String checkStatus() throws ParseException{
+		Summarize summarize = new Summarize();
+		return summarize.checkStatus();
+	}
 }
