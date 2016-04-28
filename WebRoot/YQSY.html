@@ -269,11 +269,17 @@
 				}
 			}
 
-			$.get(
-				"./servlet/IndexServlet", 
-				function(data) {
+			$.ajax({
+                type:"GET",
+                //url:"./JSON/testJinRiYuQin.json",
+                url:"/servlet/IndexServlet",
+                data : {
+                        "method" : 'checkStatus'
+                       },
+                dataType:"json",
+                success: function(data) {
 					showCategory(data)
-			});
+			}});
        	});
         
 
