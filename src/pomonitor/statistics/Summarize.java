@@ -13,13 +13,44 @@ import javax.persistence.EntityManager;
 
 import com.alibaba.fastjson.JSON;
 
+import pomonitor.analyse.ArticleTendAnalyse;
 import pomonitor.entity.EntityManagerHelper;
+import pomonitor.entity.News;
+import pomonitor.entity.NewsDAO;
 import pomonitor.entity.NewsTend;
 import pomonitor.entity.NewsTendDAO;
 
 public class Summarize {
 	public String getTendency(String startTime, String endTime)
 			throws ParseException {
+		class Series {
+			public Series(List<Date> dates, HashMap<Date, Integer> allNews,
+					HashMap<Date, Integer> negNews) {
+				all = new ArrayList<>();
+				neg = new ArrayList<>();
+				for (int i = 0; i < dates.size(); i++) {
+					Date date = dates.get(i);
+					all.add(allNews.get(date));
+					neg.add(negNews.get(date));
+				}
+			}
+
+			public ArrayList<Integer> neg;
+			public ArrayList<Integer> all;
+		}
+
+		class JSONData {
+			public Series series;
+			public String message;
+			public int status;
+
+			public JSONData(Series series) {
+				this.series = series;
+				this.message = "Query success!";
+				this.status = 0;
+			}
+
+		}
 		NewsTendDAO newsTendDAO = new NewsTendDAO();
 		List<NewsTend> newsTends = new ArrayList<>();
 		EntityManagerHelper.beginTransaction();
@@ -58,33 +89,53 @@ public class Summarize {
 		return JSON.toJSONString(json);
 	}
 
-	class Series {
+	public String checkStatus() throws ParseException {
+		class NewsTendencyClassifyByWeb {
+			public List<Integer> totalNum;
+			public List<Integer> negativeNum;
+			public List<String> websiteName;
 
-		public Series(List<Date> dates, HashMap<Date, Integer> allNews,
-				HashMap<Date, Integer> negNews) {
-			all = new ArrayList<>();
-			neg = new ArrayList<>();
-			for (int i = 0; i < dates.size(); i++) {
-				Date date = dates.get(i);
-				all.add(allNews.get(date));
-				neg.add(negNews.get(date));
+			public NewsTendencyClassifyByWeb(List<NewsTend> newsTendLists) {
+				totalNum = new ArrayList<>();
+				negativeNum = new ArrayList<>();
+				websiteName = new ArrayList<>();
+				HashMap<String, Integer> hashMap = new HashMap<>();
+				for (int i = 0; i < newsTendLists.size(); i++) {
+					NewsTend newsTend = newsTendLists.get(i);
+					String webName = ArticleTendAnalyse
+							.EnglishWebNameToChinese(newsTend.getWeb());
+					if (hashMap.containsKey(webName)) {
+						int index = hashMap.get(webName);
+						totalNum.set(index, totalNum.get(index) + 1);
+						if (newsTend.getTendclass() < 0) {
+							negativeNum.set(index, negativeNum.get(index) + 1);
+						}
+					} else {
+						websiteName.add(webName);
+						totalNum.add(1);
+						int index = websiteName.size() - 1;
+						hashMap.put(webName, index);
+						if (newsTend.getTendclass() < 0) {
+							negativeNum.add(1);
+						} else {
+							negativeNum.add(0);
+						}
+					}
+				}
 			}
 		}
-
-		public ArrayList<Integer> neg;
-		public ArrayList<Integer> all;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = sdf.parse("2015-09-14");
+		// date = new Date(System.currentTimeMillis());
+		NewsTendDAO newsTendDAO = new NewsTendDAO();
+		List<NewsTend> newsTendLists = new ArrayList<>();
+		EntityManagerHelper.beginTransaction();
+		newsTendLists = newsTendDAO.findBetweenDate(sdf.format(date),
+				sdf.format(date));
+		EntityManagerHelper.commit();
+		NewsTendencyClassifyByWeb classifyByWeb = new NewsTendencyClassifyByWeb(
+				newsTendLists);
+		return JSON.toJSONString(classifyByWeb);
 	}
 
-	class JSONData {
-		public Series series;
-		public String message;
-		public int status;
-
-		public JSONData(Series series) {
-			this.series = series;
-			this.message = "Query success!";
-			this.status = 0;
-		}
-
-	}
 }
