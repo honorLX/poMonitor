@@ -55,19 +55,16 @@
 			</ul>
 		</div>
 	</div>
+	
 	<div class="container ">
 		<div class="row">
 			<div class="col-md-8">
 				<div><br></div>
 				<div class="panel panel-default">
-					<div class="panel-heading">一周走势图</div>
-					<div class="panel-body">
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br></div>
+					<div class="panel-heading" >一周走势图</div>
+					<div class="panel-body" id='main'>
+					</div>
+						
 				</div>
 
 				<div class="panel panel-default">
@@ -111,7 +108,6 @@
 						<br></div>
 				 </div>
 
-
 			</div>
 			<div class="col-md-4">
 				<div>
@@ -152,7 +148,75 @@
 			</div>
 		</div>
 	</div>
-	<script>
+    
+	<script type="text/javascript">
+     //一周走势图
+	 $(document).ready(function(){
+            $.ajax({
+                type:"GET",
+                url:"./JSON/oneWeekWok.json",
+                dataType:"json",
+                success: function(data)
+                {
+
+                 var myChart = echarts.init(document.getElementById('main'));
+
+                 myChart.setOption({
+                     title: {
+                        text: '一周走势图',
+                        subtext: '条数'
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data:['全部','负面']
+                    },
+                    toolbox: {
+                        show: true,
+                        feature: {
+                            dataZoom: {},
+                            magicType: {type: ['line', 'bar']},
+                            saveAsImage: {}
+                        }
+                    },
+                    
+                    yAxis: {
+                        type: 'value',
+                        axisLabel: {
+                            formatter: '{value} 条'
+                        }
+                    }
+                    ,
+                    xAxis:  {
+                     
+                        
+                    },
+                });
+                    myChart.setOption
+                    ({
+    
+                     xAxis:  {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: data.xAxis
+                    },
+                    series: [
+                        {
+                            name:'全部',
+                            type:'line',
+                            data:data.all
+                        },
+                        {
+                            name:'负面',
+                            type:'line',
+                            data:data.regitive        
+                        }
+                    ]
+                    });
+                }
+            })
+        });
        //舆情日报
        $(document).ready(function(){
             $.ajax({
@@ -176,8 +240,7 @@
                 }
             })
         });
-		
-    
+      
     	// 最新舆情
         $(document).ready(function(){
             $.ajax({
