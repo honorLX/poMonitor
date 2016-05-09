@@ -8,7 +8,8 @@
 	<link rel="stylesheet" type="text/css" href="./css/index.css">
 	<script src="./js/lib/jquery.min.js"></script>
 	<script src="./js/lib/bootstrap.min.js"></script>
-	<script src="./js/lib/echarts/echarts.js"></script>
+	<!--<script src="./js/lib/echarts/echarts.js"></script>-->
+	<script src="echarts.common.min.js" type="text/javascript" charset="utf-8" async defer></script>
 </head>
 <body>
 	<div class="container" id="profile">
@@ -151,11 +152,30 @@
     
 	<script type="text/javascript">
      //一周走势图
+     
+    var now = new Date();  //µ±Ç°Ê±¼ä£¬±ê×¼¸ñÊ½
+    var pre = new Date();
+    pre.setDate(now.getDate()-7);
+
+     function setFormat(date){
+        var year = date.getFullYear();
+        var month = date.getMonth();
+        var date = date.getDate();
+        return (year + "-" + month + "-" + date);
+    }
+    startTime=setFormat(pre);
+    endTime=setFormat(now);
 	 $(document).ready(function(){
             $.ajax({
                 type:"GET",
-                url:"./JSON/oneWeekWok.json",
+                url:"./servlet/IndexServlet",
                 dataType:"json",
+                 data : {
+                 	     "startTime": startTime,
+                	     "endTime": endTime,
+                         "method" : 'checkStatus'
+
+                       },
                 success: function(data)
                 {
 
@@ -205,17 +225,18 @@
                         {
                             name:'全部',
                             type:'line',
-                            data:data.all
+                            data:data.message
                         },
                         {
                             name:'负面',
                             type:'line',
-                            data:data.regitive        
+                            data:data.value        
                         }
                     ]
                     });
                 }
             })
+
         });
        //舆情日报
        $(document).ready(function(){
@@ -272,7 +293,6 @@
                 }
             })
         });
-
         //舆情日报
     
        	// 今日舆情
