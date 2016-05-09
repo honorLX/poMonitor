@@ -61,7 +61,7 @@ public class IndexServlet extends HttpServlet {
 		String resJSON = "";
 		switch (method) {
 		case "getTendency":
-			try {
+			try {System.out.println("**");
 				resJSON = getTendency(startTime, endTime);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
