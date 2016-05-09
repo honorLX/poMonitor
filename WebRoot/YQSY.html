@@ -154,11 +154,9 @@
      //一周走势图
      
     var now = new Date(2015,9,28);
-    console.log(now);  
     var pre = new Date(2015,9,28);
     pre.setDate(now.getDate()-7);
-    console.log(pre);  
-
+    
      function setFormat(date){
         var year = date.getFullYear();
         var month = date.getMonth();
@@ -172,9 +170,8 @@
     for(var i=7;i>=1;i--)
     {
        temp.setDate(now.getDate()-i);
-      
        arrobj[i-1]=setFormat(temp);
-       console.log(arrobj[i-1]);
+      
     }
 	 $(document).ready(function(){
             $.ajax({
@@ -191,8 +188,7 @@
                 {
 
                  var myChart = echarts.init(document.getElementById('main'));
-                 console.log(data.all);
-                 console.log(data.negativeNum);
+                
                  myChart.setOption({
                      title: {
                         text: '一周走势图',
@@ -254,14 +250,14 @@
        $(document).ready(function(){
             $.ajax({
                 type:"GET",
-                url:"./JSON/daliyNewspaper.json",
+                url:"./JSON/getAlarm.json",
                 dataType:"json",
                 success: function(data){
                     var json=data;
                     $.each(json, function(i,item){
                         var content = "";
                         
-                        content += '<div class="col-sm-10">';
+                        content += '<div class="col-sm-8">';
                         content += item.title;
                         content += '</div>';
                         
@@ -269,6 +265,38 @@
                         content += '<a>预览<a>';
                         content += '</div>';
                         $("#newspaper").append(content);
+                    })
+                }
+            })
+        });
+        //舆情预警
+         $(document).ready(function(){
+            $.ajax({
+                type:"GET",
+                url:"./JSON/getAlarm.json",
+                dataType:"json",
+                success: function(data){
+                    $.each(data, function(i,item){
+                        var content = "";
+                        
+                        content += '<div class="col-sm-9 ">';
+                        content += '<a url="';
+                        content += item.url;
+                        content += '">';
+                        content += item.title;
+                        content += '</a>'
+                        content += '</div>';
+                        
+                        content += '<div class="col-sm-1">';
+                        content += item.date;
+                        content += '</div>';
+                        
+                        
+                        content += '<div class="col-sm-2">';
+                        content += item.source;
+                        content += '</div>';
+                        
+                        $("#alarm").append(content);
                     })
                 }
             })
