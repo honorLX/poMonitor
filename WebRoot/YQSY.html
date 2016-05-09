@@ -170,7 +170,7 @@
     for(var i=7;i>=1;i--)
     {
        temp.setDate(now.getDate()-i);
-       arrobj[i-1]=temp;
+       arrobj[i-1]=setFormat(temp);
     }
 	 $(document).ready(function(){
             $.ajax({
