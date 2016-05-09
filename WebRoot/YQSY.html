@@ -165,6 +165,13 @@
     }
     startTime=setFormat(pre);
     endTime=setFormat(now);
+    var arrobj=new Array(7);
+    var temp=new Date();
+    for(var i=7;i>=1;i--)
+    {
+       temp.setDate(now.getDate()-i);
+       arrobj[i-1]=temp;
+    }
 	 $(document).ready(function(){
             $.ajax({
                 type:"GET",
@@ -219,18 +226,18 @@
                      xAxis:  {
                         type: 'category',
                         boundaryGap: false,
-                        data: data.xAxis
+                        data: arrobj
                     },
                     series: [
                         {
                             name:'全部',
                             type:'line',
-                            data:data.message
+                            data:data.totalNum
                         },
                         {
                             name:'负面',
                             type:'line',
-                            data:data.value        
+                            data:data.negativeNum       
                         }
                     ]
                     });
