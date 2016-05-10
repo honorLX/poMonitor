@@ -176,7 +176,6 @@ public class Summarize {
 		newsList = newsDAO.findBetweenDate("2015-1-1", nowday);
 		EntityManagerHelper.commit();
 		
-		
 		Result[] results = new Result[5];
 		
 	    String date = "";
