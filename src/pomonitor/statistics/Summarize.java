@@ -135,6 +135,7 @@ public class Summarize {
 		return JSON.toJSONString(classifyByWeb);
 	}
 
+	
 	/**
 	 * ×îÐÂÓßÇé
 	 * @return
@@ -168,7 +169,6 @@ public class Summarize {
 	    String nowday = simpleDateFormat.format(cal.getTime());
 	    cal.add(Calendar.DAY_OF_MONTH, -1);
 	    String yesterday = simpleDateFormat.format(cal.getTime());
-	    
 	    
 		NewsDAO newsDAO = new NewsDAO();
 		List<News> newsList = new ArrayList<>();
