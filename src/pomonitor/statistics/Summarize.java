@@ -1,18 +1,12 @@
 package pomonitor.statistics;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-
-import javax.persistence.EntityManager;
-
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 
 import com.alibaba.fastjson.JSON;
 
@@ -179,16 +173,17 @@ public class Summarize {
 		NewsDAO newsDAO = new NewsDAO();
 		List<News> newsList = new ArrayList<>();
 		EntityManagerHelper.beginTransaction();
-		newsList = newsDAO.findBetweenDate(yesterday, nowday);
+		newsList = newsDAO.findBetweenDate("2015-1-1", nowday);
 		EntityManagerHelper.commit();
+		
 		
 		Result[] results = new Result[5];
 		
-	    String date;
-		String source;
-		String time;
-		String title;
-		String url;
+	    String date = "";
+		String source = "";
+		String time = "";
+		String title = "";
+		String url = "";
 		
 		int count = 0;
 		//优先把当天的新闻提取出来
@@ -214,7 +209,7 @@ public class Summarize {
 				News news = newsList.get(i);
 				Date newsdate = news.getTime();
 				String dateString = simpleDateFormat.format(newsdate);
-				if(dateString.equals(yesterday)) {
+				//if(dateString.equals(yesterday)) {
 					date = "昨日";
 					source = news.getWeb();
 					SimpleDateFormat sDateFormat = new SimpleDateFormat("yy-MM-dd");
@@ -222,11 +217,10 @@ public class Summarize {
 					title = news.getTitle();
 					url = news.getUrl();
 					results[j++] = new Result(date, source, time, title, url);
-				} 
+				//} 
 			}
 		}
-		
-		System.out.println(JSON.toJSONString(results));
+		//System.out.println(JSON.toJSONString(results));
 		return JSON.toJSONString(results);
 	}
 
