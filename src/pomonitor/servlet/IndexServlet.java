@@ -68,9 +68,10 @@ public class IndexServlet extends HttpServlet {
 		String endTime = request.getParameter("endTime");
 		String method = request.getParameter("method");
 		String resJSON = "";
+		System.out.println(method);
 		switch (method) {
 		case "getTendency":
-			try {
+			try {System.out.println("**");
 				resJSON = getTendency(startTime, endTime);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
@@ -85,8 +86,16 @@ public class IndexServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+			
 		case "getLatestMessage":
-
+			try {
+				System.out.println("****");
+				resJSON = getLatestMessage();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
 		default:
 			break;
 		}
@@ -115,5 +124,10 @@ public class IndexServlet extends HttpServlet {
 	private String checkStatus() throws ParseException {
 		Summarize summarize = new Summarize();
 		return summarize.checkStatus();
+	}
+	private String getLatestMessage() throws ParseException {
+		Summarize summarize = new Summarize();
+		return summarize.getLatestMessage();
+		
 	}
 }

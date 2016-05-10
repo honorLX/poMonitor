@@ -1,5 +1,6 @@
 package pomonitor.statistics;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,6 +11,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 
 import com.alibaba.fastjson.JSON;
 
@@ -136,6 +139,95 @@ public class Summarize {
 		NewsTendencyClassifyByWeb classifyByWeb = new NewsTendencyClassifyByWeb(
 				newsTendLists);
 		return JSON.toJSONString(classifyByWeb);
+	}
+
+	/**
+	 * 最新舆情
+	 * @return
+	 */
+	public String getLatestMessage() throws ParseException {
+		
+		class Result {
+			
+			public String date;//日期，示例：今日，昨日
+			public String source;//来源
+			public String time;//日期，格式：yy-MM-dd
+			public String title;//标题
+			public String url;//网址
+			
+			public Result() {
+				
+			}
+			
+			public Result(String date, String source, String time, String title, String url) {
+				this.date = date;
+				this.source = source;
+				this.time = time;
+				this.title = title; 
+				this.url = url;
+			}
+		}
+		
+		
+	    Calendar cal = Calendar.getInstance(); 
+	    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	    String nowday = simpleDateFormat.format(cal.getTime());
+	    cal.add(Calendar.DAY_OF_MONTH, -1);
+	    String yesterday = simpleDateFormat.format(cal.getTime());
+	    
+	    
+		NewsDAO newsDAO = new NewsDAO();
+		List<News> newsList = new ArrayList<>();
+		EntityManagerHelper.beginTransaction();
+		newsList = newsDAO.findBetweenDate(yesterday, nowday);
+		EntityManagerHelper.commit();
+		
+		Result[] results = new Result[5];
+		
+	    String date;
+		String source;
+		String time;
+		String title;
+		String url;
+		
+		int count = 0;
+		//优先把当天的新闻提取出来
+		for(int i=0, j=0; i<newsList.size() && j<5; i++) {
+			News news = newsList.get(i);
+			Date newsdate = news.getTime();
+			String dateString = simpleDateFormat.format(newsdate);
+			if(dateString.equals(nowday)) {
+				date = "今日";
+				source = news.getWeb();
+				SimpleDateFormat sDateFormat = new SimpleDateFormat("yy-MM-dd");
+				time = sDateFormat.format(newsdate);
+				title = news.getTitle();
+				url = news.getUrl();
+				results[j++] = new Result(date, source, time, title, url);
+				count = j;
+			} 
+		}
+		
+		//若当天的新闻不足五条，再从前一天的新闻中提取
+		if(count < 5) {
+			for(int i=0, j=count; i<newsList.size() && j<5; i++) {
+				News news = newsList.get(i);
+				Date newsdate = news.getTime();
+				String dateString = simpleDateFormat.format(newsdate);
+				if(dateString.equals(yesterday)) {
+					date = "昨日";
+					source = news.getWeb();
+					SimpleDateFormat sDateFormat = new SimpleDateFormat("yy-MM-dd");
+					time = sDateFormat.format(newsdate);
+					title = news.getTitle();
+					url = news.getUrl();
+					results[j++] = new Result(date, source, time, title, url);
+				} 
+			}
+		}
+		
+		System.out.println(JSON.toJSONString(results));
+		return JSON.toJSONString(results);
 	}
 
 }
