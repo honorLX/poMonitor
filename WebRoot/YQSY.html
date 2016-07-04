@@ -8,8 +8,8 @@
 	<link rel="stylesheet" type="text/css" href="./css/index.css">
 	<script src="./js/lib/jquery.min.js"></script>
 	<script src="./js/lib/bootstrap.min.js"></script>
-	<!--<script src="./js/lib/echarts/echarts.js"></script>-->
-	<script src="echarts.common.min.js" type="text/javascript" charset="utf-8" async defer></script>
+	<script src="../js/lib/echarts/echarts.js"></script>
+	<script src="./js/echarts.common.min.js" type="text/javascript" charset="utf-8" async defer></script>
 </head>
 <body>
 	<div class="container" id="profile">
@@ -27,16 +27,16 @@
 		<div class="container">
 			<ul id="nav" >
 				<li id ="page1">
-					<a href ="#page1">首页</a>
+					<a href ="YQSY.html">首页</a>
 				</li>
 				<li id ="page2">
-					<a href ="#page2">舆情浏览</a>
+					<a href ="YQLL.html">舆情浏览</a>
 				</li>
 				<li id ="page3">
 					<a href ="#page3">舆情预警</a>
 				</li>
 				<li id ="page4">
-					<a href ="#page4">统计分析</a>
+					<a href ="TJFX.html">统计分析</a>
 				</li>
 				<li id ="page5">
 					<a href ="#page5">网络情报</a>
@@ -178,7 +178,7 @@
                 type:"GET",
                 url:"./servlet/IndexServlet",
                 dataType:"json",
-                 data : {
+                data : {
                  	     "startTime": startTime,
                 	     "endTime": endTime,
                          "method" : 'getTendency'
